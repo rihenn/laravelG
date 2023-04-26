@@ -30,10 +30,11 @@ Route::get('/user', function () {
 });
 Route::get('/home', function () {
     return view('home');
-});
+})->name("home");
 
 
 Route::get('/DayWorkDay',[DateController::class,'date'])->name('DayTime');
+Route::post('/DayWorkDay',[DateController::class,'date'])->name('daytime');
 
 
 Route::post('/dogrulama',[LoginController::class,'login'])->name('user');

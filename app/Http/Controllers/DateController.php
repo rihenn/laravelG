@@ -12,8 +12,13 @@ class DateController extends Controller
 
 
 
-    public function date()
+    public function date(Request $request)
     {
+        
+        $kul = $request->input('kullad');
+        
+        if ($kul == null)   
+        $kul ="YUSUF CAN YÜCE STAJYER KARTI";
         function foo($trh)
         {
 
@@ -31,122 +36,156 @@ class DateController extends Controller
                 $tarih = $value->tarih;
                 $giriscikis = $value->GC;
                 $saat    = $value->saat;
-            
-
-            if ($tarih == $trh) {
-
-                if ($giriscikis == "Giriş" && $e == 1) {
 
 
-                    $unix_timestamp1 = strtotime($tarih . " " . $saat);
+                if ($tarih == $trh) {
+
+                    if ($giriscikis == "Giriş" && $e == 1) {
 
 
-                    $e--;
-                } else if ($giriscikis == "Çıkış" && $e == 0) {
-
-                    $unix_timestamp2 = strtotime($tarih . " " . $saat);
-
-                    $e++;
-                }
-            }
-
-            if ($unix_timestamp2 !== 0 && $unix_timestamp1 !== 0) {
-              
-                $fark = $unix_timestamp2 - $unix_timestamp1;
-                $dakika = $fark / 60;
-                $saniye_farki = floor($fark - (floor($dakika) * 60));
-                $saat = $dakika / 60;
-                $dakika_farki = floor($dakika - (floor($saat) * 60));
-                $gun = $saat / 24;
-                $saat_farki = floor($saat - (floor($gun) * 24));
-                $toplam_dakika += $dakika_farki;
-                $toplam_saat += $saat_farki;
-                
-                if ($toplam_dakika > 60) {
+                        $unix_timestamp1 = strtotime($tarih . " " . $saat);
 
 
-                    $toplam_saat += ($toplam_dakika - ($toplam_dakika % 60)) / 60;
-                    $toplam_dakika = $toplam_dakika % 60;
+                        $e--;
+                    } else if ($giriscikis == "Çıkış" && $e == 0) {
 
-                }
+                        $unix_timestamp2 = strtotime($tarih . " " . $saat);
 
-                
-
-
-                $unix_timestamp2 = 0;
-                $unix_timestamp1 = 0;
-            }
-
-            $time = date("Y-m-d", strtotime($trh));
-            $time1 = date("Y-m-d", strtotime($tarih));
-            
-            if ($time !== $time1) {
-
-                if ($toplam_dakika != 0 && $toplam_saat != 0) {
-
-                    $day = date("d.m.Y ", strtotime($tarih));
-                    $day1 = date("D", strtotime($tarih));
-
-
-                    switch ($day1) {
-                        case "Mon":
-                            $day1 = "Pazartesi";
-                            break;
-                        case "Tue":
-                            $day1 = "Salı";
-                            break;
-                        case "Wed":
-                            $day1 = "Çarşamba";
-                            break;
-                        case "Thu":
-                            $day1 = "Perşembe";
-                            break;
-                        case "Fri":
-                            $day1 = "Cuma";
-                            break;
-                        case "Sat":
-                            $day1 = "Cumartesi";
-                            break;
-                        case "Sun":
-                            $day1 = "Pazar";
-                            break;
-                        default:;
+                        $e++;
                     }
-                    
-                    $süre=  '<div class="card"><div class="card2">' . "</br>" . '<p>' . $day . $day1 . " günü </br>" . $toplam_saat . " saat " . $toplam_dakika . " dakika " . ' </div></div>';
-                    
+                }
 
-                    $toplam_dakika = 0;
-                    $toplam_saat = 0;
-        
-                    return $süre;
-                    
+                if ($unix_timestamp2 !== 0 && $unix_timestamp1 !== 0) {
+
+                    $fark = $unix_timestamp2 - $unix_timestamp1;
+                    $dakika = $fark / 60;
+                    $saniye_farki = floor($fark - (floor($dakika) * 60));
+                    $saat = $dakika / 60;
+                    $dakika_farki = floor($dakika - (floor($saat) * 60));
+                    $gun = $saat / 24;
+                    $saat_farki = floor($saat - (floor($gun) * 24));
+                    $toplam_dakika += $dakika_farki;
+                    $toplam_saat += $saat_farki;
+
+                    if ($toplam_dakika > 60) {
+
+
+                        $toplam_saat += ($toplam_dakika - ($toplam_dakika % 60)) / 60;
+                        $toplam_dakika = $toplam_dakika % 60;
+                    }
+
+
+
+
+                    $unix_timestamp2 = 0;
+                    $unix_timestamp1 = 0;
+                }
+
+                $time = date("Y-m-d", strtotime($trh));
+                $time1 = date("Y-m-d", strtotime($tarih));
+
+                if ($time !== $time1) {
+
+                    if ($toplam_dakika != 0 && $toplam_saat != 0) {
+
+                        $day = date("d.m.Y ", strtotime($tarih));
+                        $day1 = date("D", strtotime($tarih));
+
+
+                        switch ($day1) {
+                            case "Mon":
+                                $day1 = "Pazartesi";
+                                break;
+                            case "Tue":
+                                $day1 = "Salı";
+                                break;
+                            case "Wed":
+                                $day1 = "Çarşamba";
+                                break;
+                            case "Thu":
+                                $day1 = "Perşembe";
+                                break;
+                            case "Fri":
+                                $day1 = "Cuma";
+                                break;
+                            case "Sat":
+                                $day1 = "Cumartesi";
+                                break;
+                            case "Sun":
+                                $day1 = "Pazar";
+                                break;
+                            default:;
+                        }
+
+                        $süre =  '<div class="card"><div class="card2">' . "</br>" . '<p>' . $day . $day1 . " günü </br>" . $toplam_saat . " saat " . $toplam_dakika . " dakika " . ' </div></div>';
+                        $obj = ["ts" => $toplam_saat, "td" => $toplam_dakika, "d" => $day, "d1" => $day1];
+
+                        $toplam_dakika = 0;
+                        $toplam_saat = 0;
+
+                        return $obj;
+                    }
                 }
             }
         }
-    }
-    
+        $max = date('Y.m.d');
+        $min = '0000.00.00';
+        if (isset($_GET["min"])) {
+            if ($min != null && $max != null) {
+                $min = $request->input('min');
+                $max = $request->input('max');
+            }
+            if ($min == null && $max == null) {
+                $max = date('Y.m.d');
+                $min = '0000.00.00';
+            }
+        }
+       
 
         $veriler = DB::table("giriscikis")
-            ->where("ad_soyad", "=", "YUSUF CAN YÜCE STAJYER KARTI",)
-            ->select("tarih")
+            ->where("ad_soyad", "=", $kul )
+            ->whereBetween('tarih', [$min, $max])
+            ->select("tarih","ad_soyad")
             ->distinct()
             ->get();
 
+        $allData = [];
+
         foreach ($veriler as $value) {
             $trh1 = $value->tarih;
-           
-             $süre=foo($trh1);
-            //  echo $süre;
-        
-         $myarray = array();
-         array_push($myarray,$süre);
-        //  print_r($myarray);
-         $myobj=([
-            'süre'=>$myarray,
-         ]);
+            
+            $süre = foo($trh1);
+            if (isset($süre["ts"])) {
+                $data = [
+                    "toplamsaat" => $süre["ts"],
+                    "toplamdakika" => $süre["td"],
+                    "day" => $süre["d"],
+                    "day1" => $süre["d1"],
+                    "adsoyad" => $value->ad_soyad
+                ];
+                $allData[] = $data;
+            }
         };
-        return view("Daydate",$myobj);
-       
+
+
+        $veriler = DB::table("giriscikis")
+
+            ->select("ad_soyad")
+            ->distinct()
+            ->get();
+
+        $data1 = [];
+        foreach ($veriler as $value) {
+            if (isset($value->ad_soyad)) {
+                $data = [
+                    "ad_soyad" => $value->ad_soyad
+                ];
+            }
+            $data1[] = $data;
+        }
+        
+        
+
+        return view("Daydate", ["allData" => $allData, "data" => $data1]);
     }
 }

@@ -154,10 +154,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a id="btn" class="btn mx-2 mt-2" href="/GIRISCIKIS/ders/admin/datatables.php">Ana Sayfa</a>
+                    <a id="btn" class="btn mx-2 mt-2" href="{{route('home')}}">Ana Sayfa</a>
                 </li>
                 <li class="nav-item">
-                    <a id="btn" class="btn mt-2" href="/GIRISCIKIS/ders/admin/excelDosyasıOkuma.php">Veri Ekleme</a>
+                    <a id="btn" class="btn mt-2" href="{{route('excelekleme')}}">Veri Ekleme</a>
                 </li>
                 <li>
                     <div class="dropdown">
@@ -182,7 +182,7 @@
 
 
     </nav>
-    <form action="" method="post">
+    <form action="{{route('DayTime')}}" method="get">
         <table style="margin-left:101.01px ;" class="flex mb-2 mr-2" cellspacing="5" cellpadding="5">
             <tbody>
                 <tr>
@@ -199,13 +199,16 @@
 
                     <td>
                         <select name="kullad" id="cars">
-
+                            @foreach ($data as $value)
+    <?php $text = iconv('UTF-8', 'ASCII//TRANSLIT', $value['ad_soyad']); ?>
+    <option value='<?php echo str_replace('"',"",$text) ?>'>{{$value["ad_soyad"]}}</option> 
+@endforeach
                             
                         </select>
                     </td>
                 </tr>
             </tbody>
-            <?php echo '<h2  class="flex text-center Text">' . "Mesai Saati(" . ucwords(mb_strtolower("Yusuf Can Yüce" . " admin", 'UTF-8')) . ')</h2>'; ?>
+           
         </table>
 
         <div class="flex card1"><input style="margin-left: 8px;background-color: #E2DED0;color:#4E4F50;" id="btn1" class="btn" type="submit" value="search"></div>
@@ -216,12 +219,25 @@
 
     </form>
    
-   
 
-        @section('body')
+<div class="container">
+    <div class="row justify-content-center">
+
+@foreach ($allData as $data)
+<div class="card"><div class="card2"><p>{!! $data["adsoyad"] !!} </p> </br><p>  {!! $data["day"] !!}  {!! $data["day1"] !!}  günü </br> {!! $data["toplamsaat"] !!}  saat {!! $data["toplamdakika"] !!}  dakika   </div></div>
+@endforeach
+
+</div>
+</div>
+
+   
     
-        {{$süre}}
-        @endsection
+        
+        
+       
+        
+        
+       
 
      
     <div class="container">

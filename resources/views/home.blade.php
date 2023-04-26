@@ -168,7 +168,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a id="btn" class="btn mx-2 mt-2" href="datatables.php">Ana Sayfa</a>
+                    <a id="btn" class="btn mx-2 mt-2" href="#">Ana Sayfa</a>
                 </li>
                 <li class="nav-item">
                     <a id="btn" class="btn mt-2" href="{{route('excelekleme')}}">Veri
@@ -181,7 +181,7 @@
                             Dropdown button
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/GIRISCIKIS/ders/admin/süreler.php">Günlük</a>
+                            <a class="dropdown-item" href="{{route('DayTime')}}">Günlük</a>
                             <a class="dropdown-item" href="/GIRISCIKIS/ders/admin/hsürler.php">Haftalık</a>
                         </div>
                     </div>
