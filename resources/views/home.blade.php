@@ -5,7 +5,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <title>Home</title>
+    <title>anasayfa</title>
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png" type="image/png"
         sizes="32x32">
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png" type="image/png"
@@ -160,32 +160,46 @@
         <div class="collapse navbar-collapse" id="navbarsExample02">
             <ul class="navbar-nav mr-auto">
                 <li>
+                    <a target="_blank" href="https://www.gruparge.com/">
                     <img decoding="async"
                         src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-114-r-w.png"
                         width="90px"
                         data-lazy-src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-114-r-w.png"
                         data-ll-status="loaded" class="entered lazyloaded" style="margin-left:10px">
+                    </a>
                 </li>
 
+             
                 <li class="nav-item">
-                    <a id="btn" class="btn mx-2 mt-2" href="#">Ana Sayfa</a>
-                </li>
-                <li class="nav-item">
-                    <a id="btn" class="btn mt-2" href="{{route('excelekleme')}}">Veri
+                    <a id="btn" class="btn mx-2 mt-2" href="{{route('excelekleme')}}">Veri
                         Ekleme</a>
                 </li>
                 <li>
                     <div class="dropdown">
                         <button class="btn dropdown-toggle mt-2 mx-2" style=" background-color: #2087cd;color:white"
                             type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown button
+                            Mesai Süresi
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{{route('DayTime')}}">Günlük</a>
-                            <a class="dropdown-item" href="/GIRISCIKIS/ders/admin/hsürler.php">Haftalık</a>
+                            <a class="dropdown-item" href="{{route('WeekWork')}}">Haftalık</a>
                         </div>
                     </div>
                 </li>
+
+                <li>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle mt-2 mx-2" style=" background-color: #2087cd;color:white"
+                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{route('UserData')}}">User Data</a>
+                            <a class="dropdown-item" href="{{route('WeekWork')}}">Time Data</a>
+                        </div>
+                    </div>
+                </li>
+                
 
 
 
@@ -201,10 +215,10 @@
                                 <a style="color: #2087cd;" class="nav-link dropdown-toggle" href="#"
                                     id="navbarDropdownMenuLink" role="button" aria-haspopup="true"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="" width="40" height="40" class="rounded-circle">
+                                    <img src="{!! $profilurl !!}" width="40" height="40" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="./profil.php">profil</a>
+                                    <a class="dropdown-item" href="{{route('ProfilController')}}">profil</a>
 
                                     <a class="dropdown-item" href="cıkıs.php">çıkış yap</a>
                                 </div>

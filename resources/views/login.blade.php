@@ -374,6 +374,7 @@
 
             <!-- Login Form -->
             <form style="background-color: #f6f6f6;" action="{{route('user')}}" method="post">
+              
                 @csrf
 
                 <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
@@ -388,7 +389,7 @@
 
             <!-- Remind Passowrd -->
             <div id="formFooter">
-                <a class="underlineHover text-primary" href="sifre_güncelleme.php" style="color:#00ADB5;">Forgot
+                <a class="underlineHover text-primary" href="{{route("SifreMail")}}" style="color:#00ADB5;">Forgot
                     Password?</a>
             </div>
 

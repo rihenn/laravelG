@@ -16,11 +16,13 @@ class DateController extends Controller
     {
         
         $kul = $request->input('kullad');
-        
-        if ($kul == null)   
-        $kul ="YUSUF CAN YÜCE STAJYER KARTI";
-        function foo($trh)
+        if ($kul == null)   {
+            $kul ="YUSUF CAN YÜCE STAJYER KARTI";
+        }
+       
+        function foo($trh,$kul)
         {
+            $d = false;
 
             $e = 1;
             $toplam_dakika = 0;
@@ -29,14 +31,17 @@ class DateController extends Controller
             $unix_timestamp1 = 0;
             $toplam_saat = 0;
             $toplam_dakika = 0;
+            
             $veriler = DB::table("giriscikis")
-                ->where("ad_soyad", "=", "YUSUF CAN YÜCE STAJYER KARTI")
+                ->where("ad_soyad", "=", $kul)
                 ->get();
             foreach ($veriler as  $value) {
                 $tarih = $value->tarih;
                 $giriscikis = $value->GC;
                 $saat    = $value->saat;
-
+                if (!$d) {
+                    $ilkSaat =  $saat;
+                 }
 
                 if ($tarih == $trh) {
 
@@ -117,8 +122,8 @@ class DateController extends Controller
                             default:;
                         }
 
-                        $süre =  '<div class="card"><div class="card2">' . "</br>" . '<p>' . $day . $day1 . " günü </br>" . $toplam_saat . " saat " . $toplam_dakika . " dakika " . ' </div></div>';
-                        $obj = ["ts" => $toplam_saat, "td" => $toplam_dakika, "d" => $day, "d1" => $day1];
+
+                        $obj = ["ts" => $toplam_saat, "td" => $toplam_dakika, "d" => $day, "d1" => $day1,"iS" =>$ilkSaat];
 
                         $toplam_dakika = 0;
                         $toplam_saat = 0;
@@ -140,26 +145,26 @@ class DateController extends Controller
                 $min = '0000.00.00';
             }
         }
-       
+
 
         $veriler = DB::table("giriscikis")
+
             ->where("ad_soyad", "=", $kul )
             ->whereBetween('tarih', [$min, $max])
             ->select("tarih","ad_soyad")
             ->distinct()
             ->get();
-
         $allData = [];
-
         foreach ($veriler as $value) {
             $trh1 = $value->tarih;
             
-            $süre = foo($trh1);
+            $süre = foo($trh1,$kul);
             if (isset($süre["ts"])) {
                 $data = [
                     "toplamsaat" => $süre["ts"],
                     "toplamdakika" => $süre["td"],
                     "day" => $süre["d"],
+                    "iS" => $süre["iS"],
                     "day1" => $süre["d1"],
                     "adsoyad" => $value->ad_soyad
                 ];
