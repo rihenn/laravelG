@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grup Arge · Kullanici Ekle</title>
+    <title>düzenle</title>
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png" type="image/png"
     sizes="32x32">
 <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png"
@@ -172,8 +172,7 @@
                     <a id="btn" class="btn mx-2 mt-2" href="{{ route('anasayfa') }}">Ana Sayfa</a>
                 </li>
                 {{-- <li class="nav-item">
-                    <a id="btn" class="btn mt-2" href="{{ route('excel') }}">Veri
-                        Ekleme</a>
+                    <a id="btn" class="btn mt-2" href="{{ route('excel') }}">Veri Ekleme</a>
                 </li> --}}
                 
 
@@ -196,60 +195,79 @@
                 <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 
                 <div class="card h-100">
-                    @if(Session::has('success_message'))
-                    {!! Session::get('success_message') !!}
-                @endif
-                    <form action="{{ route('diveceAddUser') }}" method="post">
+                    @if(Session::has('message'))
+                                {!! Session::get('message') !!}
+                            @endif
+                    <form action="{{ route('addUserWeb') }}" method="post">
                             @csrf
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">kullanıcı Düzenle</h6>
+                                <h6 class="mb-2 text-primary">Kullanıcı Ekle</h6>
                             </div>
                             <div>
-                                @php
-                                $a=0;
-                                $a++
-                            @endphp 
-                               @foreach ($allData as $data)
-                              
-                               <input type="checkbox" style="height: 12px" name="veriler[]"  value="{!! $data["id"] !!}"><label for="">{!! $data["name"] !!}</label><br> 
-                               @endforeach
-                              
+                                
                              
                            
                             <div class="card-body">
                                 <div class="row gutters">
-                                  
-                                   
                                     
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="phone">Ad Soyad</label>
-                                            <input type="text" class="form-control" id="name"
+                                            <label for="phone">Name Surname</label>
+                                            <input type="text" class="form-control" id="cihazname"
                                                 placeholder="Ad Soyad Giriniz" name="name" >
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label>Rol</label>
-                                            <input class="form-control" id="role" placeholder="rol Giriniz"
-                                                name="role">
+                                            <label>Mail</label>
+                                            <input type="email" class="form-control" id="mail" placeholder="Mail Giriniz"
+                                                name="mail">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label>Şifre</label>
-                                            <input class="form-control" id="password" placeholder="Şifre Giriniz"
-                                                name="password">
+                                            <label>Tel No</label>
+                                            <input class="form-control" id="tel" placeholder="Tel Giriniz"
+                                                name="tel">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label>Kart No</label>
-                                            <input class="form-control" id="CardNo" placeholder="Card No Giriniz"
-                                                name="CardNo">
+                                            <input class="form-control" id="carno" placeholder="Kart no Giriniz"
+                                                name="cardno">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Kullanıcı Adı</label>
+                                            <input class="form-control" id="kulad" placeholder="Şifre Giriniz"
+                                                name="kulad">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Şifre</label>
+                                            <input type="password" class="form-control" id="password" placeholder="Şifre Giriniz"
+                                                name="password">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Tekrar Şifre</label>
+                                            <input type="password" class="form-control" id="passwordt" placeholder="Tekrar Şifre Giriniz"
+                                                name="passwordt">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Görev</label>
+                                            <input class="form-control" id="görev" placeholder="Görevinizi Giriniz"
+                                                name="görev">
                                         </div>
                                     </div>
                                 </div>
+                                
 
                                 <div class="row gutters">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

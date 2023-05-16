@@ -45,9 +45,7 @@ try {
 <body>
     <div class="wrapper fadeInDown">
         <div id="formContent">
-            <!-- Tabs Titles -->
-
-            <!-- Icon -->
+           
             <div id="formIcon"
                 style="background-color: #f6f6f6;-webkit-border-radius:10px 10px 0 0 ;border-radius:10px 10px 0 0 ;"
                 class="fadeIn first">
@@ -55,18 +53,17 @@ try {
                     alt="User Icon" style="height: 55px;width: auto;" />
             </div>
 
-            <!-- Login Form -->
             <form action="{{ route('send-mail') }}" style="background-color: white;" method="GET">
                 @if (isset($mesaj))
                     {!! $mesaj !!}
                 @endif
-                <input type="text" id="login" class="fadeIn second" name="gmail" placeholder="gmail-phone">
-                <input type="submit" class="fadeIn fourth butn" value="Log In" style=" background-color:#00ADB5;">
+                <input type="text" id="login" class="fadeIn second" name="gmail" placeholder="e-mail">
+                <input type="submit" class="fadeIn fourth butn" value="e-mail Gönder" style=" background-color:#00ADB5;">
             </form>
 
             <!-- Remind Passowrd -->
             <div id="formFooter">
-                <a class="underlineHover text-primary" href="./giris.php" style="color:#00ADB5;">Go Back</a>
+                <a class="underlineHover text-primary" href="{{route('cikis')}}" style="color:#00ADB5;">Geri Git</a>
             </div>
 
         </div>

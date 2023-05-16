@@ -12,7 +12,7 @@ class DüzenleController extends Controller
 {
     public function düzenle(Request $request){
        
-        $id = Session::get('id');
+        $id = Session::get('sid');
        
         if (isset($_POST["ad_soyad"])) {
             $isim = $request->input('ad_soyad');
@@ -31,7 +31,7 @@ class DüzenleController extends Controller
      return redirect()->route('ProfilController');
     }
     public function profilimg(Request $request){
-        $id = Session::get('id');
+        $id = Session::get('sid');
         $img1 = $request->input('img1');
         $img2 = $request->input('img2');
         $img3 = $request->input('img3');
@@ -86,7 +86,7 @@ class DüzenleController extends Controller
     }
 
     public function getValue(){
-        $id = session('id');
+        $id = session('sid');
         $veriler = DB::table("kullaniciler")
         ->where("id", "=", $id)
         ->get();

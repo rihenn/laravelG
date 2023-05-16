@@ -377,20 +377,19 @@
               
                 @csrf
 
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-                <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+                <input type="text" id="login" class="fadeIn second" name="login" placeholder="Kullanıcı Adı">
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Şifre">
 
-                <input type="submit" class="btn fadeIn fourth butn" value="Log In"
-                    style=" background-color:#00ADB5;margin-bottom: 15px;color: #f6f6f6;width: 13rem;height: auto;">
+                <input type="submit" class="btn btn-primary fadeIn fourth butn" value="Giriş Yap"
+                    style="margin-bottom: 15px;color: #f6f6f6;width: 13rem;height: 2.8rem;">
                 <br>
-                <a href="./kayıt.php" class="btn fadeIn fourth butn"
-                    style="background-color:#00ADB5;color: #f6f6f6;width: 13rem;height: auto;">Log Up</a>
+                {{-- <a href="./kayıt.php" class="btn fadeIn fourth btn-secondary butn"
+                    style="margin-bottom: 15px;color: #f6f6f6;width: 13rem;height: 2.8rem;">Kaydol</a> --}}
             </form>
 
             <!-- Remind Passowrd -->
             <div id="formFooter">
-                <a class="underlineHover text-primary" href="{{route("SifreMail")}}" style="color:#00ADB5;">Forgot
-                    Password?</a>
+                <a class="underlineHover text-primary" href="{{route("SifreMail")}}" style="color:#00ADB5;">Şifremi Unuttum</a>
             </div>
 
         </div>

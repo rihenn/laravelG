@@ -206,8 +206,7 @@
                     <td>
                         <select name="kullad" id="cars">
                             @foreach ($data as $value)
-    <?php $text = iconv('UTF-8', 'ASCII//TRANSLIT', $value['ad_soyad']); ?>
-    <option value='<?php echo str_replace('"',"",$text) ?>'>{{$value["ad_soyad"]}}</option> 
+  
 @endforeach
                             
                         </select>

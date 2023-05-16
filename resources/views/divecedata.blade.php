@@ -1,157 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Grup Arge · Süre</title>
+    <title>Grup Arge · Cihazlar</title>
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png" type="image/png"
-    sizes="32x32">
-<link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png"
-    type="image/png" sizes="16x16">
-<link rel="stylesheet" href="../css/profil.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-  
+        sizes="32x32">
+    <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png"
+        type="image/png" sizes="16x16">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<style>
-    #div2 {
-        background-color: #455a64;
+    <link rel="stylesheet" href="../css/profil.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        #div2 {
+            background-color: #455a64;
 
-    }
+        }
 
-    input {
-        font-size: 14px;
-        width: 100px
-    }
+        input {
+            font-size: 14px;
+            width: 100px
+        }
 
-    .input-n {
-        font-size: 14px;
-        width: 130px
-    }
+        .input-n {
+            font-size: 14px;
+            width: 130px
+        }
 
-    .card-img-top {
-        height: 400px;
-        margin-top: 0px;
-    }
+        .card-img-top {
+            height: 400px;
+            margin-top: 0px;
+        }
 
-    .card-no-border .card {
-        border-color: #d7dfe3;
-        border-radius: 20px;
-        margin-bottom: 30px;
-        -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
-        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)
-    }
+        .card-no-border .card {
+            border-color: #d7dfe3;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)
+        }
 
-    .card-body {
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto;
-        padding: 1.25rem;
+        .card-body {
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            padding: 1.25rem;
 
-    }
+        }
 
-    .pro-img {
-        margin-top: -80px;
-        margin-bottom: 20px
-    }
+        .pro-img {
+            margin-top: -80px;
+            margin-bottom: 20px
+        }
 
-    .little-profile .pro-img img {
-        width: 128px;
-        height: 128px;
-        -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        border-radius: 100%
-    }
+        .little-profile .pro-img img {
+            width: 128px;
+            height: 128px;
+            -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 100%
+        }
 
-    html body .m-b-0 {
-        margin-bottom: 0px
-    }
-
-
-    h3 {
-
-        font-size: 18px !important;
-        color: #222831 !important;
-    }
-
-    .btn-rounded.btn-md {
-        padding: 12px 35px;
-        font-size: 16px
-    }
-
-    html body .m-t-10 {
-        margin-top: 10px
-    }
+        html body .m-b-0 {
+            margin-bottom: 0px
+        }
 
 
+        h3 {
 
-    .btn-rounded {
-        border-radius: 60px;
-        padding: 7px 18px
-    }
+            font-size: 18px !important;
+            color: #222831 !important;
+        }
 
-    .m-t-20 {
-        margin-top: 20px
-    }
+        .btn-rounded.btn-md {
+            padding: 12px 35px;
+            font-size: 16px
+        }
 
-    .text-center {
-        text-align: center !important
-    }
+        html body .m-t-10 {
+            margin-top: 10px
+        }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        color: #455a64;
-        font-family: "Poppins", sans-serif;
-        font-weight: 400
-    }
 
-    p {
-        margin-top: 0;
-        margin-bottom: 1rem
-    }
 
-    .card {
-        /* Add shadows to create the "card" effect */
-        box-shadow: 12px 12px 8px 0px rgba(43, 46, 50, 1);
-        transition: 0.5s;
+        .btn-rounded {
+            border-radius: 60px;
+            padding: 7px 18px
+        }
 
-    }
+        .m-t-20 {
+            margin-top: 20px
+        }
 
-    #box {
+        .text-center {
+            text-align: center !important
+        }
 
-        border-radius: 4%;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: #455a64;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400
+        }
 
-    }
+        p {
+            margin-top: 0;
+            margin-bottom: 1rem
+        }
 
-    #cardImg {
-        border-radius: 6% 6% 0px 0px;
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 12px 12px 8px 0px rgba(43, 46, 50, 1);
+            transition: 0.5s;
 
-    }
+        }
 
-    body {
-        background-color: #393E46;
-    }
+        #box {
 
-    #btn {
-        background-color: #2087cd;
+            border-radius: 4%;
 
-        border: 1px solid #2087cd;
-        font-size: 18px;
-        font-family: "Gill Sans", sans-serif;
-    }
+        }
 
-    .card {
-        background-color: #EEEEEE;
-    }
-</style>
+        #cardImg {
+            border-radius: 6% 6% 0px 0px;
+
+        }
+
+        body {
+            background-color: #393E46;
+        }
+
+        #btn {
+            background-color: #2087cd;
+
+            border: 1px solid #2087cd;
+            font-size: 18px;
+            font-family: "Gill Sans", sans-serif;
+        }
+
+        .card {
+            background-color: #EEEEEE;
+        }
+    </style>
+
+    <link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+
+
 </head>
+
 <body>
     <nav id="div2" class="navbar navbar-expand" style="width:100%;">
 
@@ -177,123 +182,68 @@
                     <a id="btn" class="btn mt-2" href="{{ route('excel') }}">Veri
                         Ekleme</a>
                 </li> --}}
-                
-
-
 
                 <div class="d-flex position-absolute top-0 end-0">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-
+                </div>
             </ul>
-
+        </div>
 
     </nav>
-    <div class="container" style="background-color: #dadee0">
-        <div class="" style="display:-ms-inline-flexbox">
-            
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Veritabanına Yazdır
-                </button>
-                <form action="{{ route('databasetimedata') }}" method="post">
-                    @csrf
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                        @foreach ($cihazAllData as $data)
-                            <button type="submit" class="btn d-block" name="sırala"
-                                value="{{ $data['id'] }}">{{ $data['cihazname'] }}</button>
-                        @endforeach
-
-                    </div>
-                </form>
-            </div>
 
 
 
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Cihazdaki kullanıcıların Süresini Yazdır
-                </button>
-                <form action="{{ route('timeData') }}" method="get">
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                        @foreach ($cihazAllData as $data)
-                            <button type="submit" class="btn d-block" name="sırala"
-                                value="{{ $data['id'] }}">{{ $data['cihazname'] }}</button>
-                        @endforeach
+    <div class="container bg-light pt-2 mt-5">
 
-                    </div>
-                </form>
-            </div>
-            <div class="d-flex" style="justify-content: center">
-                <h1> {{$cihazname}}  Cihazı </h1>
-               
-               </div>
-    
+
+
+
        
-                
-            
-        </div>
-        
-        <div class="d-flex justify-content-center">
-            <div class="row">
-                <div class="d-flex justify-content-center">
-                    <table class="table bg-white" id="disp">
-                        <thead>
+
+                <table class="table" id="disp">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">IP</th>
+                            <th scope="col">Port</th>
+                            <th scope="col">Cihaz Adı</th>
+                            <th scope="col">type</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach ($cihazData as $device)
                             <tr>
-                                <th scope="col">UID</th>
-                                <th scope="col">kullanıcı ID</th>
-                                <th scope="col">Kullanıcı Adı</th>
-                                <th scope="col">Durumu</th>
-                                <th scope="col">Türü</th>
-                                <th scope="col">Süre</th>
-                               
+                                <td>{{ $device['id'] }}</td>
+                                <td>{{ $device['ip'] }}</td>
+                                <td>{{ $device['port'] }}</td>
+                                <td>{{ $device['cihazname'] }}</td>
+                                <td>{{ $device['type'] }}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                           
-                           
-                                    @foreach ($attendaces as $data)
-                                    <tr>
-                                        
-                                        <input type="hidden" name="Cid" value={{$Cihazid}}>
-                                        <td>{{ $data['uid'] }}</td>
-                                        <td> {{ $data['id'] }}</td>
-                                        <td> 
-                                        @foreach ($users as $user)
-                                            @if ($data['id'] == $user['userid'])
-                                            {{$user['name']}}
-                                            @endif
-                                        @endforeach
-                                        </td>
-                                        <td>{{ $data['state'] }}</td>
-                                        <td>{{ $data['type'] }}</td>
-                                        <td> {{$data['timestamp'] }}</td>
-                                       
-                                    </tr>
-                              
-                                    @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                        @endforeach
+                    </tbody>
+                </table>
+
+           
+    
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
- 
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
 </script>
-
+    <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
     <script>
-        $("#disp").DataTable({
-            language: {
+        $(function() {
+            // let table = new DataTable('#disp');
+            $('#disp').DataTable({
+                language: {
                     "emptyTable": "Tabloda herhangi bir veri mevcut değil",
                     "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
                     "infoEmpty": "Kayıt yok",
@@ -540,8 +490,37 @@
 
 
                 }
+            })
+        });
+        $(document).ready(function() {
+            const turkishChars = {
+                'ç': 'c',
+                'ğ': 'g',
+                'ı': 'i',
+                'ö': 'o',
+                'ş': 's',
+                'ü': 'u',
+                'Ç': 'C',
+                'Ğ': 'G',
+                'İ': 'I',
+                'Ö': 'O',
+                'Ş': 'S',
+                'Ü': 'U'
+            };
+            $('input').on('keyup', function() {
+                const inputValue = $(this).val();
+                const lastChar = inputValue.slice(-1);
+                if (Object.keys(turkishChars).includes(lastChar)) {
+                    $(this).val(inputValue.slice(0, -1) + turkishChars[lastChar]);
+                }
+            });
+
+
         });
     </script>
+
+    
+   
 </body>
 
 </html>

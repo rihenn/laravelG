@@ -10,15 +10,15 @@ class Users extends Model
     use HasFactory;
 
     protected $table = 'kullaniciler';
-
+  
     protected $fillable = [
         'id',
-        'namesurname',
-        'cardname',
+        'nameSurename',
         'mail',
         'tel',
         'username',
         'password',
+        'görev',
         'profilurl',
         'admin',
 

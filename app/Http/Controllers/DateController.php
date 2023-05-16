@@ -14,15 +14,17 @@ class DateController extends Controller
 
     public function date(Request $request)
     {
-        
         $kul = $request->input('kullad');
         if ($kul == null)   {
-            $kul ="YUSUF CAN YÜCE STAJYER KARTI";
+            $kul ="YUSUF CAN YÜCE STJ";
+            
         }
        
         function foo($trh,$kul)
         {
             $d = false;
+          
+
 
             $e = 1;
             $toplam_dakika = 0;
@@ -33,7 +35,7 @@ class DateController extends Controller
             $toplam_dakika = 0;
             
             $veriler = DB::table("giriscikis")
-                ->where("ad_soyad", "=", $kul)
+                ->where("ad_soyad", "=", "ERTEGUN FIDAN")
                 ->get();
             foreach ($veriler as  $value) {
                 $tarih = $value->tarih;
@@ -42,18 +44,18 @@ class DateController extends Controller
                 if (!$d) {
                     $ilkSaat =  $saat;
                  }
-
+                
                 if ($tarih == $trh) {
-
+                   
                     if ($giriscikis == "Giriş" && $e == 1) {
-
+                       
 
                         $unix_timestamp1 = strtotime($tarih . " " . $saat);
 
 
                         $e--;
-                    } else if ($giriscikis == "Çıkış" && $e == 0) {
-
+                    } else if ($giriscikis == "Çıkıs" && $e == 0) {
+                        
                         $unix_timestamp2 = strtotime($tarih . " " . $saat);
 
                         $e++;
@@ -133,6 +135,7 @@ class DateController extends Controller
                 }
             }
         }
+        
         $max = date('Y.m.d');
         $min = '0000.00.00';
         if (isset($_GET["min"])) {
@@ -146,16 +149,17 @@ class DateController extends Controller
             }
         }
 
-
+    
         $veriler = DB::table("giriscikis")
-
-            ->where("ad_soyad", "=", $kul )
+            ->where("ad_soyad", "=", "ERTEGUN FIDAN" )
             ->whereBetween('tarih', [$min, $max])
             ->select("tarih","ad_soyad")
             ->distinct()
             ->get();
         $allData = [];
+        // dd($veriler);
         foreach ($veriler as $value) {
+            
             $trh1 = $value->tarih;
             
             $süre = foo($trh1,$kul);

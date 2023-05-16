@@ -62,17 +62,7 @@
                     <a id="btn" class="btn mx-2 mt-2" href="{{route('anasayfa')}}">Ana Sayfa</a>
                 </li>
               
-                <li>
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle mt-2 mx-2" style=" background-color: #2087cd;color:white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown button
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/GIRISCIKIS/ders/admin/süreler.php">Günlük</a>
-                            <a class="dropdown-item" href="/GIRISCIKIS/ders/admin/hsürler.php">Haftalık</a>
-                        </div>
-                    </div>
-                </li>
+              
 
 
 
@@ -91,13 +81,13 @@
                 
                 <div class="card">
                     <div class="card-header">
-                            <h4>how to import excel data into database in php</h4>
+                            <h4>VERİ İÇERİ AKTARMA</h4>
                     </div>
                     <div class="card-body">
                         <form action="{{route('excel')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="file" name="import_file" class="form-control">
-                            <button class="btn btn-primary mt-3" name="save_excel_data">import</button>
+                            <button class="btn btn-primary mt-3" name="save_excel_data">İçe Aktar</button>
                         </form>
                     </div>
                 </div>

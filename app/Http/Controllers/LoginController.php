@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Users;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -14,11 +14,12 @@ class LoginController extends Controller
         
         $kul = $request->input('login');
         $pass = $request->input('password');
-    
+        
         $users = Users::all();
         foreach($users as $user)
         {
             $id = $user->id;
+            $admin = $user->admin;
           
             $mail = $user->mail;
      
@@ -27,17 +28,22 @@ class LoginController extends Controller
             
 
             if($kul == $username  && $pass == $password){
-                Session::put('id', $id);
+                
+    
+                Session::put('sid', $id);
+                Session::put('adminlik', $admin);
+                
                 return redirect()->route('anasayfa');
             }
             if($kul == $mail  && $pass == $password){
-                Session::put('id', $id);
+                Session::put('sid', $id);
+                Session::put('adminlik', $admin);
                 return redirect()->route('anasayfa');
-            }else{
-                return view('login');
             }
+                
+            
         }
-        
+        return view('login');
         
 
         

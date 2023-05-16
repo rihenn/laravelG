@@ -1,15 +1,22 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+
     <title>anasayfa</title>
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png" type="image/png"
         sizes="32x32">
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png" type="image/png"
         sizes="16x16">
+
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.4.1/css/dataTables.dateTime.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
     <style>
@@ -161,45 +168,52 @@
             <ul class="navbar-nav mr-auto">
                 <li>
                     <a target="_blank" href="https://www.gruparge.com/">
-                    <img decoding="async"
-                        src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-114-r-w.png"
-                        width="90px"
-                        data-lazy-src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-114-r-w.png"
-                        data-ll-status="loaded" class="entered lazyloaded" style="margin-left:10px">
+                        <img decoding="async"
+                            src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-114-r-w.png"
+                            width="90px"
+                            data-lazy-src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-114-r-w.png"
+                            data-ll-status="loaded" class="entered lazyloaded" style="margin-left:10px">
                     </a>
                 </li>
 
-             
-                <li class="nav-item">
-                    <a id="btn" class="btn mx-2 mt-2" href="{{route('excelekleme')}}">Veri
+
+                {{-- <li class="nav-item">
+                    <a id="btn" class="btn mx-2 mt-2" href="{{ route('excelekleme') }}">Veri
                         Ekleme</a>
-                </li>
-                <li>
+                </li> --}}
+                {{-- <li>
                     <div class="dropdown">
                         <button class="btn dropdown-toggle mt-2 mx-2" style=" background-color: #2087cd;color:white"
                             type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Mesai Süresi
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{{route('DayTime')}}">Günlük</a>
-                            <a class="dropdown-item" href="{{route('WeekWork')}}">Haftalık</a>
+                            <a class="dropdown-item" href="{{ route('DayTime') }}">Günlük</a>
+                            <a class="dropdown-item" href="{{ route('WeekWork') }}">Haftalık</a>
                         </div>
                     </div>
-                </li>
+                </li> --}}
 
                 <li>
+                    @if (session('adminlik') == 1)
+                        
+                    
                     <div class="dropdown">
                         <button class="btn dropdown-toggle mt-2 mx-2" style=" background-color: #2087cd;color:white"
                             type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Admin
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{{route('UserData')}}">User Data</a>
-                            <a class="dropdown-item" href="{{route('WeekWork')}}">Time Data</a>
+                            <a class="dropdown-item" href="{{ route('UserData') }}">kullanıcılar</a>
+                            <a class="dropdown-item" href="{{ route('timeData') }}">kullanıcılar Mesai</a>
+                            <a class="dropdown-item" href="{{ route('userUpdate') }}">Kullanıcı Ekle (Cihaz)</a>
+                            <a class="dropdown-item" href="{{ route('deviceData') }}">Cihazlar</a>
+                            <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a>
                         </div>
                     </div>
+                    @endif
                 </li>
-                
+
 
 
 
@@ -215,12 +229,13 @@
                                 <a style="color: #2087cd;" class="nav-link dropdown-toggle" href="#"
                                     id="navbarDropdownMenuLink" role="button" aria-haspopup="true"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{!! $profilurl !!}" width="40" height="40" class="rounded-circle">
+                                    <img src="{!! $profilurl !!}" width="40" height="40"
+                                        class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="{{route('ProfilController')}}">profil</a>
+                                    <a class="dropdown-item" href="{{ route('ProfilController') }}">profil</a>
 
-                                    <a class="dropdown-item" href="cıkıs.php">çıkış yap</a>
+                                    <a class="dropdown-item" href="{{ route('cikis') }}">çıkış yap</a>
                                 </div>
                             </li>
                         </ul>
@@ -228,55 +243,124 @@
             </ul>
 
 
-    </nav>
+    </nav>  
+      <div class="container">
 
-    <table id="users-table" class="display">
-        <thead>
+    {{-- <table style="border:0px;" class="mb-2"  cellspacing="5" cellpadding="5">
+        <tbody>
             <tr>
-                <th>İd</th>
-                <th>Ad Soyad</th>
-                <th>firma</th>
-                <th>Cihaz</th>
-                <th>Tarih</th>
-                <th>Saat</th>
-                <th>Giris Cıkıs</th>
+                <td>Minimum date:</td>
+                <td><input type="text" id="min" name="min"></td>
             </tr>
-        </thead>
-    </table>
+            <tr>
+                <td>Maximum date:</td>
+                <td><input type="text" id="max" name="max"></td>
+            </tr>
+        </tbody>
+    </table> --}}
+
+        <form action="{{ route("anasayfa") }}" method="get">
+        <input type="text" name="ay" value="{{$ay}}" hidden>
+        <input type="text" name="yil" value="{{$yil}}" hidden>
+        <input type="submit" class="btn btn-primary" name="önce" value="Önceki">
+        <input type="submit" class="btn btn-primary" name="bu_ay" value="Bu ay">
+        <input type="submit" class="btn btn-primary" name="sonra" value="Sonraki">
+        {{-- <br>
+        <input type="submit" class="btn btn-dark my-2" name="Yilönce" value="Önceki">
+        <input type="submit" class="btn btn-dark my-2" name="buYil" value="Bu yıl">
+        <input type="submit" class="btn btn-dark my-2" name="Yilsonra" value="Sonraki"> --}}
+        </form>
+
+
+        <table id="users-table" class="display">
+
+        </table>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script>
+    
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
     <script>
+        // var minDate, maxDate;
+        // var table;
+        // $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        //     var min = minDate.val();
+        //     var max = maxDate.val();
+        //     var date = new Date(data[2]);
+
+        //     if (
+        //         (min === null && max === null) ||
+        //         (min === null && date <= max) ||
+        //         (min <= date && max === null) ||
+        //         (min <= date && date <= max)
+        //     ) {
+        //         return true;
+        //     }
+        //     return false;
+        // });
+
+        // minDate = new DateTime($('#min'), {
+        //     format: 'YYYY-MM-DD'
+        // });
+        // maxDate = new DateTime($('#max'), {
+        //     format: 'YYYY-MM-DD'
+        // });
+
         $(function() {
+            let mydata = {!! json_encode($veri) !!};
+            datatableData = [];
+            Object.keys(mydata).forEach(function(key) {
+                datatableData.push(mydata[key])
+
+
+            });
+            
             $('#users-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('users.index') }}",
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
+                dom: 'Bfrtip',
+                buttons: [
+                     'csv', 'excel', 'pdf'
+                ],
+                data: datatableData,
+                columns: [
+
                     {
                         data: 'ad_soyad',
-                        name: 'ad_soyad'
-                    },
-                    {
-                        data: 'firma',
-                        name: 'firma'
+                        title: 'ad soyad'
                     },
                     {
                         data: 'firmaGC',
-                        name: 'firmaGC'
+                        title: 'firma'
                     },
                     {
-                        data: 'tarih',
-                        name: 'tarih'
+                        data: 'trh',
+                        title: 'tarih'
+                    },
+
+                    {
+                        data: 'giris',
+                        title: 'Giriş'
                     },
                     {
-                        data: 'saat',
-                        name: 'saat'
+                        data: 'cikis',
+                        title: 'Çıkış'
                     },
                     {
-                        data: 'GC',
-                        name: 'GC'
-                    }
+                        data: 'mesaiSüresi',
+                        title: 'Mesai'
+                    },
                 ],
                 language: {
                     "emptyTable": "Tabloda herhangi bir veri mevcut değil",
@@ -523,11 +607,17 @@
                         "removeError": "Görünüm silinemedi"
                     },
 
+
                 }
-            })
+
+            });
+
+            // $("#min, #max").on("change", function() {
+            //     table.draw();
+            // });
         });
     </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

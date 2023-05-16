@@ -17,14 +17,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
-        input{
+        input {
             font-size: 14px;
             width: 100px
         }
-        .input-n{
+
+        .input-n {
             font-size: 14px;
             width: 130px
         }
+
         .card-img-top {
             height: 400px;
             margin-top: 0px;
@@ -166,6 +168,7 @@
                     <p> {!! $data['görev'] !!} </p> <a id="btn" href="{{ route('düzenleme') }}"
                         class="m-t-10 waves-effect waves-dark btn text-light btn-md btn-rounded"
                         data-abc="true">Düzenle</a>
+                    
                     <div class="row text-center m-t-20">
                         <div class="col-lg-4 col-md-4 m-t-20" style="right:10px">
                             <h3 class="m-b-0 font-light"> {!! $data['ad'] !!} </h3><small>ad soyad</small>
@@ -180,7 +183,7 @@
                     </div>
             </div>
             @endforeach
-            
+
 
         </div>
 

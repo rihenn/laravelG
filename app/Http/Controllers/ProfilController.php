@@ -10,10 +10,10 @@ use Rats\Zkteco\Lib\ZKTeco;
 class ProfilController extends Controller
 {
     function profil(){
-        $id = Session::get('id');
+        $sid = Session::get('sid');
       
         $veriler = DB::table("kullaniciler")
-                ->where("id", "=", $id)
+                ->where("id", "=", $sid)
                 ->get();
                 $allData=[];
             foreach ($veriler as  $value) {

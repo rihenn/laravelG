@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Veri;
 use Illuminate\Support\Facades\DB;
 use Rats\Zkteco\Lib\ZKTeco;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 class ZktController extends Controller
 {
   public function index(Request $request)
   {
     $id = $request->input('cihazId');
+    DB::table('deviceUsers')->where('cihazId', $id)->delete();
     $cihazdata = DB::table("cihazlar")
       ->where("id", "=", $id)
       ->get();
@@ -23,10 +27,6 @@ class ZktController extends Controller
     $zk->connect();
     $zk->disableDevice();
     $users = $zk->getUser();
-    $attendaces = $zk->getAttendance();
-    $devicegetTime = $zk->getTime();
-
-
     foreach ($users as $user) {
       DB::table('deviceUsers')->insert([
         [
@@ -46,9 +46,12 @@ class ZktController extends Controller
 
   public function Userdata(Request $request)
   {
+
     $ip = "192.168.1.123";
     $port = "4370";
+    session(['cihazId' => "1"]);
     $id = $request->input('sırala');
+    session()->put('cihazId', $id);
     $cihazAllData = [];
     $cihazdata = DB::table("cihazlar")
       ->get();
@@ -58,6 +61,7 @@ class ZktController extends Controller
         "cihazname" => $dat->cihazname,
         "ip" => $dat->ip,
       ];
+      $cihazname = "Giris";
       $cihazAllData[] = $cihazData;
       $cihaz_id = $dat->id;
       if ($id == $cihaz_id) {
@@ -73,47 +77,114 @@ class ZktController extends Controller
     $zk->connect();
     $zk->disableDevice();
     $users = $zk->getUser();
-
+    $users = (array) $users;
+    // dd($users);
     return view("userList", ["users" => $users, "cihazAllData" => $cihazAllData, "cihazname" => $cihazname, "Cihazid" => $id]);
   }
 
 
   public function addUser(Request $request)
   {
+    function ID($sayilar)
+    {
+      sort($sayilar); // Sayıları küçükten büyüğe sırala
+      $eksikSayi = null;
 
-    $zk = new ZKTeco('192.168.1.123', 4370);
-    $uid = $request->input('uid');
-    $id = $request->input('id');
-    $name = $request->input('name');
-    $role = $request->input('role');
-    $password = $request->input('password');
-    $cardno = $request->input('CardNo');
+      for ($i = 0; $i < count($sayilar) - 1; $i++) {
+        if ($sayilar[$i + 1] - $sayilar[$i] > 1) {
+          $eksikSayi = $sayilar[$i] + 1;
+          break;
+        }
+      }
 
-    $zk->connect();
-    $zk->disableDevice();
-    $zk->setUser($uid, $id, $name, $password, $role, $cardno);
-    $zk->enableDevice();
 
-    return back();
+      if ($eksikSayi === null) {
+        $eksikSayi = end($sayilar) + 1;
+      }
+
+      return $eksikSayi;
+    }
+    $veriler = $request->input('veriler');
+    $seciliVeriler = [];
+    if (isset($veriler)) {
+
+      $allData = [];
+      $cihazdata = DB::table("cihazlar")
+        ->get();
+      foreach ($cihazdata as $dat) {
+
+        foreach ($veriler as $veri) {
+
+
+          if ($veri == $dat->id) {
+
+
+
+
+
+            $ip = $dat->ip;
+            $zk = new ZKTeco($ip, 4370);
+
+            $name = $request->input('name');
+            $role = $request->input('role');
+            $password = $request->input('password');
+            $cardno = $request->input('CardNo');
+            if (isset($name) && isset($role) && isset($cardno)) {
+              
+
+              $zk->connect();
+              $zk->disableDevice();
+              $users = $zk->getUser();
+
+              $userId = [];
+              $userUID = [];
+              $sayac = 0;
+              $sayac1 = 0;
+              foreach ($users as $user) {
+                $userId[] = intval($user["userid"]);
+                $userUID[] = $user["uid"];
+              }
+              $id = ID($userId);
+              $uid = ID($userUID);
+
+
+              $zk->setUser($uid, $id, $name, $password, $role, $cardno);
+              $zk->enableDevice();
+              return redirect()->back();
+            }else{
+              $htmlMessage = '<div class="alert alert-danger" role="alert">
+              lütfen alanları doldurunuz seçiniz.
+            </div>';
+                  Session::flash('success_message', $htmlMessage);
+                  return redirect()->back();
+            }
+          }
+        }
+      }
+
+
+
+
+
+     
+    } else {
+
+      $htmlMessage = '<div class="alert alert-danger" role="alert">
+  lütfen cihaz seçiniz.
+</div>';
+      Session::flash('success_message', $htmlMessage);
+      return redirect()->back();
+    }
   }
 
 
-
-  public function removeUser()
+  public function remove(Request $request)
   {
+    $CihazId = session('cihazId');
+    $ip = "192.168.1.123";
+    $port = "4370";
 
-    $uid = 9999;
 
-    $zk = new ZKTeco('192.168.1.123', 4370);
-    $zk->connect();
-    $zk->disableDevice();
-    $zk->removeUser($uid);
-    return redirect("/data")->with('success_message', 'User added to device successfully.');
-  }
-
-  public function güncelle(Request $request)
-  {
-    $CihazId = $request->input('Cid');
     $cihazdata = DB::table("cihazlar")
       ->where("id", $CihazId)
       ->get();
@@ -124,16 +195,44 @@ class ZktController extends Controller
     }
     $zk = new ZKTeco($ip, $port);
     $uid = $request->input('uid');
-    $id = $request->input('id');
+    $zk->connect();
+    $zk->disableDevice();
+    $zk->removeUser($uid);
+
+    return redirect()->back();
+  }
 
 
+  public function güncelle(Request $request)
+  {
+    // dd($request);
+    $CihazId = session('cihazId');
+    $ip = "192.168.1.123";
+    $port = "4370";
+    $id = $request->input('sırala');
+
+    $cihazdata = DB::table("cihazlar")
+      ->where("id", $CihazId)
+      ->get();
+    foreach ($cihazdata as $dat) {
+
+      $port = $dat->port;
+      $ip = $dat->ip;
+    }
+
+    $zk = new ZKTeco($ip, $port);
+    $uid = $request->input('uid');
+    $id = $request->input('userid');
     $name = $request->input('name');
     $role = $request->input('role');
     $password = $request->input('password');
+   
     if (!isset($password)) {
       $password = "";
     }
-    $cardno = $request->input('CardNo');
+    $cardno = $request->input('cardno');
+
+
     DB::table('deviceusers')
       ->where('id', "=", $id)
       ->where("cihazId", "=", $CihazId)
@@ -141,37 +240,110 @@ class ZktController extends Controller
     $zk->connect();
     $zk->disableDevice();
     $zk->setUser($uid, $id, $name, $password, $role, $cardno);
-    $zk->enableDevice();
+    // dd($ip);
+    // $zk->enableDevice();
 
-    return back();
+
+
+    return redirect()->back();
   }
 
-  public function TimeData()
+  public function TimeData(Request $request)
   {
+    $ip = "192.168.1.123";
+    $port = "4370";
+    $cihazname = "Giriş";
+    $id = $request->input('sırala');
+    $cihazAllData = [];
     $cihazdata = DB::table("cihazlar")
       ->get();
     foreach ($cihazdata as $dat) {
-      $port = $dat->port;
-      $ip = $dat->ip;
-      $deviceId = $dat->id;
-      $zk = new ZKTeco($ip, $port);
-      $zk->connect();
-      $zk->disableDevice();
-      $attendaces = $zk->getAttendance();
-      foreach ($attendaces as $user) {
-        DB::table('userdata')->insert([
-          [
-            'uid' => $user['uid'],
-            'id' => $user['id'],
-            'state' => $user['state'],
-            'type' => $user['type'],
-            'timestamp' => $user['timestamp'],
-            'device_id' =>$deviceId
-          ]
-        ]);
+      $cihazData = [
+        "id" => $dat->id,
+        "cihazname" => $dat->cihazname,
+        "ip" => $dat->ip,
+      ];
+
+      $cihazAllData[] = $cihazData;
+      $cihaz_id = $dat->id;
+      if ($id == $cihaz_id) {
+        $port = $dat->port;
+        $ip = $dat->ip;
+
+        $cihazname = $dat->cihazname;
       }
-
-
     }
+
+
+    $zk = new ZKTeco($ip, $port);
+    $zk->connect();
+    $zk->disableDevice();
+    $attendaces = $zk->getAttendance();
+    $users = $zk->getUser();
+
+    return view("timedata", ["attendaces" => $attendaces, "users" => $users, "cihazAllData" => $cihazAllData, "cihazname" => $cihazname, "Cihazid" => $id]);
+  }
+
+
+  public function DataBaseTimeData(Request $request){
+    // dd($request);
+    $ip = "192.168.1.123";
+    $port = "4370";
+    
+    $id = $request->input('sırala');
+   
+    $cihazdata = DB::table("cihazlar")
+      ->get();
+    foreach ($cihazdata as $dat) {
+      
+      $cihaz_id = $dat->id;
+      if ($id == $cihaz_id) {
+        $port = $dat->port;
+        $ip = $dat->ip;
+        $firmaCihazName=$dat->firmaCihazName;
+        $cihazName=$dat->cihazname;
+      
+      }
+    }
+    
+
+    $zk = new ZKTeco($ip, $port);
+    $zk->connect();
+    $zk->disableDevice();
+    $attendaces = $zk->getAttendance();
+    $users = $zk->getUser();
+    $veriler =DB::table("deviceusers")->where("cihazId","=",$cihaz_id)->get();
+    foreach($veriler as $veri)
+    {
+      $name = $veri->name;
+      $Cid = $veri->id;
+      $cihazId = $veri->cihazId;
+      foreach ($attendaces as $data){
+       $Timeuid= $data["uid"];
+       $Timeid= $data["id"];
+       $Timestate= $data["state"];
+       $Timestamp= $data["timestamp"];
+       if ($Timeid == $Cid) {
+        
+   
+       $tarih = Carbon::parse($Timestamp)->format('Y-m-d');
+       $saat = Carbon::parse($Timestamp)->format('H:i:s');
+       $data=[
+        'uid'=>$Timeuid,
+        'ad_soyad'=>$name,
+        'firmaGC' =>$firmaCihazName,
+        'tarih' =>$tarih,
+        'saat'=>$saat,
+        'GC'=>$cihazName
+       ];
+       Veri::insertOrIgnore($data);
+      }
+    
+      }
+    
+    }
+
+   return redirect()->route('anasayfa');
+ 
   }
 }

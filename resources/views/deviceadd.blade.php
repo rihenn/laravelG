@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grup Arge · Kullanici Ekle</title>
+    <title>düzenle</title>
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png" type="image/png"
     sizes="32x32">
 <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png"
@@ -171,10 +171,10 @@
                 <li class="nav-item">
                     <a id="btn" class="btn mx-2 mt-2" href="{{ route('anasayfa') }}">Ana Sayfa</a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a id="btn" class="btn mt-2" href="{{ route('excel') }}">Veri
                         Ekleme</a>
-                </li> --}}
+                </li>
                 
 
 
@@ -199,54 +199,44 @@
                     @if(Session::has('success_message'))
                     {!! Session::get('success_message') !!}
                 @endif
-                    <form action="{{ route('diveceAddUser') }}" method="post">
+                    <form action="{{ route('diveceAdd') }}" method="post">
                             @csrf
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">kullanıcı Düzenle</h6>
+                                <h6 class="mb-2 text-primary">Cihaz Ekle</h6>
                             </div>
                             <div>
-                                @php
-                                $a=0;
-                                $a++
-                            @endphp 
-                               @foreach ($allData as $data)
-                              
-                               <input type="checkbox" style="height: 12px" name="veriler[]"  value="{!! $data["id"] !!}"><label for="">{!! $data["name"] !!}</label><br> 
-                               @endforeach
-                              
+                               
                              
                            
                             <div class="card-body">
                                 <div class="row gutters">
-                                  
-                                   
                                     
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label for="phone">Ad Soyad</label>
-                                            <input type="text" class="form-control" id="name"
-                                                placeholder="Ad Soyad Giriniz" name="name" >
+                                            <label for="phone">Cihaz Adı</label>
+                                            <input type="text" class="form-control" id="cihazname"
+                                                placeholder="cihaz adını giriniz" name="name" >
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label>Rol</label>
-                                            <input class="form-control" id="role" placeholder="rol Giriniz"
-                                                name="role">
+                                            <label>Bölge İsmi</label>
+                                            <input class="form-control" id="firmaCihazName" placeholder="Cihazın bulunduğu bölgeyi giriniz"
+                                                name="firmaCihazName">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label>Şifre</label>
-                                            <input class="form-control" id="password" placeholder="Şifre Giriniz"
-                                                name="password">
+                                            <label>Ip</label>
+                                            <input class="form-control" id="ip" placeholder="İp giriniz"
+                                                name="ip">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label>Kart No</label>
-                                            <input class="form-control" id="CardNo" placeholder="Card No Giriniz"
-                                                name="CardNo">
+                                            <label>Port</label>
+                                            <input class="form-control" id="port" placeholder="Port giriniz"
+                                                name="port">
                                         </div>
                                     </div>
                                 </div>

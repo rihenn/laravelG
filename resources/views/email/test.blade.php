@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Laravel Test Mail</title>
+    <title>Grup Arge</title>
 </head>
 <body>
     <body topmargin="0" rightmargin="0" bottommargin="0" leftmargin="0" marginwidth="0" marginheight="0" width="100%" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%;
@@ -62,7 +62,7 @@
             padding-top: 25px; 
             color: #000000;
             font-family: sans-serif;" class="paragraph">
-                Bu e-posta Naeron uygulamasından şifre sıfırlama talebi yapıldığı için gönderilmiştir. Sıfırlama işlemini yapmak için "Şifremi Sıfırla" düğmesine basın.
+                Bu e-posta Grup Arge ZTKEco uygulamasından şifre sıfırlama talebi yapıldığı için gönderilmiştir. Sıfırlama işlemini yapmak için "Şifremi Sıfırla" düğmesine basın.
         </td>
     </tr>
     
@@ -116,7 +116,7 @@
             padding-bottom: 25px;
             color: #000000;
             font-family: sans-serif;" class="paragraph">
-                Soru ve görüşleriniz için lütfen iletişime geçin <a href="mailto:support@ourteam.com" target="_blank" style="color: #127DB3; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 160%;">support@naeron.com</a>
+                Soru ve görüşleriniz için lütfen iletişime geçin <a href="mailto:support@ourteam.com" target="_blank" style="color: #127DB3; font-family: sans-serif; font-size: 17px; font-weight: 400; line-height: 160%;">info@gruparge.com</a>
         </td>
     </tr>
     
@@ -140,7 +140,7 @@
             padding-bottom: 20px;
             color: #999999;
             font-family: sans-serif;" class="footer">
-                Bu e-posta Naeron uygulamasından şifre sıfırlama talebi yapıldığı için gönderilmiştir. </br> Talebi siz yapmadıysanız lütfen bu e-postayı dikkate almayın.
+                Bu e-posta Grup Arge ZTKEco uygulamasından şifre sıfırlama talebi yapıldığı için gönderilmiştir. </br> Talebi siz yapmadıysanız lütfen bu e-postayı dikkate almayın.
         </td>
     </tr>
     </table>

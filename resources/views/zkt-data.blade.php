@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Grup Arge · Kullanıcılar</title>
 </head>
 <body>
     <table class="table table-bordered table-responsive">
@@ -14,11 +14,11 @@
                 <th scope="col">UID</th>
               
                 <th scope="col">User ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Role</th>
-                <th scope="col">Password</th>
-                <th scope="col">Card No</th>
-                <th scope="col">Action</th>
+                <th scope="col">Ad Soyad</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Şifre</th>
+                <th scope="col">Kart No</th>
+                <th scope="col">Eylemler</th>
             </tr>
         </thead>
         <tbody>

@@ -11,7 +11,7 @@ class MailController extends Controller
 {
     public function send(Request $request)
     {
-        Log::alert('Bir bilgi mesajı');
+        
        
         $mail = $request->input('gmail');
         $sifrelenmiş_gmail=password_hash($mail,PASSWORD_DEFAULT);

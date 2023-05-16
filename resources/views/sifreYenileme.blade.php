@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
-     let sayac = 0;
-    if (sayac === 0) {
-        (function(){
-            
-           
-            
-                location.reload();
-                
-           
-        })(); 
-        sayac++;}
+    
+
 </script>
 <head>
     <meta charset="UTF-8">

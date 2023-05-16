@@ -1,10 +1,13 @@
 <?php
 
 use App\Exceptions\Handler;
+use App\Http\Controllers\AddUserViewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DateController;
+use App\Http\Controllers\DeviceAdd;
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\DüzenleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
@@ -12,8 +15,10 @@ use App\Http\Controllers\Veriler;
 use App\Http\Controllers\WeekWorkController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SifreGüncellemeController;
+use App\Http\Controllers\UserAddWebController;
 use App\Http\Controllers\ZktController;
 use App\Http\Middleware\sifreYenilemeMiddleware;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,9 +30,14 @@ use App\Http\Middleware\sifreYenilemeMiddleware;
 |
 */
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('login');
 })->name("login");
+
+Route::get('/cıkıs', function () {
+    session()->invalidate();
+    return redirect()->route('login');
+})->name("cikis");
 
 Route::get('/Red', function () {
     return view('red');
@@ -42,20 +52,21 @@ Route::get('/Onay', function () {
 
 Route::get('/excel', function () {
     return view('excel');
-})->name("excelekleme");
+})->name("excelekleme")->middleware('checklogin');
 
-Route::get('/user', function () {
-    return view('user');
-});
-Route::get('/UserGüncelle', function(){
-    return view('zkt-update');
-});
-Route::get('/userlist', [ZktController::class,'Userdata'])->name('UserData');
+Route::get('/userupdate',[AddUserViewController::class,"checkboxValue"])->name("userUpdate")->middleware('checklogin');
+Route::get('/userlist', [ZktController::class,'Userdata'])->name('UserData')->middleware('checklogin');
 
+Route::get('/home', [HomeController::class,'value'])->name("anasayfa")->middleware('checklogin');
 
-Route::get('/home', [HomeController::class,'value'])->name("anasayfa");
+//web kullanıcı ekle
+Route::get('/kullanıcı-ekle',function(){ return view("UserAddWeb"); });
+Route::post('/kullanıcıEkle',[UserAddWebController::class,"AddWebUser"])->name("addUserWeb");
 
 
+//cihaz ekle
+Route::post('/deviceadd',[DeviceAdd::class,"AddDivece"])->name("diveceAdd");
+Route::get('/cihazekleme',function(){ return view("deviceadd"); })->name("DiveceAdd");
 
 //sifre güncelleme
 route::get('güncelleme',[SifreGüncellemeController::class,'güncelle'])->name("güncelleme"); 
@@ -70,40 +81,43 @@ Route::get('/sifreYenileme', function () {
 
 
 //günlük süre
-Route::get('/DayWork',[DateController::class,'date'])->name('DayTime');
-Route::post('/DayWorkDay',[DateController::class,'date'])->name('daytime');
+Route::get('/DayWork',[DateController::class,'date'])->name('DayTime')->middleware('checklogin');
+Route::post('/DayWorkDay',[DateController::class,'date'])->name('daytime')->middleware('checklogin');
 
 //haftalık süre
-Route::get('/WeekWork',[WeekWorkController::class,'date'])->name('WeekWork');
+Route::get('/WeekWork',[WeekWorkController::class,'date'])->name('WeekWork')->middleware('checklogin');
 
 //profil kısmı
-Route::get('/ProfilController',[ProfilController::class,'profil'])->name('ProfilController');
+Route::get('/ProfilController',[ProfilController::class,'profil'])->name('ProfilController')->middleware('checklogin');
 
 //düzenleme kısmı
-Route::post('/düzenle-kayıt',[DüzenleController::class,'düzenle'])->name('güncelle');
-Route::post('/imgdüzenle-kayıt',[DüzenleController::class,'profilimg'])->name('imggüncelle');
-Route::get('/düzenle',[DüzenleController::class,'getValue'])->name('düzenleme');
+Route::post('/düzenle-kayıt',[DüzenleController::class,'düzenle'])->name('güncelle')->middleware('checklogin');
+Route::post('/imgdüzenle-kayıt',[DüzenleController::class,'profilimg'])->name('imggüncelle')->middleware('checklogin');
+Route::get('/düzenle',[DüzenleController::class,'getValue'])->name('düzenleme')->middleware('checklogin');
 
 //login 
 Route::post('/dogrulama',[LoginController::class,'login'])->name('user');
 
 //excel verisini database atma için
-Route::post('/excel', [ExelController::class, 'import'])->name('excel');
+Route::post('/excel', [ExelController::class, 'import'])->name('excel')->middleware('checklogin');
 
 //admin paneli için 
-Route::get('/usertimedata',[ZktController::class,"TimeData"]);
+Route::get('/usertimedata',[ZktController::class,"TimeData"])->name('timeData')->middleware('checklogin');
+
+Route::post('/userWrite',[ZktController::class,"DataBaseTimeData"])->name('databasetimedata')->middleware('checklogin');
 
 //datatable 
-Route::get('users', [Veriler::class,'index'])->name('users.index');
+Route::get('users', [Veriler::class,'index'])->name('users.index')->middleware('checklogin');
 
 
 //zktcihaz okuma
-Route::post("/data",[ZktController::class,"index"])->name("data");
+Route::post("/data",[ZktController::class,"index"])->name("data")->middleware('checklogin');
 //zkt kullanıcı ekleme ve güncelleme
-Route::post("/addUser",[ZktController::class,"güncelle"])->name("addUser");
+Route::post("/addUser",[ZktController::class,"addUser"])->name("diveceAddUser")->middleware('checklogin');
 
-Route::post('/güncelle', [ZktController::class, 'güncelle'])->name("güncelle");
+Route::post('/guncelle', [ZktController::class, 'güncelle'])->name('diveceUserUpdate')->middleware('checklogin');
+Route::post('/remove', [ZktController::class, 'remove'])->name('diveceUserRemove')->middleware('checklogin');
+
+Route::get('/device', [DeviceController::class, 'DiveceData'])->name('deviceData')->middleware('checklogin');
 
 
-//zkt kullanıcı silme
-Route::get("/test2",[ZktController::class,"removeUser"]);
