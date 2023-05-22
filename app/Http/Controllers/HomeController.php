@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\DiveceUsers;
+use App\Models\Users;
+use App\Models\Veri;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -12,12 +15,13 @@ class HomeController extends Controller
     {
         
         $profilurl = "";
-        $veriler = DB::table('kullaniciler')
-            ->where("id", "=", 2)
+        $veriler = Users::where("id", "=", 2)
             ->get();
         foreach ($veriler as $veri) {
             $profilurl = $veri->profilurl;
         };
+
+
         $ay = date("m");
         $yil =date('Y');
      
@@ -66,15 +70,26 @@ class HomeController extends Controller
           
         }
 
+        $sid = Session::get('sid');
+        if (session('adminlik') == 0) {
+            $users = Users::where("id" ,"=", $sid)->first();
+            $cardno = $users->cardno;
+            $diveceusers = DiveceUsers::where("cardno" ,"=", $cardno)->first();
+    
+            $trhv = Veri::where("ad_soyad","=",$diveceusers->name)
+            ->whereYear('tarih', '=', $yil)
+            ->whereMonth("tarih", "=", $ay)
+            ->select("tarih", "ad_soyad", "firmaGC")
+            ->distinct()
+            ->get();
+        }else
 
-        // İlgili tarih
-
-        $trhv = DB::table('giriscikis')
-        ->whereYear('tarih', '=', $yil)
+        $trhv = Veri::whereYear('tarih', '=', $yil)
         ->whereMonth("tarih", "=", $ay)
         ->select("tarih", "ad_soyad", "firmaGC")
         ->distinct()
         ->get();
+      
         $veri = [];
     
         foreach ($trhv as $key) {
@@ -83,15 +98,13 @@ class HomeController extends Controller
             $ad_soyad = $key->ad_soyad;
             $firma = $key->firmaGC;
 
-            $ilkKayit = DB::table('giriscikis')
-                ->whereDate('tarih', $tarih)
+            $ilkKayit = Veri::whereDate('tarih', $tarih)
                 ->where('ad_soyad', $ad_soyad)
                 ->where("GC", "=", "Giris")
                 ->orderBy('saat', 'asc')
                 ->first();
 
-            $sonKayit = DB::table('giriscikis')
-                ->whereDate('tarih', $tarih)
+            $sonKayit = Veri::whereDate('tarih', $tarih)
                 ->where('ad_soyad', $ad_soyad)
                 ->where("GC", "=", "Çıkış")
                 ->orderBy('saat', 'desc')

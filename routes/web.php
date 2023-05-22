@@ -60,7 +60,7 @@ Route::get('/userlist', [ZktController::class,'Userdata'])->name('UserData')->mi
 Route::get('/home', [HomeController::class,'value'])->name("anasayfa")->middleware('checklogin');
 
 //web kullanıcı ekle
-Route::get('/kullanıcı-ekle',function(){ return view("UserAddWeb"); });
+Route::get('/kullanıcı-ekle',function(){ return view("UserAddWeb"); })->name("webadduser");
 Route::post('/kullanıcıEkle',[UserAddWebController::class,"AddWebUser"])->name("addUserWeb");
 
 
@@ -70,9 +70,12 @@ Route::get('/cihazekleme',function(){ return view("deviceadd"); })->name("Divece
 
 //sifre güncelleme
 route::get('güncelleme',[SifreGüncellemeController::class,'güncelle'])->name("güncelleme"); 
-Route::middleware([sifreYenilemeMiddleware::class])->get('/SifreYenileme', function () {
-    return view('sifreYenileme');
-})->name("sifreYenileme");
+Route::group(['middleware' => 'sifre.yenileme'], function () {
+    Route::get('/SifreYenileme', function () {
+        return view('sifreYenileme');
+    })->name("sifreYenileme");
+});
+
 //mail gönderme 
 route::get('send',[MailController::class,'send'])->name("send-mail");
 Route::get('/sifreYenileme', function () {
@@ -106,12 +109,10 @@ Route::get('/usertimedata',[ZktController::class,"TimeData"])->name('timeData')-
 
 Route::post('/userWrite',[ZktController::class,"DataBaseTimeData"])->name('databasetimedata')->middleware('checklogin');
 
-//datatable 
-Route::get('users', [Veriler::class,'index'])->name('users.index')->middleware('checklogin');
-
 
 //zktcihaz okuma
 Route::post("/data",[ZktController::class,"index"])->name("data")->middleware('checklogin');
+
 //zkt kullanıcı ekleme ve güncelleme
 Route::post("/addUser",[ZktController::class,"addUser"])->name("diveceAddUser")->middleware('checklogin');
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
     sizes="32x32">
 <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png"
     type="image/png" sizes="16x16">
-    <link rel="stylesheet" href="../css/düzenle.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <style>
@@ -169,12 +169,24 @@
                 </li>
 
                 <li class="nav-item">
-                    <a id="btn" class="btn mx-2 mt-2" href="{{ route('anasayfa') }}">Ana Sayfa</a>
+                    <a  class="btn btn-primary mx-2 mt-2 text-white" href="{{ route('anasayfa') }}">Ana Sayfa</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a id="btn" class="btn mt-2" href="{{ route('excel') }}">Veri
-                        Ekleme</a>
-                </li> --}}
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-primary text-white dropdown-toggle mt-2 mx-2" 
+                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ route('UserData') }}">kullanıcılar</a>
+                            <a class="dropdown-item" href="{{ route('timeData') }}">kullanıcılar Mesai</a>
+                            <a class="dropdown-item" href="{{ route('webadduser') }}">Kullanıcı Ekle (web)</a>
+                            <a class="dropdown-item" href="{{ route('userUpdate') }}">Kullanıcı Ekle (Cihaz)</a>
+                            <a class="dropdown-item" href="{{ route('deviceData') }}">Cihazlar</a>
+                            <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a>
+                        </div>
+                    </div>
+                </li> 
                 
 
 
@@ -256,7 +268,7 @@
                                         <div class="text-right">
                                            
 
-                                            <button type="submit" name="submit" class="btn btn-primary">Güncelle</button>
+                                            <button type="submit" name="submit" class="btn btn-primary">Ekle</button>
 
                                         </div>
                                     </div>
@@ -268,12 +280,8 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  
 </body>
 
 </html>

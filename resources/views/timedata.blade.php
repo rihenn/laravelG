@@ -1,157 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Grup Arge · Süre</title>
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png" type="image/png"
-    sizes="32x32">
-<link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png"
-    type="image/png" sizes="16x16">
-<link rel="stylesheet" href="../css/profil.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+        sizes="32x32">
+    <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png"
+        type="image/png" sizes="16x16">
+ 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+
+
   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        #div2 {
+            background-color: #455a64;
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<style>
-    #div2 {
-        background-color: #455a64;
+        }
 
-    }
+        input {
+            font-size: 14px;
+            width: 100px
+        }
 
-    input {
-        font-size: 14px;
-        width: 100px
-    }
+        .input-n {
+            font-size: 14px;
+            width: 130px
+        }
 
-    .input-n {
-        font-size: 14px;
-        width: 130px
-    }
+        .card-img-top {
+            height: 400px;
+            margin-top: 0px;
+        }
 
-    .card-img-top {
-        height: 400px;
-        margin-top: 0px;
-    }
+        .card-no-border .card {
+            border-color: #d7dfe3;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)
+        }
 
-    .card-no-border .card {
-        border-color: #d7dfe3;
-        border-radius: 20px;
-        margin-bottom: 30px;
-        -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
-        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)
-    }
+        .card-body {
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            padding: 1.25rem;
 
-    .card-body {
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto;
-        padding: 1.25rem;
+        }
 
-    }
+        .pro-img {
+            margin-top: -80px;
+            margin-bottom: 20px
+        }
 
-    .pro-img {
-        margin-top: -80px;
-        margin-bottom: 20px
-    }
+        .little-profile .pro-img img {
+            width: 128px;
+            height: 128px;
+            -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 100%
+        }
 
-    .little-profile .pro-img img {
-        width: 128px;
-        height: 128px;
-        -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-        border-radius: 100%
-    }
-
-    html body .m-b-0 {
-        margin-bottom: 0px
-    }
+        html body .m-b-0 {
+            margin-bottom: 0px
+        }
 
 
-    h3 {
+        h3 {
 
-        font-size: 18px !important;
-        color: #222831 !important;
-    }
+            font-size: 18px !important;
+            color: #222831 !important;
+        }
 
-    .btn-rounded.btn-md {
-        padding: 12px 35px;
-        font-size: 16px
-    }
+        .btn-rounded.btn-md {
+            padding: 12px 35px;
+            font-size: 16px
+        }
 
-    html body .m-t-10 {
-        margin-top: 10px
-    }
+        html body .m-t-10 {
+            margin-top: 10px
+        }
 
 
 
-    .btn-rounded {
-        border-radius: 60px;
-        padding: 7px 18px
-    }
+        .btn-rounded {
+            border-radius: 60px;
+            padding: 7px 18px
+        }
 
-    .m-t-20 {
-        margin-top: 20px
-    }
+        .m-t-20 {
+            margin-top: 20px
+        }
 
-    .text-center {
-        text-align: center !important
-    }
+        .text-center {
+            text-align: center !important
+        }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        color: #455a64;
-        font-family: "Poppins", sans-serif;
-        font-weight: 400
-    }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: #455a64;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400
+        }
 
-    p {
-        margin-top: 0;
-        margin-bottom: 1rem
-    }
+        p {
+            margin-top: 0;
+            margin-bottom: 1rem
+        }
 
-    .card {
-        /* Add shadows to create the "card" effect */
-        box-shadow: 12px 12px 8px 0px rgba(43, 46, 50, 1);
-        transition: 0.5s;
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 12px 12px 8px 0px rgba(43, 46, 50, 1);
+            transition: 0.5s;
 
-    }
+        }
 
-    #box {
+        #box {
 
-        border-radius: 4%;
+            border-radius: 4%;
 
-    }
+        }
 
-    #cardImg {
-        border-radius: 6% 6% 0px 0px;
+        #cardImg {
+            border-radius: 6% 6% 0px 0px;
 
-    }
+        }
 
-    body {
-        background-color: #393E46;
-    }
+        body {
+            background-color: #393E46;
+        }
 
-    #btn {
-        background-color: #2087cd;
+        #btn {
+            background-color: #2087cd;
 
-        border: 1px solid #2087cd;
-        font-size: 18px;
-        font-family: "Gill Sans", sans-serif;
-    }
+            border: 1px solid #2087cd;
+            font-size: 18px;
+            font-family: "Gill Sans", sans-serif;
+        }
 
-    .card {
-        background-color: #EEEEEE;
-    }
-</style>
+        .card {
+            background-color: #EEEEEE;
+        }
+    </style>
 </head>
+
 <body>
     <nav id="div2" class="navbar navbar-expand" style="width:100%;">
 
@@ -171,13 +172,27 @@
                 </li>
 
                 <li class="nav-item">
-                    <a id="btn" class="btn mx-2 mt-2" href="{{ route('anasayfa') }}">Ana Sayfa</a>
+                    <a id="" class="btn mx-2 mt-2 btn-primary text-white" href="{{ route('anasayfa') }}">Ana Sayfa</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a id="btn" class="btn mt-2" href="{{ route('excel') }}">Veri
-                        Ekleme</a>
-                </li> --}}
-                
+                 <li class="nav-item">
+                   <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    admin
+                </button>
+              
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ route('UserData') }}">kullanıcılar</a>
+                        <a class="dropdown-item" href="{{ route('timeData') }}">kullanıcılar Mesai</a>
+                        <a class="dropdown-item" href="{{ route('webadduser') }}">Kullanıcı Ekle (web)</a>
+                        <a class="dropdown-item" href="{{ route('userUpdate') }}">Kullanıcı Ekle (Cihaz)</a>
+                        <a class="dropdown-item" href="{{ route('deviceData') }}">Cihazlar</a>
+                        <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a>
+                    </div>
+               
+            </div>
+                </li>
+
 
 
 
@@ -193,7 +208,7 @@
     </nav>
     <div class="container" style="background-color: #dadee0">
         <div class="" style="display:-ms-inline-flexbox">
-            
+
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -231,15 +246,15 @@
                 </form>
             </div>
             <div class="d-flex" style="justify-content: center">
-                <h1> {{$cihazname}}  Cihazı </h1>
-               
-               </div>
-    
-       
-                
-            
+                <h1> {{ $cihazname }} Cihazı </h1>
+
+            </div>
+
+
+
+
         </div>
-        
+
         <div class="d-flex justify-content-center">
             <div class="row">
                 <div class="d-flex justify-content-center">
@@ -252,32 +267,31 @@
                                 <th scope="col">Durumu</th>
                                 <th scope="col">Türü</th>
                                 <th scope="col">Süre</th>
-                               
+
                             </tr>
                         </thead>
                         <tbody>
-                           
-                           
-                                    @foreach ($attendaces as $data)
-                                    <tr>
-                                        
-                                        <input type="hidden" name="Cid" value={{$Cihazid}}>
-                                        <td>{{ $data['uid'] }}</td>
-                                        <td> {{ $data['id'] }}</td>
-                                        <td> 
+
+
+                            @foreach ($attendaces as $data)
+                                <tr>
+
+                                    <input type="hidden" name="Cid" value={{ $Cihazid }}>
+                                    <td>{{ $data['uid'] }}</td>
+                                    <td> {{ $data['id'] }}</td>
+                                    <td>
                                         @foreach ($users as $user)
                                             @if ($data['id'] == $user['userid'])
-                                            {{$user['name']}}
+                                                {{ $user['name'] }}
                                             @endif
                                         @endforeach
-                                        </td>
-                                        <td>{{ $data['state'] }}</td>
-                                        <td>{{ $data['type'] }}</td>
-                                        <td> {{$data['timestamp'] }}</td>
-                                       
-                                    </tr>
-                              
-                                    @endforeach
+                                    </td>
+                                    <td>{{ $data['state'] }}</td>
+                                    <td>{{ $data['type'] }}</td>
+                                    <td> {{ $data['timestamp'] }}</td>
+
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -286,260 +300,260 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
- 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
-</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">    
+    </script>
 
     <script>
         $("#disp").DataTable({
             language: {
-                    "emptyTable": "Tabloda herhangi bir veri mevcut değil",
-                    "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
-                    "infoEmpty": "Kayıt yok",
-                    "infoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
-                    "infoThousands": ".",
-                    "lengthMenu": "Sayfada _MENU_ kayıt göster",
-                    "loadingRecords": '\n<div class="three-body"><div class="three-body__dot"></div><div class="three-body__dot"></div><div class="three-body__dot"></div></div>\n\n',
+                "emptyTable": "Tabloda herhangi bir veri mevcut değil",
+                "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                "infoEmpty": "Kayıt yok",
+                "infoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                "infoThousands": ".",
+                "lengthMenu": "Sayfada _MENU_ kayıt göster",
+                "loadingRecords": '\n<div class="three-body"><div class="three-body__dot"></div><div class="three-body__dot"></div><div class="three-body__dot"></div></div>\n\n',
 
-                    "processing": '\n<div class="three-body"><div class="three-body__dot"></div><div class="three-body__dot"></div><div class="three-body__dot"></div></div>\n\n',
-                    "search": "Ara:",
-                    "zeroRecords": "Eşleşen kayıt bulunamadı",
-                    "paginate": {
-                        "first": "İlk",
-                        "last": "Son",
-                        "next": "Sonraki",
-                        "previous": "Önceki"
+                "processing": '\n<div class="three-body"><div class="three-body__dot"></div><div class="three-body__dot"></div><div class="three-body__dot"></div></div>\n\n',
+                "search": "Ara:",
+                "zeroRecords": "Eşleşen kayıt bulunamadı",
+                "paginate": {
+                    "first": "İlk",
+                    "last": "Son",
+                    "next": "Sonraki",
+                    "previous": "Önceki"
+                },
+                "aria": {
+                    "sortAscending": ": artan sütun sıralamasını aktifleştir",
+                    "sortDescending": ": azalan sütun sıralamasını aktifleştir"
+                },
+                "select": {
+                    "rows": {
+                        "_": "%d kayıt seçildi",
+                        "1": "1 kayıt seçildi"
                     },
-                    "aria": {
-                        "sortAscending": ": artan sütun sıralamasını aktifleştir",
-                        "sortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    "cells": {
+                        "1": "1 hücre seçildi",
+                        "_": "%d hücre seçildi"
                     },
-                    "select": {
-                        "rows": {
-                            "_": "%d kayıt seçildi",
-                            "1": "1 kayıt seçildi"
+                    "columns": {
+                        "1": "1 sütun seçildi",
+                        "_": "%d sütun seçildi"
+                    }
+                },
+                "autoFill": {
+                    "cancel": "İptal",
+                    "fillHorizontal": "Hücreleri yatay olarak doldur",
+                    "fillVertical": "Hücreleri dikey olarak doldur",
+                    "fill": "Bütün hücreleri <i>%d<\/i> ile doldur"
+                },
+                "buttons": {
+                    "collection": "Koleksiyon <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
+                    "colvis": "Sütun görünürlüğü",
+                    "colvisRestore": "Görünürlüğü eski haline getir",
+                    "copySuccess": {
+                        "1": "1 satır panoya kopyalandı",
+                        "_": "%ds satır panoya kopyalandı"
+                    },
+                    "copyTitle": "Panoya kopyala",
+                    "csv": "CSV",
+                    "excel": "Excel",
+                    "pageLength": {
+                        "-1": "Bütün satırları göster",
+                        "_": "%d satır göster"
+                    },
+                    "pdf": "PDF",
+                    "print": "Yazdır",
+                    "copy": "Kopyala",
+                    "copyKeys": "Tablodaki veriyi kopyalamak için CTRL veya u2318 + C tuşlarına basınız. İptal etmek için bu mesaja tıklayın veya escape tuşuna basın.",
+                    "createState": "Şuanki Görünümü Kaydet",
+                    "removeAllStates": "Tüm Görünümleri Sil",
+                    "removeState": "Aktif Görünümü Sil",
+                    "renameState": "Aktif Görünümün Adını Değiştir",
+                    "savedStates": "Kaydedilmiş Görünümler",
+                    "stateRestore": "Görünüm -&gt; %d",
+                    "updateState": "Aktif Görünümün Güncelle"
+                },
+                "searchBuilder": {
+                    "add": "Koşul Ekle",
+                    "button": {
+                        "0": "Arama Oluşturucu",
+                        "_": "Arama Oluşturucu (%d)"
+                    },
+                    "condition": "Koşul",
+                    "conditions": {
+                        "date": {
+                            "after": "Sonra",
+                            "before": "Önce",
+                            "between": "Arasında",
+                            "empty": "Boş",
+                            "equals": "Eşittir",
+                            "not": "Değildir",
+                            "notBetween": "Dışında",
+                            "notEmpty": "Dolu"
                         },
-                        "cells": {
-                            "1": "1 hücre seçildi",
-                            "_": "%d hücre seçildi"
+                        "number": {
+                            "between": "Arasında",
+                            "empty": "Boş",
+                            "equals": "Eşittir",
+                            "gt": "Büyüktür",
+                            "gte": "Büyük eşittir",
+                            "lt": "Küçüktür",
+                            "lte": "Küçük eşittir",
+                            "not": "Değildir",
+                            "notBetween": "Dışında",
+                            "notEmpty": "Dolu"
                         },
+                        "string": {
+                            "contains": "İçerir",
+                            "empty": "Boş",
+                            "endsWith": "İle biter",
+                            "equals": "Eşittir",
+                            "not": "Değildir",
+                            "notEmpty": "Dolu",
+                            "startsWith": "İle başlar",
+                            "notContains": "İçermeyen",
+                            "notStartsWith": "Başlamayan",
+                            "notEndsWith": "Bitmeyen"
+                        },
+                        "array": {
+                            "contains": "İçerir",
+                            "empty": "Boş",
+                            "equals": "Eşittir",
+                            "not": "Değildir",
+                            "notEmpty": "Dolu",
+                            "without": "Hariç"
+                        }
+                    },
+                    "data": "Veri",
+                    "deleteTitle": "Filtreleme kuralını silin",
+                    "leftTitle": "Kriteri dışarı çıkart",
+                    "logicAnd": "ve",
+                    "logicOr": "veya",
+                    "rightTitle": "Kriteri içeri al",
+                    "title": {
+                        "0": "Arama Oluşturucu",
+                        "_": "Arama Oluşturucu (%d)"
+                    },
+                    "value": "Değer",
+                    "clearAll": "Filtreleri Temizle"
+                },
+                "searchPanes": {
+                    "clearMessage": "Hepsini Temizle",
+                    "collapse": {
+                        "0": "Arama Bölmesi",
+                        "_": "Arama Bölmesi (%d)"
+                    },
+                    "count": "{total}",
+                    "countFiltered": "{shown}\/{total}",
+                    "emptyPanes": "Arama Bölmesi yok",
+                    "loadMessage": "Arama Bölmeleri yükleniyor ...",
+                    "title": "Etkin filtreler - %d",
+                    "showMessage": "Tümünü Göster",
+                    "collapseMessage": "Tümünü Gizle"
+                },
+                "thousands": ".",
+                "datetime": {
+                    "amPm": [
+                        "öö",
+                        "ös"
+                    ],
+                    "hours": "Saat",
+                    "minutes": "Dakika",
+                    "next": "Sonraki",
+                    "previous": "Önceki",
+                    "seconds": "Saniye",
+                    "unknown": "Bilinmeyen",
+                    "weekdays": {
+                        "6": "Paz",
+                        "5": "Cmt",
+                        "4": "Cum",
+                        "3": "Per",
+                        "2": "Çar",
+                        "1": "Sal",
+                        "0": "Pzt"
+                    },
+                    "months": {
+                        "9": "Ekim",
+                        "8": "Eylül",
+                        "7": "Ağustos",
+                        "6": "Temmuz",
+                        "5": "Haziran",
+                        "4": "Mayıs",
+                        "3": "Nisan",
+                        "2": "Mart",
+                        "11": "Aralık",
+                        "10": "Kasım",
+                        "1": "Şubat",
+                        "0": "Ocak"
+                    }
+                },
+                "decimal": ",",
+                "editor": {
+                    "close": "Kapat",
+                    "create": {
+                        "button": "Yeni",
+                        "submit": "Kaydet",
+                        "title": "Yeni kayıt oluştur"
+                    },
+                    "edit": {
+                        "button": "Düzenle",
+                        "submit": "Güncelle",
+                        "title": "Kaydı düzenle"
+                    },
+                    "error": {
+                        "system": "Bir sistem hatası oluştu (Ayrıntılı bilgi)"
+                    },
+                    "multi": {
+                        "info": "Seçili kayıtlar bu alanda farklı değerler içeriyor. Seçili kayıtların hepsinde bu alana aynı değeri atamak için buraya tıklayın; aksi halde her kayıt bu alanda kendi değerini koruyacak.",
+                        "noMulti": "Bu alan bir grup olarak değil ancak tekil olarak düzenlenebilir.",
+                        "restore": "Değişiklikleri geri al",
+                        "title": "Çoklu değer"
+                    },
+                    "remove": {
+                        "button": "Sil",
+                        "confirm": {
+                            "_": "%d adet kaydı silmek istediğinize emin misiniz?",
+                            "1": "Bu kaydı silmek istediğinizden emin misiniz?"
+                        },
+                        "submit": "Sil",
+                        "title": "Kayıtları sil"
+                    }
+                },
+                "stateRestore": {
+                    "creationModal": {
+                        "button": "Kaydet",
                         "columns": {
-                            "1": "1 sütun seçildi",
-                            "_": "%d sütun seçildi"
-                        }
+                            "search": "Kolon Araması",
+                            "visible": "Kolon Görünümü"
+                        },
+                        "name": "Görünüm İsmi",
+                        "order": "Sıralama",
+                        "paging": "Sayfalama",
+                        "scroller": "Kaydırma (Scrool)",
+                        "search": "Arama",
+                        "searchBuilder": "Arama Oluşturucu",
+                        "select": "Seçimler",
+                        "title": "Yeni Görünüm Oluştur",
+                        "toggleLabel": "Kaydedilecek Olanlar"
                     },
-                    "autoFill": {
-                        "cancel": "İptal",
-                        "fillHorizontal": "Hücreleri yatay olarak doldur",
-                        "fillVertical": "Hücreleri dikey olarak doldur",
-                        "fill": "Bütün hücreleri <i>%d<\/i> ile doldur"
-                    },
-                    "buttons": {
-                        "collection": "Koleksiyon <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
-                        "colvis": "Sütun görünürlüğü",
-                        "colvisRestore": "Görünürlüğü eski haline getir",
-                        "copySuccess": {
-                            "1": "1 satır panoya kopyalandı",
-                            "_": "%ds satır panoya kopyalandı"
-                        },
-                        "copyTitle": "Panoya kopyala",
-                        "csv": "CSV",
-                        "excel": "Excel",
-                        "pageLength": {
-                            "-1": "Bütün satırları göster",
-                            "_": "%d satır göster"
-                        },
-                        "pdf": "PDF",
-                        "print": "Yazdır",
-                        "copy": "Kopyala",
-                        "copyKeys": "Tablodaki veriyi kopyalamak için CTRL veya u2318 + C tuşlarına basınız. İptal etmek için bu mesaja tıklayın veya escape tuşuna basın.",
-                        "createState": "Şuanki Görünümü Kaydet",
-                        "removeAllStates": "Tüm Görünümleri Sil",
-                        "removeState": "Aktif Görünümü Sil",
-                        "renameState": "Aktif Görünümün Adını Değiştir",
-                        "savedStates": "Kaydedilmiş Görünümler",
-                        "stateRestore": "Görünüm -&gt; %d",
-                        "updateState": "Aktif Görünümün Güncelle"
-                    },
-                    "searchBuilder": {
-                        "add": "Koşul Ekle",
-                        "button": {
-                            "0": "Arama Oluşturucu",
-                            "_": "Arama Oluşturucu (%d)"
-                        },
-                        "condition": "Koşul",
-                        "conditions": {
-                            "date": {
-                                "after": "Sonra",
-                                "before": "Önce",
-                                "between": "Arasında",
-                                "empty": "Boş",
-                                "equals": "Eşittir",
-                                "not": "Değildir",
-                                "notBetween": "Dışında",
-                                "notEmpty": "Dolu"
-                            },
-                            "number": {
-                                "between": "Arasında",
-                                "empty": "Boş",
-                                "equals": "Eşittir",
-                                "gt": "Büyüktür",
-                                "gte": "Büyük eşittir",
-                                "lt": "Küçüktür",
-                                "lte": "Küçük eşittir",
-                                "not": "Değildir",
-                                "notBetween": "Dışında",
-                                "notEmpty": "Dolu"
-                            },
-                            "string": {
-                                "contains": "İçerir",
-                                "empty": "Boş",
-                                "endsWith": "İle biter",
-                                "equals": "Eşittir",
-                                "not": "Değildir",
-                                "notEmpty": "Dolu",
-                                "startsWith": "İle başlar",
-                                "notContains": "İçermeyen",
-                                "notStartsWith": "Başlamayan",
-                                "notEndsWith": "Bitmeyen"
-                            },
-                            "array": {
-                                "contains": "İçerir",
-                                "empty": "Boş",
-                                "equals": "Eşittir",
-                                "not": "Değildir",
-                                "notEmpty": "Dolu",
-                                "without": "Hariç"
-                            }
-                        },
-                        "data": "Veri",
-                        "deleteTitle": "Filtreleme kuralını silin",
-                        "leftTitle": "Kriteri dışarı çıkart",
-                        "logicAnd": "ve",
-                        "logicOr": "veya",
-                        "rightTitle": "Kriteri içeri al",
-                        "title": {
-                            "0": "Arama Oluşturucu",
-                            "_": "Arama Oluşturucu (%d)"
-                        },
-                        "value": "Değer",
-                        "clearAll": "Filtreleri Temizle"
-                    },
-                    "searchPanes": {
-                        "clearMessage": "Hepsini Temizle",
-                        "collapse": {
-                            "0": "Arama Bölmesi",
-                            "_": "Arama Bölmesi (%d)"
-                        },
-                        "count": "{total}",
-                        "countFiltered": "{shown}\/{total}",
-                        "emptyPanes": "Arama Bölmesi yok",
-                        "loadMessage": "Arama Bölmeleri yükleniyor ...",
-                        "title": "Etkin filtreler - %d",
-                        "showMessage": "Tümünü Göster",
-                        "collapseMessage": "Tümünü Gizle"
-                    },
-                    "thousands": ".",
-                    "datetime": {
-                        "amPm": [
-                            "öö",
-                            "ös"
-                        ],
-                        "hours": "Saat",
-                        "minutes": "Dakika",
-                        "next": "Sonraki",
-                        "previous": "Önceki",
-                        "seconds": "Saniye",
-                        "unknown": "Bilinmeyen",
-                        "weekdays": {
-                            "6": "Paz",
-                            "5": "Cmt",
-                            "4": "Cum",
-                            "3": "Per",
-                            "2": "Çar",
-                            "1": "Sal",
-                            "0": "Pzt"
-                        },
-                        "months": {
-                            "9": "Ekim",
-                            "8": "Eylül",
-                            "7": "Ağustos",
-                            "6": "Temmuz",
-                            "5": "Haziran",
-                            "4": "Mayıs",
-                            "3": "Nisan",
-                            "2": "Mart",
-                            "11": "Aralık",
-                            "10": "Kasım",
-                            "1": "Şubat",
-                            "0": "Ocak"
-                        }
-                    },
-                    "decimal": ",",
-                    "editor": {
-                        "close": "Kapat",
-                        "create": {
-                            "button": "Yeni",
-                            "submit": "Kaydet",
-                            "title": "Yeni kayıt oluştur"
-                        },
-                        "edit": {
-                            "button": "Düzenle",
-                            "submit": "Güncelle",
-                            "title": "Kaydı düzenle"
-                        },
-                        "error": {
-                            "system": "Bir sistem hatası oluştu (Ayrıntılı bilgi)"
-                        },
-                        "multi": {
-                            "info": "Seçili kayıtlar bu alanda farklı değerler içeriyor. Seçili kayıtların hepsinde bu alana aynı değeri atamak için buraya tıklayın; aksi halde her kayıt bu alanda kendi değerini koruyacak.",
-                            "noMulti": "Bu alan bir grup olarak değil ancak tekil olarak düzenlenebilir.",
-                            "restore": "Değişiklikleri geri al",
-                            "title": "Çoklu değer"
-                        },
-                        "remove": {
-                            "button": "Sil",
-                            "confirm": {
-                                "_": "%d adet kaydı silmek istediğinize emin misiniz?",
-                                "1": "Bu kaydı silmek istediğinizden emin misiniz?"
-                            },
-                            "submit": "Sil",
-                            "title": "Kayıtları sil"
-                        }
-                    },
-                    "stateRestore": {
-                        "creationModal": {
-                            "button": "Kaydet",
-                            "columns": {
-                                "search": "Kolon Araması",
-                                "visible": "Kolon Görünümü"
-                            },
-                            "name": "Görünüm İsmi",
-                            "order": "Sıralama",
-                            "paging": "Sayfalama",
-                            "scroller": "Kaydırma (Scrool)",
-                            "search": "Arama",
-                            "searchBuilder": "Arama Oluşturucu",
-                            "select": "Seçimler",
-                            "title": "Yeni Görünüm Oluştur",
-                            "toggleLabel": "Kaydedilecek Olanlar"
-                        },
-                        "duplicateError": "Bu Görünüm Daha Önce Tanımlanmış",
-                        "emptyError": "Görünüm Boş Olamaz",
-                        "emptyStates": "Herhangi Bir Görünüm Yok",
-                        "removeJoiner": "ve",
-                        "removeSubmit": "Sil",
-                        "removeTitle": "Görünüm Sil",
-                        "renameButton": "Değiştir",
-                        "renameLabel": "Görünüme Yeni İsim Ver -&gt; %s:",
-                        "renameTitle": "Görünüm İsmini Değiştir",
-                        "removeConfirm": "Görünümü silmek istediğinize emin misiniz?",
-                        "removeError": "Görünüm silinemedi"
-                    },
+                    "duplicateError": "Bu Görünüm Daha Önce Tanımlanmış",
+                    "emptyError": "Görünüm Boş Olamaz",
+                    "emptyStates": "Herhangi Bir Görünüm Yok",
+                    "removeJoiner": "ve",
+                    "removeSubmit": "Sil",
+                    "removeTitle": "Görünüm Sil",
+                    "renameButton": "Değiştir",
+                    "renameLabel": "Görünüme Yeni İsim Ver -&gt; %s:",
+                    "renameTitle": "Görünüm İsmini Değiştir",
+                    "removeConfirm": "Görünümü silmek istediğinize emin misiniz?",
+                    "removeError": "Görünüm silinemedi"
+                },
 
 
-                }
+            }
         });
     </script>
 </body>

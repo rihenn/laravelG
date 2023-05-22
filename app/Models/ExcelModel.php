@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ExcelModel extends Model
 {
     use HasFactory;
+    public $timestamps = true;
      protected $table="giriscikis";
 
     protected $fillable=["id","ad_soyad","firma","firmaGC","tarih","saat","GC","updated_at","created_up"];

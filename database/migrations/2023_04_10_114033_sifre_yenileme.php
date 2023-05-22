@@ -13,7 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-      
+        Schema::create('sifreyenileme', function (Blueprint $table) {
+            $table->id();
+            $table->string('gmail');
+            $table->string('kod');
+            $table->integer('durumu');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('sifreyenileme');
         
     }
 };

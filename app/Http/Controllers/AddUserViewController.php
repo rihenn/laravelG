@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Device;
+
+
 
 
 class AddUserViewController extends Controller
 {
     public function checkboxValue(){
-        $cihazdata = DB::table("cihazlar")
-        ->get();
+        $cihazdata = Device::get();
         $AllData=[];
       foreach ($cihazdata as $dat) {
         $data=[
@@ -20,6 +20,6 @@ class AddUserViewController extends Controller
         ];  
         $AllData []=$data; 
     }
-      return view("zkt-update",["allData"=>$AllData]);
+      return view("deviceUserAdd",["allData"=>$AllData]);
     }
 }

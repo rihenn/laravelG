@@ -11,6 +11,7 @@ class UserAddWebController extends Controller
     public function AddWebUser(Request $request)
     {
         $name = $request->input("name");
+        $admin = $request->input("admin");
         $cardno = $request->input("cardno");
         $mail = $request->input("mail");
         $tel = $request->input("tel");
@@ -25,81 +26,86 @@ class UserAddWebController extends Controller
                     if (isset($passwordt)) {
                         if (isset($görev)) {
                             if (isset($kulad)) {
-                            if (isset($kardno)) {
+                            if (isset($cardno)) {
                                
                             
                             if ($password == $passwordt) {
-                                $user = Users::create([
+                                if ($admin == 1) {
+                                    $adminlik = 1;
+                                }else{
+                                    $adminlik = 0;
+                                }
+                                 Users::create([
+                                    
                                     'nameSurename' => $name,
-                                    'cardname'=>null,
                                     'mail' => $mail,
                                     'username'=>$kulad,
                                     'tel' => $tel,
                                     'password' => $password,
                                     'cardno'=>$cardno,
                                     'görev' => $görev, 
-                                    'admin'=> 0,
+                                    'admin'=> $adminlik,
                                 ]);
                                 return redirect()->back();
                             }else{
                                 $htmlMessage = '<div class="alert alert-danger" role="alert">
-                                lütfen şifre alanlarını doğru giriniz alanını doldurunuz seçiniz.
+                                lütfen şifre alanlarını doğru giriniz alanını doldurunuz .
                               </div>';
                                     Session::flash('message', $htmlMessage);
                                     return redirect()->back();
                                }  
                             }else{
                                 $htmlMessage = '<div class="alert alert-danger" role="alert">
-                                lütfen kart no giriniz alanını doldurunuz seçiniz.
+                                lütfen kart no  alanını doldurunuz .
                               </div>';
                                     Session::flash('message', $htmlMessage);
                                     return redirect()->back();
                                }  
                             }else{
                                 $htmlMessage = '<div class="alert alert-danger" role="alert">
-                                lütfen kullanıcı adı giriniz alanını doldurunuz seçiniz.
+                                lütfen kullanıcı adı giriniz alanını doldurunuz .
                               </div>';
                                     Session::flash('message', $htmlMessage);
                                     return redirect()->back();
                                }  
                         }else{
                             $htmlMessage = '<div class="alert alert-danger" role="alert">
-                            lütfen görev alanını doldurunuz seçiniz.
+                            lütfen görev alanını doldurunuz .
                           </div>';
                                 Session::flash('message', $htmlMessage);
                                 return redirect()->back();
                            }
                     }else{
                         $htmlMessage = '<div class="alert alert-danger" role="alert">
-                        lütfen şifre tekrar alanını doldurunuz seçiniz.
+                        lütfen şifre tekrar alanını doldurunuz .
                       </div>';
                             Session::flash('message', $htmlMessage);
                             return redirect()->back();
                        }
                 }else{
                     $htmlMessage = '<div class="alert alert-danger" role="alert">
-                    lütfen şifre alanını doldurunuz seçiniz.
+                    lütfen şifre alanını doldurunuz .
                   </div>';
                         Session::flash('message', $htmlMessage);
                         return redirect()->back();
                    }
             }else{
                 $htmlMessage = '<div class="alert alert-danger" role="alert">
-                lütfen tel alanını doldurunuz seçiniz.
+                lütfen tel alanını doldurunuz .
               </div>';
                     Session::flash('message', $htmlMessage);
                     return redirect()->back();
                }
            }else{
             $htmlMessage = '<div class="alert alert-danger" role="alert">
-            lütfen mail alanını doldurunuz seçiniz.
+            lütfen mail alanını doldurunuz .
           </div>';
                 Session::flash('message', $htmlMessage);
                 return redirect()->back();
            }
         }else{
             $htmlMessage = '<div class="alert alert-danger" role="alert">
-            lütfen ad soyad alanını doldurunuz seçiniz.
+            lütfen ad soyad alanını doldurunuz .
             </div>';
                   Session::flash('message', $htmlMessage);
                   return redirect()->back();

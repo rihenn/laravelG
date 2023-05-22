@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SifreKodModels;
+use App\Models\Users;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 
 class SifreGüncellemeController extends Controller
 {
@@ -20,8 +22,7 @@ class SifreGüncellemeController extends Controller
 
         $sifre = $request->input('password');
         $sifret = $request->input('passwordt');
-        $veriler = DB::table("sifreyenileme")
-            ->where("yenilemeKodu", "=", $kod4)
+        $veriler = SifreKodModels::where("yenilemeKodu", "=", $kod4)
             ->get();
 
 
@@ -38,8 +39,7 @@ class SifreGüncellemeController extends Controller
 
 
                 if (isset($sifre)) {
-                    $veriler = DB::table("kullaniciler")
-                        ->where("mail", "=", $mail)
+                    $veriler = Users::where("mail", "=", $mail)
                         ->get();
                     foreach ($veriler as $value) {
                         $sifreler = $value->password;
@@ -49,11 +49,11 @@ class SifreGüncellemeController extends Controller
                         return back();
                     } else {
 
-                        DB::table("kullaniciler")->where("mail", $mail)->update([
+                        Users::where("mail", $mail)->update([
                             "password" => $sifre,
 
                         ]);
-                        DB::table("sifreyenileme")->where("yenilemeKodu", $kod4)->update([
+                        SifreKodModels::where("yenilemeKodu", $kod4)->update([
                             "durumu" => 0,
 
                         ]);

@@ -154,7 +154,7 @@
     <link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body> 
     <nav id="div2" class="navbar navbar-expand" style="width:100%;">
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
@@ -173,12 +173,24 @@
                 </li>
 
                 <li class="nav-item">
-                    <a id="btn" class="btn mx-2 mt-2" href="{{ route('anasayfa') }}">Ana Sayfa</a>
+                    <a  class="btn mx-2 mt-2 btn-primary text-white" href="{{ route('anasayfa') }}">Ana Sayfa</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a id="btn" class="btn mt-2" href="{{ route('excel') }}">Veri
-                        Ekleme</a>
-                </li> --}}
+                <li class="nav-item">
+                     <div class="dropdown">
+                        <button class="btn dropdown-toggle btn-primary mt-2 mx-2" 
+                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ route('UserData') }}">kullanıcılar</a>
+                            <a class="dropdown-item" href="{{ route('timeData') }}">kullanıcılar Mesai</a>
+                            <a class="dropdown-item" href="{{ route('webadduser') }}">Kullanıcı Ekle (web)</a>
+                            <a class="dropdown-item" href="{{ route('userUpdate') }}">Kullanıcı Ekle (Cihaz)</a>
+                            <a class="dropdown-item" href="{{ route('deviceData') }}">Cihazlar</a>
+                            <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a>
+                        </div>
+                    </div>
+                </li> 
 
 
 
@@ -215,7 +227,7 @@
             </form>
 
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownMenuButton"
+                <button class="btn btn-primary dropdown-toggle btn-primary m-2" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Cihazdaki kullanıcıları Yazdır
                 </button>
@@ -278,7 +290,7 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
 
     <script>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Users;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Session;
 
 
@@ -87,8 +87,7 @@ class DüzenleController extends Controller
 
     public function getValue(){
         $id = session('sid');
-        $veriler = DB::table("kullaniciler")
-        ->where("id", "=", $id)
+        $veriler = Users::where("id", "=", $id)
         ->get();
         $allData=[];
     foreach ($veriler as  $value) {

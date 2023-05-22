@@ -219,7 +219,7 @@
                                             <a id="submit" name="submit" class="btn" href="{{route('ProfilController')}}">Geri
                                                 Dön</a>
 
-                                            <button type="submit1" name="submit" class="btn">Güncelle</button>
+                                            <button type="submit1" name="submit" class="btn btn-primary">Güncelle</button>
 
                                         </div>
                                     </div>

@@ -11,10 +11,9 @@
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png"
         type="image/png" sizes="16x16">
 
-    <link rel="stylesheet" href="../css/profil.css">
+ 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
@@ -176,12 +175,24 @@
                 </li>
 
                 <li class="nav-item">
-                    <a id="btn" class="btn mx-2 mt-2" href="{{ route('anasayfa') }}">Ana Sayfa</a>
+                    <a  class="btn mx-2 mt-2 btn-primary text-white" href="{{ route('anasayfa') }}">Ana Sayfa</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a id="btn" class="btn mt-2" href="{{ route('excel') }}">Veri
-                        Ekleme</a>
-                </li> --}}
+                 <li class="nav-item">
+                  <div class="dropdown">
+                        <button class="btn dropdown-toggle mt-2 mx-2 btn-primary" 
+                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ route('UserData') }}">kullanıcılar</a>
+                            <a class="dropdown-item" href="{{ route('timeData') }}">kullanıcılar Mesai</a>
+                            <a class="dropdown-item" href="{{ route('webadduser') }}">Kullanıcı Ekle (web)</a>
+                            <a class="dropdown-item" href="{{ route('userUpdate') }}">Kullanıcı Ekle (Cihaz)</a>
+                            <a class="dropdown-item" href="{{ route('deviceData') }}">Cihazlar</a>
+                            <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a>
+                        </div>
+                    </div>
+                </li>
 
                 <div class="d-flex position-absolute top-0 end-0">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4"
@@ -195,14 +206,7 @@
     </nav>
 
 
-
-
     <div class="container bg-light pt-2 mt-5">
-
-
-
-
-       
 
                 <table class="table" id="disp">
                     <thead>
@@ -232,12 +236,8 @@
            
     
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
     <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
     <script>
         $(function() {

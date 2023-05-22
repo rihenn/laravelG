@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
+
+use App\Models\SifreKodModels;
+use App\Models\Users;
+
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\log;
+
 
 
 class MailController extends Controller
@@ -16,8 +19,7 @@ class MailController extends Controller
         $mail = $request->input('gmail');
         $sifrelenmiş_gmail=password_hash($mail,PASSWORD_DEFAULT);
         
-        $veriler = DB::table("kullaniciler")
-        ->where("mail", "=", $mail)
+        $veriler = Users::where("mail", "=", $mail)
         ->get();
     foreach ($veriler as  $value) {
    
@@ -34,7 +36,7 @@ class MailController extends Controller
           'date' => date("y-m-d"), 
           "url"=>$url
         ];
-        DB::table('sifreyenileme')->insert([
+        SifreKodModels::insert([
             "gmail"=>$eposta,
             "yenilemeKodu"=>"$sifrelenmiş_gmail",
             "durumu"=>1

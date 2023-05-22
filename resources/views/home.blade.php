@@ -199,13 +199,14 @@
                         
                     
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle mt-2 mx-2" style=" background-color: #2087cd;color:white"
+                        <button class="btn dropdown-toggle mt-2 mx-2 btn-primary text-white"
                             type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Admin
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{{ route('UserData') }}">kullanıcılar</a>
                             <a class="dropdown-item" href="{{ route('timeData') }}">kullanıcılar Mesai</a>
+                            <a class="dropdown-item" href="{{ route('webadduser') }}">Kullanıcı Ekle (web)</a>
                             <a class="dropdown-item" href="{{ route('userUpdate') }}">Kullanıcı Ekle (Cihaz)</a>
                             <a class="dropdown-item" href="{{ route('deviceData') }}">Cihazlar</a>
                             <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a>

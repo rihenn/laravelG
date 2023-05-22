@@ -56,7 +56,7 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
-     
+        'sifre.yenileme' => \App\Http\Middleware\sifreYenilemeMiddleware::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'checklogin' => \App\Http\Middleware\CheckLogin::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

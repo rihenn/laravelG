@@ -14,6 +14,7 @@ class Users extends Model
     protected $fillable = [
         'id',
         'nameSurename',
+        'cardno',
         'mail',
         'tel',
         'username',

@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\Veri;
 use Illuminate\Http\Request;
 
 
 class DateController extends Controller
 {
-
-
-
 
     public function date(Request $request)
     {
@@ -34,8 +31,7 @@ class DateController extends Controller
             $toplam_saat = 0;
             $toplam_dakika = 0;
             
-            $veriler = DB::table("giriscikis")
-                ->where("ad_soyad", "=", "ERTEGUN FIDAN")
+            $veriler =Veri::where("ad_soyad", "=", "ERTEGUN FIDAN")
                 ->get();
             foreach ($veriler as  $value) {
                 $tarih = $value->tarih;
@@ -150,8 +146,7 @@ class DateController extends Controller
         }
 
     
-        $veriler = DB::table("giriscikis")
-            ->where("ad_soyad", "=", "ERTEGUN FIDAN" )
+        $veriler = Veri::where("ad_soyad", "=", "ERTEGUN FIDAN" )
             ->whereBetween('tarih', [$min, $max])
             ->select("tarih","ad_soyad")
             ->distinct()
@@ -177,9 +172,7 @@ class DateController extends Controller
         };
 
 
-        $veriler = DB::table("giriscikis")
-
-            ->select("ad_soyad")
+        $veriler = Veri::select("ad_soyad")
             ->distinct()
             ->get();
 

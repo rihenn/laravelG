@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Device;
+
+
 class DeviceController extends Controller
 {
     public function DiveceData(){
         $cihazAllData = [];
-        $cihazdata = DB::table("cihazlar")
-          ->get();
+        $cihazdata = Device::get();
         foreach ($cihazdata as $dat) {
           $cihazData = [
             "id" => $dat->id,

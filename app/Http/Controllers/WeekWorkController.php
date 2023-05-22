@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Veri;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Mockery\Undefined;
+
 
 class WeekWorkController extends Controller
 {
@@ -24,8 +24,7 @@ class WeekWorkController extends Controller
             $unix_timestamp1 = 0;
             $toplam_saat = 0;
             $toplam_dakika = 0;
-            $veriler = DB::table("giriscikis")
-                ->where("ad_soyad", "=", $kul)
+            $veriler = Veri::where("ad_soyad", "=", $kul)
                 ->get();
             foreach ($veriler as  $value) {
                 $tarih = $value->tarih;
@@ -138,9 +137,7 @@ class WeekWorkController extends Controller
         $ts = 0;
         $td = 0;
         $sayac = 0;
-        $veriler = DB::table("giriscikis")
-
-            ->where("ad_soyad", "=", $kul)
+        $veriler = Veri::where("ad_soyad", "=", $kul)
             ->whereBetween('tarih', [$min, $max])
             ->select("tarih", "ad_soyad")
             ->distinct()
@@ -183,8 +180,7 @@ class WeekWorkController extends Controller
         };
 
 
-        $veriler = DB::table("giriscikis")
-            ->select("ad_soyad")
+        $veriler = Veri::select("ad_soyad")
             ->distinct()
             ->get();
 

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ZtkModels extends Model
+class DiveceUsers extends Model
 {
     use HasFactory;
 
-    protected $table ="Cihazlar";
-    
-    protected $fillable = ['id','ip','port','cihazname'];
+    protected $table="diveceusers";
+
+    protected $fillable=["id","uid","name","role","password","cardno","cihazId"];
 }

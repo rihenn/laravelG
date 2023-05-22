@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Device;
+use App\Models\DiveceUsers;
 use App\Models\Veri;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Rats\Zkteco\Lib\ZKTeco;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -15,9 +16,11 @@ class ZktController extends Controller
   public function index(Request $request)
   {
     $id = $request->input('cihazId');
-    DB::table('deviceUsers')->where('cihazId', $id)->delete();
-    $cihazdata = DB::table("cihazlar")
-      ->where("id", "=", $id)
+
+    if (!Schema::hasTable('DiveceUsers')) {
+      DiveceUsers::where('cihazId', $id)->delete();
+  }
+    $cihazdata = Device::where("id", "=", $id)
       ->get();
     foreach ($cihazdata as $dat) {
       $ip = $dat->ip;
@@ -28,7 +31,7 @@ class ZktController extends Controller
     $zk->disableDevice();
     $users = $zk->getUser();
     foreach ($users as $user) {
-      DB::table('deviceUsers')->insert([
+      DiveceUsers::insert([
         [
           'id' => $user['userid'],
           'uid' => $user['uid'],
@@ -53,8 +56,7 @@ class ZktController extends Controller
     $id = $request->input('sırala');
     session()->put('cihazId', $id);
     $cihazAllData = [];
-    $cihazdata = DB::table("cihazlar")
-      ->get();
+    $cihazdata = Device::get();
     foreach ($cihazdata as $dat) {
       $cihazData = [
         "id" => $dat->id,
@@ -109,8 +111,7 @@ class ZktController extends Controller
     if (isset($veriler)) {
 
       $allData = [];
-      $cihazdata = DB::table("cihazlar")
-        ->get();
+      $cihazdata = Device::get();
       foreach ($cihazdata as $dat) {
 
         foreach ($veriler as $veri) {
@@ -138,8 +139,7 @@ class ZktController extends Controller
 
               $userId = [];
               $userUID = [];
-              $sayac = 0;
-              $sayac1 = 0;
+             
               foreach ($users as $user) {
                 $userId[] = intval($user["userid"]);
                 $userUID[] = $user["uid"];
@@ -185,8 +185,7 @@ class ZktController extends Controller
     $port = "4370";
 
 
-    $cihazdata = DB::table("cihazlar")
-      ->where("id", $CihazId)
+    $cihazdata = Device::where("id", $CihazId)
       ->get();
     foreach ($cihazdata as $dat) {
 
@@ -211,8 +210,7 @@ class ZktController extends Controller
     $port = "4370";
     $id = $request->input('sırala');
 
-    $cihazdata = DB::table("cihazlar")
-      ->where("id", $CihazId)
+    $cihazdata = Device::where("id", $CihazId)
       ->get();
     foreach ($cihazdata as $dat) {
 
@@ -233,8 +231,7 @@ class ZktController extends Controller
     $cardno = $request->input('cardno');
 
 
-    DB::table('deviceusers')
-      ->where('id', "=", $id)
+    DiveceUsers::where('id', "=", $id)
       ->where("cihazId", "=", $CihazId)
       ->update(['uid' => $uid, 'id' => $id, 'name' => $name, 'role' => $role, 'password' => $password, 'CardNo' => $cardno]);
     $zk->connect();
@@ -255,8 +252,7 @@ class ZktController extends Controller
     $cihazname = "Giriş";
     $id = $request->input('sırala');
     $cihazAllData = [];
-    $cihazdata = DB::table("cihazlar")
-      ->get();
+    $cihazdata = Device::get();
     foreach ($cihazdata as $dat) {
       $cihazData = [
         "id" => $dat->id,
@@ -292,8 +288,7 @@ class ZktController extends Controller
     
     $id = $request->input('sırala');
    
-    $cihazdata = DB::table("cihazlar")
-      ->get();
+    $cihazdata = Device::get();
     foreach ($cihazdata as $dat) {
       
       $cihaz_id = $dat->id;
@@ -312,7 +307,7 @@ class ZktController extends Controller
     $zk->disableDevice();
     $attendaces = $zk->getAttendance();
     $users = $zk->getUser();
-    $veriler =DB::table("deviceusers")->where("cihazId","=",$cihaz_id)->get();
+    $veriler =DiveceUsers::where("cihazId","=",$cihaz_id)->get();
     foreach($veriler as $veri)
     {
       $name = $veri->name;

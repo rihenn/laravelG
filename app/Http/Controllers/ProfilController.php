@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+use App\Models\Users;
 use Illuminate\Support\Facades\Session;
-use Rats\Zkteco\Lib\ZKTeco;
+
 
 class ProfilController extends Controller
 {
     function profil(){
         $sid = Session::get('sid');
       
-        $veriler = DB::table("kullaniciler")
-                ->where("id", "=", $sid)
+        $veriler = Users::where("id", "=", $sid)
                 ->get();
                 $allData=[];
             foreach ($veriler as  $value) {
