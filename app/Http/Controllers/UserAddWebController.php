@@ -40,6 +40,7 @@ class UserAddWebController extends Controller
                                     'nameSurename' => $name,
                                     'mail' => $mail,
                                     'username'=>$kulad,
+                                    'profilurl'=>" ",
                                     'tel' => $tel,
                                     'password' => $password,
                                     'cardno'=>$cardno,
