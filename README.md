@@ -6,7 +6,7 @@
  
  <h2>Kurulum</h2>
  
-<li> ilk kurulumda "php artisan migrate" komutu çalıştırılacak.</li><br>
+<li> ilk kurulumda "php artisan migrate" komutu çalıştırılacak.</li>
 
  <li>ikinci olarak "php artisan db::seed --class=UsersSeeder" komutu çalıştırılacak.</li>
 
