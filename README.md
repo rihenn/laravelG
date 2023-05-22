@@ -1,5 +1,9 @@
   <h2>Grup Arge</h2>  
     
+ <h4>laravel framework 9.52.5 </h4> 
+ 
+ php 7.4
+   
  ilk kurulumda "php artisan migrate" komutu çalıştırılacak.
 
  ikinci olarak "php artisan db::seed --class=UsersSeeder" komutu çalıştırılacak.
