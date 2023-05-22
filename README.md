@@ -6,18 +6,18 @@
  
  <h2>Kurulum</h2>
  
- ilk kurulumda "php artisan migrate" komutu çalıştırılacak.
+<li> ilk kurulumda "php artisan migrate" komutu çalıştırılacak.</li>
 
- ikinci olarak "php artisan db::seed --class=UsersSeeder" komutu çalıştırılacak.
+ <li>ikinci olarak "php artisan db::seed --class=UsersSeeder" komutu çalıştırılacak.</li>
 
- login kısmında ilk kurulumda kullanıcı adı: Admin şifre:1234.
+<li> login kısmında ilk kurulumda kullanıcı adı: Admin şifre:1234.</li>
 
- Admin butonundan cihaz eklede Giris ve Cıkıs olarak cihazlarınızın bilgilerini doldurunuz.
+<li> Admin butonundan cihaz eklede Giris ve Cıkıs olarak cihazlarınızın bilgilerini doldurunuz.</li>
 
- sonra kullanıcılara tıklayıp veri tabanına yazdır diyip kullanıcılarınızı cihazdan veri tabanına yazdırın.
+<li> sonra kullanıcılara tıklayıp veri tabanına yazdır diyip kullanıcılarınızı cihazdan veri tabanına yazdırın.</li>
 
- kullanıcı mesai kısmnına girip verilerinizi database yazdırın.
+<li> kullanıcı mesai kısmnına girip verilerinizi database yazdırın.</li>
 
- kullanıcı eklemek için "kullanıcı ekle (web)" kısmından webe giris için kullanıcı ekleyebilirsiniz.
+<li> kullanıcı eklemek için "kullanıcı ekle (web)" kısmından webe giris için kullanıcı ekleyebilirsiniz.</li>
 
- Cihaza kullanıcı eklemek için "Kullanıcı ekle (cihaz)" kısmından ekleyebilirsiniz.
+<li> Cihaza kullanıcı eklemek için "Kullanıcı ekle (cihaz)" kısmından ekleyebilirsiniz.</li>
