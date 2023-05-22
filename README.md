@@ -1,3 +1,5 @@
+  <h2>Grup Arge</h2>  
+    
  ilk kurulumda "php artisan migrate" komutu çalıştırılacak.
 
  ikinci olarak "php artisan db::seed --class=UsersSeeder" komutu çalıştırılacak.
