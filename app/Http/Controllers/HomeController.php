@@ -13,9 +13,10 @@ class HomeController extends Controller
 {
     public function value(Request $request)
     {
+        $sid = Session::get('sid');
         
         $profilurl = "";
-        $veriler = Users::where("id", "=", 2)
+        $veriler = Users::where("id", "=", $sid)
             ->get();
         foreach ($veriler as $veri) {
             $profilurl = $veri->profilurl;
