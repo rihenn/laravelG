@@ -1,4 +1,4 @@
-  <h1>Grup Arge</h1>  
+ <h1>Grup Arge</h1>  
     
  <h4>laravel framework 9.52.5 </h4> 
  
@@ -10,7 +10,7 @@
 
  <li>ikinci olarak "php artisan db::seed --class=UsersSeeder" komutu çalıştırılacak.</li>
 
-<li> login kısmında ilk kurulumda kullanıcı adı: Admin şifre:1234.</li>
+<li> login kısmında ilk kurulumda kullanıcı adı: Admin şifre:1234 </li>
 
 <li> Admin butonundan cihaz eklede Giris ve Cıkıs olarak cihazlarınızın bilgilerini doldurunuz.</li>
 
