@@ -364,15 +364,20 @@
     <div class="wrapper fadeInDown">
         <div id="formContent">
             <!-- Tabs Titles -->
-
+            
             <!-- Icon -->
             <div style="background-color: #f6f6f6;-webkit-border-radius: 0 0 ;border-radius:10px 10px 0 0 ;"
                 class="fadeIn first">
+                @if(Session::has('message'))
+            {!! Session::get('message') !!}
+        @endif
                 <img src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-44.png" id="icon"
                     alt="User Icon" style="height: 55px;width: auto;" />
+                    
             </div>
-
+            
             <!-- Login Form -->
+            
             <form style="background-color: #f6f6f6;" action="{{route('user')}}" method="post">
               
                 @csrf

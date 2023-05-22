@@ -39,11 +39,17 @@ class LoginController extends Controller
                 Session::put('sid', $id);
                 Session::put('adminlik', $admin);
                 return redirect()->route('anasayfa');
+            }else{
+                $htmlMessage = '<div class="alert alert-danger" role="alert">
+                kullaıcı adı veya şifreniz hatalıdır.
+              </div>';
+                    Session::flash('message', $htmlMessage);
+                return view('login');
             }
                 
             
         }
-        return view('login');
+        
         
 
         
