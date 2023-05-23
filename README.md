@@ -2,7 +2,7 @@
     
  <h4>laravel framework 9.52.5 </h4> 
  
- <h4>php 7.4</h4>
+ <h4>php 8.0</h4>
  
  <h2>Kurulum</h2>
  
