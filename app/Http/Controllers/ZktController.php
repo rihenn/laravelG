@@ -329,12 +329,12 @@ class ZktController extends Controller
             'CihazId' => $cihaz_id,
           ];
           
-            Veri::insertOrIgnore($data);
+            
           
         }
       }
     }
-
+    Veri::insertOrIgnore($data);
     return redirect()->back();
   }
 }
