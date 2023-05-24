@@ -14,11 +14,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sifreyenileme', function (Blueprint $table) {
+        Schema::create('pdks-password_reset', function (Blueprint $table) {
             $table->id();
-            $table->string('gmail');
-            $table->string('kod');
-            $table->integer('durumu');
+            $table->string('mail');
+            $table->string('refresh_token');
+            $table->integer('refresh_status');
             $table->timestamps();
         });
     }
@@ -30,7 +30,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sifreyenileme');
+        Schema::dropIfExists('pdks-password_reset');
         
     }
 };

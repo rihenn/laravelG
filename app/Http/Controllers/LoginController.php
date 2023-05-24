@@ -15,36 +15,31 @@ class LoginController extends Controller
         $kul = $request->input('login');
         $pass = $request->input('password');
         
-        $users = Users::all();
+        $users = Users::get();
         foreach($users as $user)
         {
             $id = $user->id;
             $admin = $user->admin;
           
             $mail = $user->mail;
-     
-            $username = $user->username;
+            
+            $username = $user->user_name;
             $password = $user->password;
             
 
             if($kul == $username  && $pass == $password){
                 
-    
+               
                 Session::put('sid', $id);
                 Session::put('adminlik', $admin);
                 
                 return redirect()->route('anasayfa');
-            }
-            if($kul == $mail  && $pass == $password){
+            }elseif($kul == $mail  && $pass == $password){
+
                 Session::put('sid', $id);
                 Session::put('adminlik', $admin);
                 return redirect()->route('anasayfa');
-            }else{
-                $htmlMessage = '<div class="alert alert-danger" role="alert">
-                kullaıcı adı veya şifreniz hatalıdır.
-              </div>';
-                    Session::flash('message', $htmlMessage);
-                return view('login');
+                
             }
                 
             

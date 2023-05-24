@@ -17,11 +17,11 @@ class ProfilController extends Controller
             foreach ($veriler as  $value) {
                 $url =public_path('img\photo-1497366754035-f200968a6e72.png');
                 $data=[
-                "ad" => $value->nameSurename,
+                "ad" => $value->name_surename,
                 "mail" => $value->mail,
-                "tel"    => $value->tel,
-                "profil"    => $value->profilurl,
-                "görev"    => $value->görev,
+                "tel"    => $value->telephone,
+                "profil"    => $value->profile_url,
+                "görev"    => $value->task,
                 "url" =>$url,
                 ];
                 $allData[]=$data;

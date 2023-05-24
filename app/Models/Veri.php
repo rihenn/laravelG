@@ -9,16 +9,14 @@ class Veri extends Model
 {
     use HasFactory;
 
-    protected $table="giriscikis";
+    protected $table="pdks-entry_exit";
     protected $fillable=[
-        'id',
+        
         'pId',
         'uid',
-        'ad_soyad',
-        'firmaGC',
-        'tarih',
-        'saat',
-        'GC',
-       
+        'name_surname',
+        'divece_id',
+        'date_record',
+        'input_output',
     ];
 }

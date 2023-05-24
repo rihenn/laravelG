@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class SifreKodModels extends Model
 {
     use HasFactory;
-    protected $table = 'sifreyenileme';
+    protected $table = 'pdks-password_reset';
 
     protected $fillable = [
-        'gmail',
-        'yenilemeKodu',
-        'durumu',
+        'mail',
+        'refresh_token',
+        'refresh_status',
     ];
 }

@@ -196,22 +196,20 @@
 
                 <li>
                     @if (session('adminlik') == 1)
-                        
-                    
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle mt-2 mx-2 btn-primary text-white"
-                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Admin
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{{ route('UserData') }}">kullanıcılar</a>
-                            <a class="dropdown-item" href="{{ route('timeData') }}">kullanıcılar Mesai</a>
-                            <a class="dropdown-item" href="{{ route('webadduser') }}">Kullanıcı Ekle (web)</a>
-                            <a class="dropdown-item" href="{{ route('userUpdate') }}">Kullanıcı Ekle (Cihaz)</a>
-                            <a class="dropdown-item" href="{{ route('deviceData') }}">Cihazlar</a>
-                            <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a>
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle mt-2 mx-2 btn-primary text-white" type="button"
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{ route('UserData') }}">kullanıcılar</a>
+                                <a class="dropdown-item" href="{{ route('timeData') }}">kullanıcılar Mesai</a>
+                                <a class="dropdown-item" href="{{ route('webadduser') }}">Kullanıcı Ekle (web)</a>
+                                <a class="dropdown-item" href="{{ route('userUpdate') }}">Kullanıcı Ekle (Cihaz)</a>
+                                <a class="dropdown-item" href="{{ route('deviceData') }}">Cihazlar</a>
+                                <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a>
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </li>
 
@@ -244,10 +242,10 @@
             </ul>
 
 
-    </nav>  
-      <div class="container">
+    </nav>
+    <div class="container">
 
-    {{-- <table style="border:0px;" class="mb-2"  cellspacing="5" cellpadding="5">
+        {{-- <table style="border:0px;" class="mb-2"  cellspacing="5" cellpadding="5">
         <tbody>
             <tr>
                 <td>Minimum date:</td>
@@ -260,16 +258,22 @@
         </tbody>
     </table> --}}
 
-        <form action="{{ route("anasayfa") }}" method="get">
-        <input type="text" name="ay" value="{{$ay}}" hidden>
-        <input type="text" name="yil" value="{{$yil}}" hidden>
-        <input type="submit" class="btn btn-primary" name="önce" value="Önceki">
-        <input type="submit" class="btn btn-primary" name="bu_ay" value="Bu ay">
-        <input type="submit" class="btn btn-primary" name="sonra" value="Sonraki">
-        {{-- <br>
+
+        @if (isset($veri))
+            
+        <form action="{{ route('anasayfa') }}" method="get">
+            <input type="text" name="ay" value="{{ $ay }}" hidden>
+            <input type="text" name="yil" value="{{ $yil }}" hidden>
+            <input type="submit" class="btn btn-primary" name="önce" value="Önceki">
+            <input type="submit" class="btn btn-primary" name="bu_ay" value="Bu ay">
+            <input type="submit" class="btn btn-primary" name="sonra" value="Sonraki">
+            {{-- <br>
         <input type="submit" class="btn btn-dark my-2" name="Yilönce" value="Önceki">
         <input type="submit" class="btn btn-dark my-2" name="buYil" value="Bu yıl">
         <input type="submit" class="btn btn-dark my-2" name="Yilsonra" value="Sonraki"> --}}
+        @endif
+        <input type="submit" class="btn btn-primary" value="test" name="test">
+    
         </form>
 
 
@@ -280,12 +284,14 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
     <script src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script>
-    
+
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -321,18 +327,20 @@
         // });
 
         $(function() {
-            let mydata = {!! json_encode($veri) !!};
+
+            let mydata = {!! json_encode($veri[0]) !!};
+            if (typeof mydata !== 'undefined') {
+
+
             datatableData = [];
             Object.keys(mydata).forEach(function(key) {
-                datatableData.push(mydata[key])
-
-
+                datatableData.push(mydata[key]);
             });
             console.log(datatableData);
             $('#users-table').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
-                     'csv', 'excel', 'pdf'
+                    'csv', 'excel', 'pdf'
                 ],
                 data: datatableData,
                 columns: [
@@ -362,10 +370,7 @@
                         data: 'mesaiSüresi',
                         title: 'Mesai'
                     },
-                    {
-                        data: 'ofisZaman',
-                        title: 'Ofiste geçen Süre'
-                    },
+
                 ],
                 language: {
                     "emptyTable": "Tabloda herhangi bir veri mevcut değil",
@@ -614,8 +619,8 @@
 
 
                 }
-
             });
+        }
 
             // $("#min, #max").on("change", function() {
             //     table.draw();

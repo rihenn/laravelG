@@ -17,8 +17,8 @@ class ZktController extends Controller
   {
     $id = $request->input('cihazId');
 
-    if (!Schema::hasTable('DiveceUsers')) {
-      DiveceUsers::where('cihazId', $id)->delete();
+    if (!Schema::hasTable('pdks-divece_users')) {
+      DiveceUsers::where('divece_number', $id)->delete();
     }
     $cihazdata = Device::where("id", "=", $id)
       ->get();
@@ -30,29 +30,32 @@ class ZktController extends Controller
     $zk->connect();
     $zk->disableDevice();
     $users = $zk->getUser();
+    $data = [];
     foreach ($users as $user) {
-      DiveceUsers::insert([
-        [
-          'id' => $user['userid'],
-          'uid' => $user['uid'],
-          'name' => $user['name'],
-          'role' => $user['role'],
-          'password' => $user['password'],
-          'CardNo' => $user['cardno'],
-          'cihazId' => $id
-        ]
-      ]);
+      $data[] = [
+        'id' => $user['userid'],
+        'uid' => $user['uid'],
+        'name' => $user['name'],
+        'role' => $user['role'],
+        'password' => $user['password'],
+        'card_number' => $user['cardno'],
+        'divece_id' => $id
+      ];
     }
+    DiveceUsers::insert($data);
     return back();
   }
 
 
   public function Userdata(Request $request)
   {
-
-    $ip = "192.168.1.123";
-    $port = "4370";
-    session(['cihazId' => "1"]);
+    
+    $diveceData  = Device::first();
+    $diveceId = $diveceData->id;
+    $ip = $diveceData->ip;
+    $port = $diveceData->port;
+    $cihazname = $diveceData->divece_name;
+    session(['cihazId' => $diveceId]);
     $id = $request->input('sırala');
     session()->put('cihazId', $id);
     $cihazAllData = [];
@@ -60,17 +63,17 @@ class ZktController extends Controller
     foreach ($cihazdata as $dat) {
       $cihazData = [
         "id" => $dat->id,
-        "cihazname" => $dat->cihazname,
+        "cihazname" => $dat->divece_name,
         "ip" => $dat->ip,
       ];
-      $cihazname = "Giris";
+
       $cihazAllData[] = $cihazData;
       $cihaz_id = $dat->id;
       if ($id == $cihaz_id) {
         $port = $dat->port;
         $ip = $dat->ip;
 
-        $cihazname = $dat->cihazname;
+        $cihazname = $dat->divece_name;
       }
     }
 
@@ -78,9 +81,11 @@ class ZktController extends Controller
     $zk = new ZKTeco($ip, $port);
     $zk->connect();
     $zk->disableDevice();
+    //  $name=$zk->deviceName();
     $users = $zk->getUser();
     $users = (array) $users;
     // dd($users);
+    // dd($name);
     return view("userList", ["users" => $users, "cihazAllData" => $cihazAllData, "cihazname" => $cihazname, "Cihazid" => $id]);
   }
 
@@ -110,17 +115,12 @@ class ZktController extends Controller
     $seciliVeriler = [];
     if (isset($veriler)) {
 
-      $allData = [];
       $cihazdata = Device::get();
       foreach ($cihazdata as $dat) {
 
         foreach ($veriler as $veri) {
 
-
           if ($veri == $dat->id) {
-
-
-
 
 
             $ip = $dat->ip;
@@ -226,16 +226,11 @@ class ZktController extends Controller
 
 
     DiveceUsers::where('id', "=", $id)
-      ->where("cihazId", "=", $CihazId)
-      ->update(['uid' => $uid, 'id' => $id, 'name' => $name, 'role' => $role, 'password' => $password, 'CardNo' => $cardno]);
+      ->where("divece_id", "=", $CihazId)
+      ->update(['uid' => $uid, 'id' => $id, 'name' => $name, 'role' => $role, 'password' => $password, 'card_number' => $cardno]);
     $zk->connect();
     $zk->disableDevice();
     $zk->setUser($uid, $id, $name, $password, $role, $cardno);
-    // dd($ip);
-    // $zk->enableDevice();
-
-
-
     return redirect()->back();
   }
 
@@ -250,7 +245,7 @@ class ZktController extends Controller
     foreach ($cihazdata as $dat) {
       $cihazData = [
         "id" => $dat->id,
-        "cihazname" => $dat->cihazname,
+        "cihazname" => $dat->divece_name,
         "ip" => $dat->ip,
       ];
 
@@ -260,7 +255,7 @@ class ZktController extends Controller
         $port = $dat->port;
         $ip = $dat->ip;
 
-        $cihazname = $dat->cihazname;
+        $cihazname = $dat->cihaz_name;
       }
     }
 
@@ -290,8 +285,8 @@ class ZktController extends Controller
       if ($id == $cihaz_id) {
         $port = $dat->port;
         $ip = $dat->ip;
-        $firmaCihazName = $dat->firmaCihazName;
-        $cihazName = $dat->cihazname;
+        $diveceId = $dat->id;
+        $cihazName = $dat->divece_name;
       }
     }
 
@@ -300,41 +295,37 @@ class ZktController extends Controller
     $zk->connect();
     $zk->disableDevice();
     $attendaces = $zk->getAttendance();
-    $users = $zk->getUser();
-
-    $veriler = DiveceUsers::where("cihazId", "=", $cihaz_id)->get();
+    $Alldata = [];
+    $veriler = DiveceUsers::where("divece_id", "=", $cihaz_id)->get();
     foreach ($veriler as $veri) {
       $name = $veri->name;
       $Userid = $veri->id;
-      $cihazId = $veri->cihazId;
+     
+
       foreach ($attendaces as $data) {
 
         $Timeuid = $data["uid"];
         $Timeid = $data["id"];
-        $Timestate = $data["state"];
+        
         $Timestamp = $data["timestamp"];
         if ($Timeid == $Userid) {
-
-
           $tarih = Carbon::parse($Timestamp)->format('Y-m-d');
           $saat = Carbon::parse($Timestamp)->format('H:i:s');
-          $data = [
-            "pId" => $Timeid,
+          
+          $Alldata []= [
+            "person_id" => $Timeid,
             'uid' => $Timeuid,
-            'ad_soyad' => $name,
-            'firmaGC' => $firmaCihazName,
-            'tarih' => $tarih,
-            'saat' => $saat,
-            'GC' => $cihazName,
-            'CihazId' => $cihaz_id,
+            'name_surname' => $name,
+            'divece_id' => $diveceId,
+            'date_record' => $tarih . " " . $saat,
+            'input_output' => $cihazName,
+
           ];
-          
-            
-          
+
         }
       }
     }
-    Veri::insertOrIgnore($data);
+    Veri::insertOrIgnore($Alldata);
     return redirect()->back();
   }
 }

@@ -13,7 +13,7 @@ class DeviceController extends Controller
         foreach ($cihazdata as $dat) {
           $cihazData = [
             "id" => $dat->id,
-            "cihazname" => $dat->cihazname,
+            "divece_name" => $dat->cihazname,
             "ip" => $dat->ip,
             "port" => $dat->port,
             "type" => $dat->type,

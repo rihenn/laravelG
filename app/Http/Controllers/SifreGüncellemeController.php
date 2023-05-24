@@ -22,7 +22,7 @@ class SifreGüncellemeController extends Controller
 
         $sifre = $request->input('password');
         $sifret = $request->input('passwordt');
-        $veriler = SifreKodModels::where("yenilemeKodu", "=", $kod4)
+        $veriler = SifreKodModels::where("refresh_token", "=", $kod4)
             ->get();
 
 
@@ -53,7 +53,7 @@ class SifreGüncellemeController extends Controller
                             "password" => $sifre,
 
                         ]);
-                        SifreKodModels::where("yenilemeKodu", $kod4)->update([
+                        SifreKodModels::where("refresh_token", $kod4)->update([
                             "durumu" => 0,
 
                         ]);

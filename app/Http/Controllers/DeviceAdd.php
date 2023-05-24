@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Device;
 
 class DeviceAdd extends Controller
-{ 
+{  
     public function AddDivece(Request $request){
         $ip = $request->input('ip');
         $port = $request->input('port');
@@ -14,10 +14,10 @@ class DeviceAdd extends Controller
         $cihazname = $request->input('cihazname');
 
         $data=[
-            "cihazname"=>$cihazname,
+            "divece_name"=>$cihazname,
             "ip"=>$ip,
             "port"=>$port,
-            "firmaCihazName"=>$firmaCihazName
+            "company_device_name"=>$firmaCihazName
            ];
            Device::insertOrIgnore($data);
 

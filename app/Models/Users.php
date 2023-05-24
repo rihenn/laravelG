@@ -9,19 +9,18 @@ class Users extends Model
 {
     use HasFactory;
 
-    protected $table = 'kullaniciler';
+    protected $table = 'pdks-web_users';
   
     protected $fillable = [
         'id',
-        'nameSurename',
-        'cardno',
+        'name_surname',
+        'card_number',
         'mail',
-        'tel',
-        'username',
+        'telephone',
+        'user_name',
         'password',
-        'görev',
-        'profilurl',
+        'task',
+        'profile_url',
         'admin',
-
     ];
 }

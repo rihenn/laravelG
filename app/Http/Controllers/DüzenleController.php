@@ -21,10 +21,10 @@ class DüzenleController extends Controller
             $görev = $request->input('görev');
         
             Users::whereId($id)->update([
-                "nameSurename"=>$isim,
+                "name_surname"=>$isim,
                 "mail"=>$gmail,
-                "tel"=>$tel,
-                "görev"=>$görev,
+                "telephone"=>$tel,
+                "task"=>$görev,
             ]);
         }
         
@@ -42,7 +42,7 @@ class DüzenleController extends Controller
             $url = "../img/icons8-person-female-skin-type-1-and-2-80.png";                     
            
             Users::whereId($id)->update([
-                "profilurl"=>$url,
+                "profile_url"=>$url,
                 
             ]);
            
@@ -51,7 +51,7 @@ class DüzenleController extends Controller
             $url = "../img/icons8-person-male-skin-type-6-80.png";      
            
             Users::whereId($id)->update([
-                "profilurl"=>$url,
+                "profile_url"=>$url,
                 
             ]);
              
@@ -60,7 +60,7 @@ class DüzenleController extends Controller
             $url = "../img/icons8-person-male-skin-type-4-80.png";     
            
             Users::whereId($id)->update([
-                "profilurl"=>$url,
+                "profile_url"=>$url,
             ]);
            
         }
@@ -68,7 +68,7 @@ class DüzenleController extends Controller
             $url = "../img/icons8-person-male-skin-type-3-80.png";      
            
             Users::whereId($id)->update([
-                "profilurl"=>$url,
+                "profile_url"=>$url,
                 
             ]);
             
@@ -76,7 +76,7 @@ class DüzenleController extends Controller
             $url = "../img/icons8-person-female-skin-type-5-80.png";
                  
             Users::whereId($id)->update([
-                "profilurl"=>$url,
+                "profile_url"=>$url,
                 
             ]);
         }else{

@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 
 class ExelController extends Controller
 {
-    public function import(Request $request) 
+   /* public function import(Request $request) 
     {
         $file=$request->import_file;
         Excel::import(new ExcelImports, $file,'s3');
        
         return view('excel'); 
        
-    }
+    }*/
 }

@@ -37,14 +37,14 @@ class UserAddWebController extends Controller
                                 }
                                  Users::create([
                                     
-                                    'nameSurename' => $name,
+                                    'name_surname' => $name,
                                     'mail' => $mail,
-                                    'username'=>$kulad,
-                                    'profilurl'=>" ",
-                                    'tel' => $tel,
+                                    'user_name'=>$kulad,
+                                    'profile_url'=>" ",
+                                    'telephone' => $tel,
                                     'password' => $password,
-                                    'cardno'=>$cardno,
-                                    'görev' => $görev, 
+                                    'card_number'=>$cardno,
+                                    'task' => $görev, 
                                     'admin'=> $adminlik,
                                 ]);
                                 return redirect()->back();

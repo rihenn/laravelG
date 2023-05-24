@@ -9,17 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      *
+     * 
      * @return void
      */
     public function up()
     {
-        Schema::create('cihazlar', function (Blueprint $table) {
-            $table->id();
-            $table->string('ip');
-            $table->integer('port');
-            $table->string('cihazname');
-            $table->string('firmaCihazName');
-            $table->string('type');
+        Schema::create('pdks-divece_users', function (Blueprint $table) {
+            $table->string('id');
+            $table->string('uid');
+            $table->string('name');
+            $table->string('role');
+            $table->string('password');
+            $table->string('card_number');
+            $table->string('divece_id');
             $table->timestamps();
         });
     }
@@ -27,12 +29,10 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      *
-     * 
-     * 
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('cihazlar');
+        Schema::dropIfExists('pdks-divece_users');
     }
 };

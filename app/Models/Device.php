@@ -9,7 +9,7 @@ class Device extends Model
 {
     use HasFactory;
     
-    protected $table="cihazlar";
+    protected $table="pdks-devices";
 
-    protected $fillable=["id","ip","port","cihazname","firmaCihazName","type"];
+    protected $fillable=["id","ip","port","divece_name","company_device_name","type"];
 }

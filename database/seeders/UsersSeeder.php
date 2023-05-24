@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Users;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class UsersSeeder extends Seeder
 {
@@ -18,14 +17,14 @@ class UsersSeeder extends Seeder
     {
         $users = [
             [
-                'nameSurename' => 'Admin',
-                'cardno' => ' ',
+                'name_surname' => 'Admin',
+                'card_number' => ' ',
                 'mail' => ' ',
-                'tel' => ' ',
-                'username' => 'Admin',
+                'telephone' => ' ',
+                'user_name' => 'Admin',
                 'password' => '1234',
-                'profilurl' => '',
-                'görev' => 'Admin',
+                'profile_url' => '',
+                'task' => 'Admin',
                 'admin' => true,
             ],
 
@@ -33,6 +32,5 @@ class UsersSeeder extends Seeder
         foreach ($users as $userData) {
             Users::create($userData);
         }
-
     }
 }
