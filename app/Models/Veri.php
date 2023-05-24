@@ -12,11 +12,13 @@ class Veri extends Model
     protected $table="giriscikis";
     protected $fillable=[
         'id',
+        'pId',
         'uid',
         'ad_soyad',
         'firmaGC',
         'tarih',
         'saat',
         'GC',
+       
     ];
 }

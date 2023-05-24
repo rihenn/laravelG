@@ -19,7 +19,7 @@ class ZktController extends Controller
 
     if (!Schema::hasTable('DiveceUsers')) {
       DiveceUsers::where('cihazId', $id)->delete();
-  }
+    }
     $cihazdata = Device::where("id", "=", $id)
       ->get();
     foreach ($cihazdata as $dat) {
@@ -131,7 +131,7 @@ class ZktController extends Controller
             $password = $request->input('password');
             $cardno = $request->input('CardNo');
             if (isset($name) && isset($role) && isset($cardno)) {
-              
+
 
               $zk->connect();
               $zk->disableDevice();
@@ -139,7 +139,7 @@ class ZktController extends Controller
 
               $userId = [];
               $userUID = [];
-             
+
               foreach ($users as $user) {
                 $userId[] = intval($user["userid"]);
                 $userUID[] = $user["uid"];
@@ -151,22 +151,16 @@ class ZktController extends Controller
               $zk->setUser($uid, $id, $name, $password, $role, $cardno);
               $zk->enableDevice();
               return redirect()->back();
-            }else{
+            } else {
               $htmlMessage = '<div class="alert alert-danger" role="alert">
               lütfen alanları doldurunuz seçiniz.
             </div>';
-                  Session::flash('success_message', $htmlMessage);
-                  return redirect()->back();
+              Session::flash('success_message', $htmlMessage);
+              return redirect()->back();
             }
           }
         }
       }
-
-
-
-
-
-     
     } else {
 
       $htmlMessage = '<div class="alert alert-danger" role="alert">
@@ -224,7 +218,7 @@ class ZktController extends Controller
     $name = $request->input('name');
     $role = $request->input('role');
     $password = $request->input('password');
-   
+
     if (!isset($password)) {
       $password = "";
     }
@@ -281,64 +275,66 @@ class ZktController extends Controller
   }
 
 
-  public function DataBaseTimeData(Request $request){
+  public function DataBaseTimeData(Request $request)
+  {
     // dd($request);
     $ip = "192.168.1.123";
     $port = "4370";
-    
+
     $id = $request->input('sırala');
-   
+
     $cihazdata = Device::get();
     foreach ($cihazdata as $dat) {
-      
+
       $cihaz_id = $dat->id;
       if ($id == $cihaz_id) {
         $port = $dat->port;
         $ip = $dat->ip;
-        $firmaCihazName=$dat->firmaCihazName;
-        $cihazName=$dat->cihazname;
-      
+        $firmaCihazName = $dat->firmaCihazName;
+        $cihazName = $dat->cihazname;
       }
     }
-    
+
 
     $zk = new ZKTeco($ip, $port);
     $zk->connect();
     $zk->disableDevice();
     $attendaces = $zk->getAttendance();
     $users = $zk->getUser();
-    $veriler =DiveceUsers::where("cihazId","=",$cihaz_id)->get();
-    foreach($veriler as $veri)
-    {
+
+    $veriler = DiveceUsers::where("cihazId", "=", $cihaz_id)->get();
+    foreach ($veriler as $veri) {
       $name = $veri->name;
-      $Cid = $veri->id;
+      $Userid = $veri->id;
       $cihazId = $veri->cihazId;
-      foreach ($attendaces as $data){
-       $Timeuid= $data["uid"];
-       $Timeid= $data["id"];
-       $Timestate= $data["state"];
-       $Timestamp= $data["timestamp"];
-       if ($Timeid == $Cid) {
-        
-   
-       $tarih = Carbon::parse($Timestamp)->format('Y-m-d');
-       $saat = Carbon::parse($Timestamp)->format('H:i:s');
-       $data=[
-        'uid'=>$Timeuid,
-        'ad_soyad'=>$name,
-        'firmaGC' =>$firmaCihazName,
-        'tarih' =>$tarih,
-        'saat'=>$saat,
-        'GC'=>$cihazName
-       ];
-       Veri::insertOrIgnore($data);
+      foreach ($attendaces as $data) {
+
+        $Timeuid = $data["uid"];
+        $Timeid = $data["id"];
+        $Timestate = $data["state"];
+        $Timestamp = $data["timestamp"];
+        if ($Timeid == $Userid) {
+
+
+          $tarih = Carbon::parse($Timestamp)->format('Y-m-d');
+          $saat = Carbon::parse($Timestamp)->format('H:i:s');
+          $data = [
+            "pId" => $Timeid,
+            'uid' => $Timeuid,
+            'ad_soyad' => $name,
+            'firmaGC' => $firmaCihazName,
+            'tarih' => $tarih,
+            'saat' => $saat,
+            'GC' => $cihazName,
+            'CihazId' => $cihaz_id,
+          ];
+          
+            Veri::insertOrIgnore($data);
+          
+        }
       }
-    
-      }
-    
     }
 
-   return redirect()->route('anasayfa');
- 
+    return redirect()->back();
   }
 }

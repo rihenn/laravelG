@@ -257,7 +257,7 @@
 
         <div class="d-flex justify-content-center">
             <div class="row">
-                <div class="d-flex justify-content-center">
+        
                     <table class="table bg-white" id="disp">
                         <thead>
                             <tr>
@@ -294,7 +294,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
+            
             </div>
         </div>
     </div>

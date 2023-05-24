@@ -31,7 +31,7 @@ class DateController extends Controller
             $toplam_saat = 0;
             $toplam_dakika = 0;
             
-            $veriler =Veri::where("ad_soyad", "=", "ERTEGUN FIDAN")
+            $veriler =Veri::where("ad_soyad", "=", $kul)
                 ->get();
             foreach ($veriler as  $value) {
                 $tarih = $value->tarih;

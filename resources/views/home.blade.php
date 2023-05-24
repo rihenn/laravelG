@@ -328,7 +328,7 @@
 
 
             });
-            
+            console.log(datatableData);
             $('#users-table').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
@@ -361,6 +361,10 @@
                     {
                         data: 'mesaiSüresi',
                         title: 'Mesai'
+                    },
+                    {
+                        data: 'ofisZaman',
+                        title: 'Ofiste geçen Süre'
                     },
                 ],
                 language: {
