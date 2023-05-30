@@ -28,6 +28,7 @@
                 width: 130px
             }
     
+    
             .card-img-top {
                 height: 400px;
                 margin-top: 0px;
@@ -207,8 +208,8 @@
                 <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 
                 <div class="card h-100">
-                    @if(Session::has('success_message'))
-                    {!! Session::get('success_message') !!}
+                    @if(Session::has('message'))
+                    {!! Session::get('message') !!}
                 @endif
                     <form action="{{ route('diveceAdd') }}" method="post">
                             @csrf
@@ -222,12 +223,15 @@
                             <div class="card-body">
                                 <div class="row gutters">
                                     
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2">
                                         <div class="form-group">
-                                            <label for="phone">Cihaz Adı</label>
-                                            <input type="text" class="form-control" id="cihazname"
-                                                placeholder="cihaz adını giriniz" name="cihazname" >
-                                        </div>
+                                            <label for="inputName">Cihaz Adı</label>
+                                            <select class="form-control" name="cihazname" id="inputList">
+                                              <option value="Giriş">Giriş</option>
+                                              <option value="Çıkış">Çıkış</option>
+                                             
+                                            </select>
+                                          </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">

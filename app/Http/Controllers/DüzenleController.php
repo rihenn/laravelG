@@ -91,7 +91,7 @@ class DüzenleController extends Controller
         ->get();
         $allData=[];
     foreach ($veriler as  $value) {
-        $profilurl = $value->profilurl;
+        $profilurl = $value->profile_url;
         $nameSurename = $value->nameSurename;
         $mail = $value->mail;
         $tel = $value->tel;

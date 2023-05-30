@@ -35,6 +35,26 @@ class UserAddWebController extends Controller
                                 }else{
                                     $adminlik = 0;
                                 }
+                                $data=Users::select("user_name","card_number")->get();
+                                foreach($data as $dat){
+                                    if ($kulad == $dat->user_name) {
+                                        $htmlMessage = '<div class="alert alert-danger" role="alert">
+                                        girdiğiniz kullanıcı adı sisteme kayıtlıdır  lütfen başka bir kullanıcı adı seçiniz .
+                                      </div>';
+                                            Session::flash('message', $htmlMessage);
+                                            return redirect()->back();
+                                    }elseif ($cardno == $dat->card_number) {
+                                        $htmlMessage = '<div class="alert alert-danger" role="alert">
+                                        girdiğiniz kart numarası sisteme kayıtlıdır .
+                                      </div>';
+                                            Session::flash('message', $htmlMessage);
+                                            return redirect()->back();
+                                    }
+                                }
+                                $htmlMessage = '<div class="alert alert-success" role="alert">
+                                kayıt işlemleri başarılı bir şekilde gerçekleştirilmiştir .
+                              </div>';
+                                    Session::flash('message', $htmlMessage);
                                  Users::create([
                                     
                                     'name_surname' => $name,
@@ -50,7 +70,7 @@ class UserAddWebController extends Controller
                                 return redirect()->back();
                             }else{
                                 $htmlMessage = '<div class="alert alert-danger" role="alert">
-                                lütfen şifre alanlarını doğru giriniz alanını doldurunuz .
+                                lütfen şifre alanlarını doğru giriniz .
                               </div>';
                                     Session::flash('message', $htmlMessage);
                                     return redirect()->back();

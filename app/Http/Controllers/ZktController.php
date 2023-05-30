@@ -17,7 +17,7 @@ class ZktController extends Controller
   {
     $id = $request->input('cihazId');
 
-    if (!Schema::hasTable('pdks-divece_users')) {
+    if (!Schema::hasTable('pdks_divece_users')) {
       DiveceUsers::where('divece_number', $id)->delete();
     }
     $cihazdata = Device::where("id", "=", $id)
@@ -150,6 +150,12 @@ class ZktController extends Controller
 
               $zk->setUser($uid, $id, $name, $password, $role, $cardno);
               $zk->enableDevice();
+
+              $htmlMessage = '<div class="alert alert-danger" role="alert">
+              başarılı bir şekilde kayıt yapıldı.
+            </div>';
+              Session::flash('success_message', $htmlMessage);
+
               return redirect()->back();
             } else {
               $htmlMessage = '<div class="alert alert-danger" role="alert">
@@ -325,6 +331,7 @@ class ZktController extends Controller
         }
       }
     }
+    
     Veri::insertOrIgnore($Alldata);
     return redirect()->back();
   }

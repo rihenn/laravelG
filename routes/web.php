@@ -54,10 +54,11 @@ Route::get('/excel', function () {
     return view('excel');
 })->name("excelekleme")->middleware('checklogin');
 
-Route::get('/userupdate',[AddUserViewController::class,"checkboxValue"])->name("userUpdate")->middleware('checklogin');
+Route::get('/diveceuseradd',[AddUserViewController::class,"checkboxValue"])->name("userUpdate")->middleware('checklogin');
 Route::get('/userlist', [ZktController::class,'Userdata'])->name('UserData')->middleware('checklogin');
 
-Route::get('/home', [HomeController::class,'value'])->name("anasayfa")->middleware('checklogin');
+
+Route::get('/home', [HomeController::class,'value'])->name("anasayfa");
 
 //web kullanıcı ekle
 Route::get('/kullanıcı-ekle',function(){ return view("UserAddWeb"); })->name("webadduser");

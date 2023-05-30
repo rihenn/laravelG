@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pdks-password_reset', function (Blueprint $table) {
+        Schema::create('pdks_password_reset', function (Blueprint $table) {
             $table->id();
             $table->string('mail');
             $table->string('refresh_token');
@@ -30,7 +30,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pdks-password_reset');
+        Schema::dropIfExists('pdks_password_reset');
         
     }
 };

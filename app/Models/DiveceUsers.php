@@ -9,7 +9,9 @@ class DiveceUsers extends Model
 {
     use HasFactory;
 
-    protected $table="pdks-divece_users";
+  
+
+    protected $table="pdks_divece_users";
 
     protected $fillable=["id","uid","name","role","password","card_number","divece_id"];
 }

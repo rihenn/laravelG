@@ -23,8 +23,11 @@ class HomeController extends Controller
             $profilurl = $veri->profile_url;
         };
 
-        $test = $request->input('test');
-    
+        $test = $request->input('search');
+        $searchid = $request->input('id');
+        $searchname = $request->input('nameSurname');
+        $searchcardno = $request->input('cardno');
+
         $ay = date("m");
         $yil = date('Y');
 
@@ -45,30 +48,15 @@ class HomeController extends Controller
             $ay = date('m');
         }
 
-        // $bu_yil = $request->input('yil');
-        // $Yil_önce = $request->input('Yilönce');
-        // $Yil_sonra = $request->input('Yilsonra');
-        // $buYil = $request->input('buYil');
-      
+        $name_surname = Veri::select("name_surname")->distinct()->get();
+    
+        foreach($name_surname as $name){
+            $Namedata[]=[
+                'name' => $name->name_surname,
+            ];
+            
+        };
 
-        // if (isset($Yil_önce)) {
-
-        //     $yil  = $bu_yil-1;
-
-        // }
-        // if (isset($Yil_sonra)) {
-
-        //     $yil = $bu_yil+1;
-
-        // }
-        // if (isset($buYil)) {
-
-        //     $bu_yil =date('Y');
-        //     $yil = date('Y');
-
-
-
-        // }
         /*    function hesaplaCalismaSure($veriler)
         {
             $dat = [];
@@ -160,67 +148,88 @@ class HomeController extends Controller
         $süreler = hesaplaCalismaSure($veriler);
     // dd($süreler);
 */
-if (isset($test)) {
-    // dd($test);
+        if (isset($test)) {
 
-        $sid = Session::get('sid');
-        if (session('adminlik') == 0) {
-            $users = Users::where("id", "=", $sid)->first();
-            $cardno = $users->card_number;
-            $diveceusers = DiveceUsers::where("card_number", "=", $cardno)->first();
-          
-            $trhv = Veri::where("name_surname", "=", $diveceusers->name)
-                ->whereYear('date_record', '=', $yil)
-                ->whereMonth("date_record", "=", $ay)
-                ->select("date_record", "name_surname", "divece_id")
-                ->distinct()
-                ->get();
-        } else{
-            $trhv = Veri::whereYear('date_record', '=', $yil)
-                ->whereMonth("date_record", "=", $ay)
-                ->select("date_record", "name_surname", "divece_id")
-                ->distinct()
-                ->get();
-        }
-        $veri = [];
+            $sid = Session::get('sid');
+            if (session('adminlik') == 0) {
+                $users = Users::where("id", "=", $sid)->first();
+                $cardno = $users->card_number;
+                $diveceusers = DiveceUsers::where("card_number", "=", $cardno)->first();
 
-        foreach ($trhv as $key) {
-            $date_record = $key->date_record;
-            $ad_soyad = $key->name_surname;
-            $divece_id = $key->divece_id;
-            $date = Carbon::parse($date_record);
-        
-            $day = $date->day; 
-            $month = $date->month; 
-            $year = $date->year; 
-        
-            $tarih = $year . '-' . $month . '-' . $day;
-            $trh = sprintf("%02d", $day) . '-' . sprintf("%02d", $month) . '-' . sprintf("%04d", $year);
-        
-            $ilkKayit = Veri::where('name_surname', $ad_soyad)
-                ->where("input_output", "=", "Giriş")
-                ->whereDate("date_record", $tarih)
-                ->orderBy('date_record', 'asc')
-                ->first();
-        
-            $sonKayit = Veri::whereDate("date_record", $tarih)
-                ->where('name_surname', $ad_soyad)
-                ->where("input_output", "=", "Çıkış")
-                ->orderBy('date_record', 'desc')
-                ->first();
-        
+                $trhv = Veri::where("name_surname", "=", $diveceusers->name)
+                    ->whereYear('date_record', '=', $yil)
+                    ->whereMonth("date_record", "=", $ay)
+                    ->select("date_record", "name_surname", "divece_id")
+                    ->distinct()
+                    ->get();
+            } else {
+                $query = Veri::query();
+                if (isset($searchid)) {
+                    $query->where('person_id', $searchid);
+                }
+                if (isset($searchcardno)) {
+                    $query->where('card_number', $searchcardno);
+                }
+                if (isset($searchname)) {
+                    $query->where('name_surname', $searchname);
+                }
+                if (empty($searchcardno) && empty($searchid) && empty($searchname)) {
+                    $mesaj = ' <div class="alert alert-danger"><strong>UYARI!</strong> lütfen kullanıcı bilgilerini doldurunuz .</div>';
+           
+                    return view("home", ["mesaj"=>$mesaj,"profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil,"namelist" => $Namedata]); 
+                }
+                $trhv = $query->whereYear('date_record', '=', $yil)
+                    ->whereMonth("date_record", "=", $ay)
+                    ->select("date_record", "name_surname", "divece_id")
+                    ->distinct()
+                    ->get();
+                if ($trhv->isEmpty()) {
+                    $mesaj = ' <div class="alert alert-danger"><strong>UYARI!</strong> kullanıcı bilgilerini lütfen doğru giriniz .</div>';
+           
+                    return view("home", ["mesaj"=>$mesaj,"profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil,"namelist" => $Namedata]); 
+                }
+         
+
+            }
+            $veri = [];
+
+            foreach ($trhv as $key) {
+                $date_record = $key->date_record;
+                $ad_soyad = $key->name_surname;
+                $divece_id = $key->divece_id;
+                $date = Carbon::parse($date_record);
+
+                $day = $date->day;
+                $month = $date->month;
+                $year = $date->year;
+
+                $tarih = $year . '-' . $month . '-' . $day;
+                $trh = sprintf("%02d", $day) . '-' . sprintf("%02d", $month) . '-' . sprintf("%04d", $year);
+
+                $ilkKayit = Veri::where('name_surname', $ad_soyad)
+                    ->where("input_output", "=", "Giriş")
+                    ->whereDate("date_record", $tarih)
+                    ->orderBy('date_record', 'asc')
+                    ->first();
+
+                $sonKayit = Veri::whereDate("date_record", $tarih)
+                    ->where('name_surname', $ad_soyad)
+                    ->where("input_output", "=", "Çıkış")
+                    ->orderBy('date_record', 'desc')
+                    ->first();
+
 
                 if ($ilkKayit && $sonKayit) {
                     $ilkSaat = $ilkKayit->date_record;
-                    $ilksa = (date("h:i:s",strtotime($ilkSaat)));
+                    $ilksa = (date("h:i:s", strtotime($ilkSaat)));
                     $sonSaat = $sonKayit->date_record;
-                    $sonsa = (date("h:i:s",strtotime($sonSaat)));
+                    $sonsa = (date("h:i:s", strtotime($sonSaat)));
 
                     $ilkS = Carbon::parse($ilkKayit->date_record);
                     $sonS = Carbon::parse($sonKayit->date_record);
                     $saniye_farki = $ilkS->diffInSeconds($sonS, false);
                     $saatFarki = gmdate('H:i:s', $saniye_farki);
-                    
+
                     if ($ilkS < $sonS) {
                         $saat = date("H", strtotime($saatFarki));
                         $dakika = date("i", strtotime($saatFarki));
@@ -231,10 +240,10 @@ if (isset($test)) {
                             'trh' => $trh,
                             'giris' => $ilksa,
                             'cikis' => $sonsa,
-                            'mesaiSüresi' => $saat . " sa " . $dakika . " dk" .$saniye ." sn",
+                            'mesaiSüresi' => $saat . " sa " . $dakika . " dk" . $saniye . " sn",
                         ];
                     } else {
-                        $data []= [
+                        $data[] = [
                             'ad_soyad' => $ad_soyad,
                             'firmaGC' => $divece_id,
                             'trh' => $trh,
@@ -242,12 +251,11 @@ if (isset($test)) {
                             'cikis' => $sonsa,
                             'mesaiSüresi' => "!",
                         ];
-                    }   
-                    
+                    }
                 } elseif ($ilkKayit && !$sonKayit) {
                     $ilkSaat = $ilkKayit->saat;
-                    $ilksa = (date("h:i:s",strtotime($ilkSaat)));
-                    $data []= [
+                    $ilksa = (date("h:i:s", strtotime($ilkSaat)));
+                    $data[] = [
                         'ad_soyad' => $ad_soyad,
                         'firmaGC' => $divece_id,
                         'trh' => $trh,
@@ -255,11 +263,10 @@ if (isset($test)) {
                         'cikis' => "!",
                         'mesaiSüresi' => "!",
                     ];
-                 
                 } elseif (!$ilkKayit && $sonKayit) {
                     $sonSaat = $sonKayit->saat;
-                    $sonsa = (date("h:i:s",strtotime($sonSaat)));
-                    $data []= [
+                    $sonsa = (date("h:i:s", strtotime($sonSaat)));
+                    $data[] = [
                         'ad_soyad' => $ad_soyad,
                         'firmaGC' => $divece_id,
                         'trh' => $trh,
@@ -270,11 +277,13 @@ if (isset($test)) {
                 }
             }
             $veri[] = $data;
- 
+
+            return view("home", ["profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil,"namelist" => $Namedata]);
+        } else {
+            if (isset($Namedata)) {
+                return view("home", ["profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil,"namelist" => $Namedata]);
+            }
+            return view("home", ["profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil]);
         }
-
-
-
-        return view("home", ["profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil]);
     }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pdks-divece_users', function (Blueprint $table) {
+        Schema::create('pdks_divece_users', function (Blueprint $table) {
             $table->string('id');
             $table->string('uid');
             $table->string('name');
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('card_number');
             $table->string('divece_id');
-            $table->timestamps();
+
         });
     }
 
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pdks-divece_users');
+        Schema::dropIfExists('pdks_divece_users');
     }
 };

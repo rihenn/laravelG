@@ -12,13 +12,16 @@ class LoginController extends Controller
     
     public function login(Request $request){
         
-        $kul = $request->input('login');
+        $userName = $request->input('login');
         $pass = $request->input('password');
+      
         
-        $users = Users::get();
+        $users = Users::select("id","user_name" , "password", "mail","admin")->get();
+    
         foreach($users as $user)
         {
             $id = $user->id;
+        
             $admin = $user->admin;
           
             $mail = $user->mail;
@@ -27,26 +30,27 @@ class LoginController extends Controller
             $password = $user->password;
             
 
-            if($kul == $username  && $pass == $password){
+            if($userName == $username  && $pass == $password){
                 
                
                 Session::put('sid', $id);
                 Session::put('adminlik', $admin);
                 
                 return redirect()->route('anasayfa');
-            }elseif($kul == $mail  && $pass == $password){
+            }elseif($userName == $mail  && $pass == $password){
 
                 Session::put('sid', $id);
                 Session::put('adminlik', $admin);
                 return redirect()->route('anasayfa');
                 
-            }
+            } 
                 
             
         }
-        
-        
-
-        
+        $htmlMessage = '<div class="alert alert-danger" role="alert">
+        kullanıcı adı ve ya sifreniz yanlış .
+       </div>';
+             Session::flash('message', $htmlMessage);
+        return redirect()->back();
     }
 }

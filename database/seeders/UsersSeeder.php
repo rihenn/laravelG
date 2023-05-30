@@ -24,7 +24,7 @@ class UsersSeeder extends Seeder
                 'user_name' => 'Admin',
                 'password' => '1234',
                 'profile_url' => '',
-                'task' => 'Admin',
+                'task' => '',
                 'admin' => true,
             ],
 

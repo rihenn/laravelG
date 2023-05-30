@@ -9,7 +9,7 @@ class Users extends Model
 {
     use HasFactory;
 
-    protected $table = 'pdks-web_users';
+    protected $table = 'pdks_web_users';
   
     protected $fillable = [
         'id',
