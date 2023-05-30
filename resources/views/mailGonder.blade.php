@@ -57,7 +57,7 @@ try {
                 @if (isset($mesaj))
                     {!! $mesaj !!}
                 @endif
-                <input type="text" id="login" class="fadeIn second" name="gmail" placeholder="e-mail">
+                <input type="text" id="mail" class="fadeIn second" name="gmail" placeholder="e-mail">
                 <input type="submit" class="fadeIn fourth butn" value="e-mail Gönder" style=" background-color:#00ADB5;">
             </form>
 
