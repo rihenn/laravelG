@@ -292,7 +292,7 @@
                             <label for="inputEmail">Kart Numarası</label>
                             <input type="text" class="form-control" name="cardNo" placeholder="Kart Numarası">
                         </div>
-                        <input type="submit" class="btn btn-primary mx-3 mb-2" name="search" value="Ara">
+                        <input type="submit" id class="btn btn-primary mx-3 mb-2" name="search" value="Ara">
 
                     </form>
                 </div>
@@ -301,13 +301,15 @@
 
 
         @php
-            $a = $veri[0] == !null;
+            $a = $veri[0] ==! null;
         @endphp
 
         <form action="{{ route('anasayfa') }}" method="get">
             @if ($a == true)
                 <input type="text" name="ay" value="{{ $ay }}" hidden>
                 <input type="text" name="yil" value="{{ $yil }}" hidden>
+                <input type="text" name="veri" value="" hidden>
+               
                 <input type="submit" class="btn btn-primary" name="önce" value="Önceki">
                 <input type="submit" class="btn btn-primary" name="bu_ay" value="Bu ay">
                 <input type="submit" class="btn btn-primary" name="sonra" value="Sonraki">
@@ -344,6 +346,16 @@
 
     <script>
         $(function() {
+            $(".search").click(function() {
+                var id = $("input[name=id]").val();
+                var cardNo = $("input[name=cardNo]").val();
+                var nameSurname = $("input[name=nameSurname]").val();
+                var veriFromURL = getUrlParameter("veri");
+                var finalVeri = veriFromURL ? veriFromURL + ", " + id + ", " + cardNo + ", " + nameSurname :
+                    id + ", " + cardNo + ", " + nameSurname;
+                $("input[name=veri]").val(finalVeri);
+                $("#form2").submit();
+            });
 
             $(document).ready(function() {
                 $("#openModalButton").click(function() {
@@ -366,7 +378,7 @@
             Object.keys(mydata).forEach(function(key) {
                 datatableData.push(mydata[key]);
             });
-
+            console.log(datatableData);
             $('#users-table').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
@@ -379,10 +391,10 @@
                         data: 'ad_soyad',
                         title: 'ad soyad'
                     },
-                    {
-                        data: 'firmaGC',
-                        title: 'firma'
-                    },
+                    // {
+                    //     data: 'firmaGC',
+                    //     title: 'firma'
+                    // },
                     {
                         data: 'trh',
                         title: 'tarih'
@@ -656,6 +668,11 @@
             //     table.draw();
             // });
         });
+
+        function getUrlParameter(parameterName) {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(parameterName);
+        }
     </script>
 
 </body>

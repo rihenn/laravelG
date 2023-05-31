@@ -49,12 +49,11 @@ class HomeController extends Controller
         }
 
         $name_surname = Veri::select("name_surname")->distinct()->get();
-    
-        foreach($name_surname as $name){
-            $Namedata[]=[
+
+        foreach ($name_surname as $name) {
+            $Namedata[] = [
                 'name' => $name->name_surname,
             ];
-            
         };
 
         /*    function hesaplaCalismaSure($veriler)
@@ -175,8 +174,8 @@ class HomeController extends Controller
                 }
                 if (empty($searchcardno) && empty($searchid) && empty($searchname)) {
                     $mesaj = ' <div class="alert alert-danger"><strong>UYARI!</strong> lütfen kullanıcı bilgilerini doldurunuz .</div>';
-           
-                    return view("home", ["mesaj"=>$mesaj,"profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil,"namelist" => $Namedata]); 
+
+                    return view("home", ["mesaj" => $mesaj, "profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
                 }
                 $trhv = $query->whereYear('date_record', '=', $yil)
                     ->whereMonth("date_record", "=", $ay)
@@ -185,103 +184,152 @@ class HomeController extends Controller
                     ->get();
                 if ($trhv->isEmpty()) {
                     $mesaj = ' <div class="alert alert-danger"><strong>UYARI!</strong> kullanıcı bilgilerini lütfen doğru giriniz .</div>';
-           
-                    return view("home", ["mesaj"=>$mesaj,"profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil,"namelist" => $Namedata]); 
+
+                    return view("home", ["mesaj" => $mesaj, "profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
                 }
-         
-
             }
-            $veri = [];
-
+            $data = [];
             foreach ($trhv as $key) {
-                $date_record = $key->date_record;
-                $ad_soyad = $key->name_surname;
-                $divece_id = $key->divece_id;
+                // Verileri diziye aktar
+                $data[] = [
+                    'date_record' => $key->date_record,
+                    'name_surname' => $key->name_surname,
+                    'divece_id' => $key->divece_id,
+                ];
+            }
+            
+            $veri = [];
+            
+            foreach ($data as $key) {
+                $date_record = $key['date_record'];
+                $ad_soyad = $key['name_surname'];
+                $divece_id = $key['divece_id'];
                 $date = Carbon::parse($date_record);
-
+            
                 $day = $date->day;
                 $month = $date->month;
                 $year = $date->year;
-
+            
                 $tarih = $year . '-' . $month . '-' . $day;
                 $trh = sprintf("%02d", $day) . '-' . sprintf("%02d", $month) . '-' . sprintf("%04d", $year);
-
+            
                 $ilkKayit = Veri::where('name_surname', $ad_soyad)
-                    ->where("input_output", "=", "Giriş")
+                    ->where("input_output", "Giriş")
                     ->whereDate("date_record", $tarih)
                     ->orderBy('date_record', 'asc')
                     ->first();
-
-                $sonKayit = Veri::whereDate("date_record", $tarih)
-                    ->where('name_surname', $ad_soyad)
-                    ->where("input_output", "=", "Çıkış")
+            
+                $sonKayit = Veri::where('name_surname', $ad_soyad)
+                    ->where("input_output", "Çıkış")
+                    ->whereDate("date_record", $tarih)
                     ->orderBy('date_record', 'desc')
                     ->first();
-
-
+            
                 if ($ilkKayit && $sonKayit) {
                     $ilkSaat = $ilkKayit->date_record;
-                    $ilksa = (date("h:i:s", strtotime($ilkSaat)));
+                    $ilksa = date("H:i:s", strtotime($ilkSaat));
                     $sonSaat = $sonKayit->date_record;
-                    $sonsa = (date("h:i:s", strtotime($sonSaat)));
-
+                    $sonsa = date("H:i:s", strtotime($sonSaat));
+            
                     $ilkS = Carbon::parse($ilkKayit->date_record);
                     $sonS = Carbon::parse($sonKayit->date_record);
                     $saniye_farki = $ilkS->diffInSeconds($sonS, false);
                     $saatFarki = gmdate('H:i:s', $saniye_farki);
-
+            
                     if ($ilkS < $sonS) {
                         $saat = date("H", strtotime($saatFarki));
                         $dakika = date("i", strtotime($saatFarki));
                         $saniye = date("s", strtotime($saatFarki));
-                        $data[] = [
+                        $newData = [
                             'ad_soyad' => $ad_soyad,
-                            'firmaGC' => $divece_id,
+                            // 'firmaGC' => $divece_id,
                             'trh' => $trh,
                             'giris' => $ilksa,
                             'cikis' => $sonsa,
-                            'mesaiSüresi' => $saat . " sa " . $dakika . " dk" . $saniye . " sn",
+                            'mesaiSüresi' => $saat . " sa " . $dakika . " dk " . $saniye . " sn",
                         ];
+                        $duplicate = false;
+                        foreach ($veri as $item) {
+                            if (empty(array_diff_assoc($item, $newData))) {
+                                $duplicate = true;
+                                break;
+                            }
+                        }
+                        if (!$duplicate) {
+                            $veri[] = $newData;
+                        }
                     } else {
-                        $data[] = [
+                        $newData = [
                             'ad_soyad' => $ad_soyad,
-                            'firmaGC' => $divece_id,
+                            // 'firmaGC' => $divece_id,
                             'trh' => $trh,
                             'giris' => $ilksa,
                             'cikis' => $sonsa,
                             'mesaiSüresi' => "!",
                         ];
+                        $duplicate = false;
+                        foreach ($veri as $item) {
+                            if (empty(array_diff_assoc($item, $newData))) {
+                                $duplicate = true;
+                                break;
+                            }
+                        }
+                        if (!$duplicate) {
+                            $veri[] = $newData;
+                        }
                     }
                 } elseif ($ilkKayit && !$sonKayit) {
-                    $ilkSaat = $ilkKayit->saat;
-                    $ilksa = (date("h:i:s", strtotime($ilkSaat)));
-                    $data[] = [
+                    $ilkSaat = $ilkKayit->date_record;
+                    $ilksa = date("H:i:s", strtotime($ilkSaat));
+                    $newData = [
                         'ad_soyad' => $ad_soyad,
-                        'firmaGC' => $divece_id,
+                        // 'firmaGC' => $divece_id,
                         'trh' => $trh,
                         'giris' => $ilksa,
                         'cikis' => "!",
                         'mesaiSüresi' => "!",
                     ];
+                    $duplicate = false;
+                    foreach ($veri as $item) {
+                        if (empty(array_diff_assoc($item, $newData))) {
+                            $duplicate = true;
+                            break;
+                        }
+                    }
+                    if (!$duplicate) {
+                        $veri[] = $newData;
+                    }
                 } elseif (!$ilkKayit && $sonKayit) {
-                    $sonSaat = $sonKayit->saat;
-                    $sonsa = (date("h:i:s", strtotime($sonSaat)));
-                    $data[] = [
+                    $sonSaat = $sonKayit->date_record;
+                    $sonsa = date("H:i:s", strtotime($sonSaat));
+                    $newData = [
                         'ad_soyad' => $ad_soyad,
-                        'firmaGC' => $divece_id,
+                        // 'firmaGC' => $divece_id,
                         'trh' => $trh,
                         'giris' => "!",
                         'cikis' => $sonsa,
                         'mesaiSüresi' => "!",
                     ];
+                    $duplicate = false;
+                    foreach ($veri as $item) {
+                        if (empty(array_diff_assoc($item, $newData))) {
+                            $duplicate = true;
+                            break;
+                        }
+                    }
+                    if (!$duplicate) {
+                        $veri[] = $newData;
+                    }
                 }
             }
-            $veri[] = $data;
-
-            return view("home", ["profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil,"namelist" => $Namedata]);
+            
+            
+       $datadate[] = $veri;
+      
+            return view("home", ["profilurl" => $profilurl, "veri" => $datadate, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
         } else {
             if (isset($Namedata)) {
-                return view("home", ["profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil,"namelist" => $Namedata]);
+                return view("home", ["profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
             }
             return view("home", ["profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil]);
         }
