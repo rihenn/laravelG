@@ -267,7 +267,7 @@
                         <input type="hidden" name="CihazName" value="{{ $cihazname }}">
                         @csrf
                     </form>
-                    <table class="table" id="disp">
+                    <table class="table bg-white table-responsive-sm" id="disp">
                         <thead>
                             <tr>
                                 <th scope="col">UID</th>
