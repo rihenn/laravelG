@@ -304,6 +304,7 @@ class ZktController extends Controller
     $Alldata = [];
     $veriler = DiveceUsers::where("divece_id", "=", $cihaz_id)->get();
     foreach ($veriler as $veri) {
+      $card_no = $veri -> card_number;
       $name = $veri->name;
       $Userid = $veri->id;
      
@@ -320,7 +321,6 @@ class ZktController extends Controller
           
           $Alldata []= [
             "person_id" => $Timeid,
-            'uid' => $Timeuid,
             'name_surname' => $name,
             'divece_id' => $diveceId,
             'date_record' => $tarih . " " . $saat,

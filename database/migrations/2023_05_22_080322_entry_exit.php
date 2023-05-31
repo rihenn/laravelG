@@ -16,12 +16,10 @@ return new class extends Migration
     {
         Schema::create('pdks_entry_exit', function (Blueprint $table) {
         
-            $table->string('uid');
             $table->string('person_id');
             $table->string('name_surname');
             $table->string('divece_id');
             $table->dateTime('date_record');
-
             $table->unique(['divece_id', 'date_record']);
             $table->string('input_output');
            

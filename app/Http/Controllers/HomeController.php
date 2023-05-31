@@ -59,97 +59,6 @@ class HomeController extends Controller
             ];
         };
 
-        /*    function hesaplaCalismaSure($veriler)
-        {
-            $dat = [];
-
-            foreach ($veriler as $veri) {
-                $toplamCalismaSaat = 0;
-                $tarih = $veri["tarih"];
-                $id = $veri["id"];
-                $ad_soyad = $veri["ad_soyad"];
-                $girisSaati = strtotime($veri["giris"]);
-                $cikisSaati = strtotime($veri["cikis"]);
-
-                if (!isset($dat[$tarih][$ad_soyad])) {
-                    $dat[$tarih][$ad_soyad] = 0;
-                }
-
-                $calismaSuresi = $cikisSaati - $girisSaati;
-                $dat[$tarih][$ad_soyad] += $calismaSuresi;
-            }
-
-            $sonuclar = [];
-            foreach ($dat as $tarih => $veri) {
-                foreach ($veri as $ad_soyad => $calismaSuresi) {
-                    $toplamCalismaSaat = gmdate('H:i:s', $calismaSuresi);
-                    $sonuclar[] = [
-                        "id" => $id,
-                        "tarih" => $tarih,
-                        "ad_soyad" => $ad_soyad,
-                        "süre" => $toplamCalismaSaat
-                    ];
-                }
-            }
-
-            return $sonuclar;
-        }
-
-
-
-
-        function hazirlaDataTableVerileri($ay, $yil)
-        {
-            $calisanlar = Veri::whereYear('tarih', '=', $yil)->whereMonth("tarih", "=", $ay)->get();
-
-            $veriler = [];
-            $e = 0;
-            foreach ($calisanlar as $calisan) {
-                $tarih = $calisan->tarih;
-                $id = $calisan->pId;
-                $GC = $calisan->GC;
-                $saat = $calisan->saat;
-                $ad_soyad = $calisan->ad_soyad;
-
-                if ($e == 0 && $GC === "Giriş") {
-                    $giris = $saat;
-                    $e = 1;
-                } if ($e == 1 && $GC === "Cıkış"){
-                    $cikis = $saat;
-                    $e = 0;
-                }
-                if (isset($giris) && isset($cikis)) {
-                    $calismaSaati = hesaplaCalismaSaati($tarih, $giris, $cikis);
-
-                    $veriler[] = [
-                        'ad_soyad' => $ad_soyad,
-                        'tarih' => $tarih,
-                        'giris' => $giris,
-                        'cikis' => $cikis,
-                        'saat' => $calismaSaati,
-                        'id' => $id,
-                    ];
-                }
-            }
-
-            return $veriler;
-        }
-
-
-        function hesaplaCalismaSaati($tarih, $giris, $cikis)
-        {
-            $baslangic = new DateTime($tarih . ' ' . $giris); 
-            $bitis = new DateTime($tarih . ' ' . $cikis); 
-
-            $calismaSuresi = $bitis->diff($baslangic)->format('%H:%I:%S'); 
-
-            return $calismaSuresi;
-        }
-
-        $veriler = hazirlaDataTableVerileri($ay, $yil);
-        $süreler = hesaplaCalismaSure($veriler);
-    // dd($süreler);
-*/
         if (isset($test) || session('adminlik') == 0) {
 
             $sid = Session::get('sid');
@@ -158,7 +67,7 @@ class HomeController extends Controller
                 $cardno = $users->card_number;
                 $diveceusers = DiveceUsers::where("card_number", "=", $cardno)->first();
 
-                $trhv = Veri::where("name_surname", "=", $diveceusers->name)
+                $trhv = Veri::where("person_id", "=", $diveceusers->id)
                     ->whereYear('date_record', '=', $yil)
                     ->whereMonth("date_record", "=", $ay)
                     ->select("date_record", "name_surname", "divece_id")
@@ -170,7 +79,9 @@ class HomeController extends Controller
                     $query->where('person_id', $searchid);
                 }
                 if (isset($searchcardno)) {
-                    $query->where('card_number', $searchcardno);
+                    $diveceusers = DiveceUsers::where("card_number", "=", $searchcardno)->first();
+
+                    $query->where("person_id", $diveceusers->id);
                 }
                 if (isset($searchname)) {
                     $query->where('name_surname', $searchname);

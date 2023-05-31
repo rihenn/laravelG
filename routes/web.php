@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DateController;
+use App\Http\Controllers\DetayController;
 use App\Http\Controllers\DeviceAdd;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\DüzenleController;
@@ -42,6 +43,8 @@ Route::get('/cıkıs', function () {
 Route::get('/Red', function () {
     return view('red');
 })->name("Red");
+
+
 Route::get('/Red1', function () {
     return view('red1');
 })->name("Red1");
@@ -53,6 +56,10 @@ Route::get('/Onay', function () {
 Route::get('/excel', function () {
     return view('excel');
 })->name("excelekleme")->middleware('checklogin');
+
+
+Route::post('/detaylar', [DetayController::class , "detaylar"])->name("detaylar");
+Route::get('/detay', function(){ return view("detay") ;})->name("detay");
 
 Route::get('/diveceuseradd',[AddUserViewController::class,"checkboxValue"])->name("userUpdate")->middleware('checklogin');
 Route::get('/userlist', [ZktController::class,'Userdata'])->name('UserData')->middleware('checklogin');

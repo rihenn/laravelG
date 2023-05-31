@@ -248,87 +248,93 @@
 
 
     </nav>
+    <form id="detayform" action="{{ route('detaylar') }}" method="post" class="d-none">
+        @csrf
+
+    </form>
     <div class="container">
 
         @if (session('adminlik') == 1)
-            
-      
-        <div class="container w-50">
-            @if (isset($mesaj))
-                {!! $mesaj !!}
-            @endif
-            <button class="btn btn-primary" id="openModalButton" data-toggle="collapse" data-target="#myCard">Kullanıcı
-                Ara</button>
-
-            <div id="modalOverlay">
-                <div id="modalCard" class="card">
-                    <a id="closeModalButton" class="text-end">
-                        <img src="../img/icons8-x-30.png" style="height:1.5rem ;width:1.5rem" class="text-end"></a>
-                    <form action="{{ route('anasayfa') }}" method="get">
-                        <div class="form-group m-3">
-                            <label for="inputEmail">id</label>
-                            <input type="text" class="form-control" name="id" placeholder="id">
-                        </div>
-                        <div class="form-group">
 
 
+            <div class="container w-50">
+                @if (isset($mesaj))
+                    {!! $mesaj !!}
+                @endif
+                <button class="btn btn-primary" id="openModalButton" data-toggle="collapse"
+                    data-target="#myCard">Kullanıcı Ara</button>
 
-
+                <div id="modalOverlay">
+                    <div id="modalCard" class="card">
+                        <a id="closeModalButton" class="text-end">
+                            <img src="../img/icons8-x-30.png" style="height:1.5rem ;width:1.5rem"
+                                class="text-end"></a>
+                        <form action="{{ route('anasayfa') }}" method="get">
                             <div class="form-group m-3">
-                                <label for="inputName">Ad Soyad</label>
-                                <input type="text" class="form-control bg-white" name="nameSurname"
-                                    id="inputList" list="datalistOptions">
-                                <datalist id="datalistOptions" class="bg-white">
-                                    <option value="">
-                                        @if (isset($namelist))
-                                            @foreach ($namelist as $data)
-                                    <option value="{{ $data['name'] }}">
-                                        @endforeach
-                                        @endif
-
-
-                                </datalist>
+                                <label for="inputEmail">id</label>
+                                <input type="text" class="form-control" name="id" placeholder="id">
                             </div>
-                        </div>
-                        <div class="form-group m-3">
-                            <label for="inputEmail">Kart Numarası</label>
-                            <input type="text" class="form-control" name="cardNo" placeholder="Kart Numarası">
-                        </div>
-                        <input type="submit"  class="btn btn-primary mx-3 mb-2" name="search" value="Ara">
+                            <div class="form-group">
 
-                    </form>
-                </div>
-            </div>
-        </div>
+
+
+
+                                <div class="form-group m-3">
+                                    <label for="inputName">Ad Soyad</label>
+                                    <input type="text" class="form-control bg-white" name="nameSurname"
+                                        id="inputList" list="datalistOptions">
+                                    <datalist id="datalistOptions" class="bg-white">
+                                        <option value="">
+                                            @if (isset($namelist))
+                                                @foreach ($namelist as $data)
+                                        <option value="{{ $data['name'] }}">
+        @endforeach
         @endif
 
-        @php
-            
-            $a = $veri[0] == !null;
-        @endphp
-
-        <form action="{{ route('anasayfa') }}" method="get">
-            @if ($a == true)
-                <input type="text" name="ay" value="{{ $ay }}" hidden>
-                <input type="text" name="yil" value="{{ $yil }}" hidden>
-
-                <input type="hidden" name="id" id="id" value="">
-                <input type="hidden" name="nameSurname" id="nameSurname" value="">
-                <input type="hidden" name="cardNo" id="cardNo" value="">
-                <input type="hidden" name="search" id="search" value="">
-
-                <input type="submit" class="btn btn-primary" name="önce" value="Önceki">
-                <input type="submit" class="btn btn-primary" name="bu_ay" value="Bu ay">
-                <input type="submit" class="btn btn-primary" name="sonra" value="Sonraki">
-            @endif
 
 
-        </form>
+        </datalist>
+    </div>
+    </div>
+    <div class="form-group m-3">
+        <label for="inputEmail">Kart Numarası</label>
+        <input type="text" class="form-control" name="cardNo" placeholder="Kart Numarası">
+    </div>
+    <input type="submit" class="btn btn-primary mx-3 mb-2" name="search" value="Ara">
+
+    </form>
+    </div>
+    </div>
+    </div>
+    @endif
+
+    @php
+        
+        $a = $veri[0] == !null;
+    @endphp
+
+    <form action="{{ route('anasayfa') }}" method="get">
+        @if ($a == true)
+            <input type="text" name="ay" value="{{ $ay }}" hidden>
+            <input type="text" name="yil" value="{{ $yil }}" hidden>
+
+            <input type="hidden" name="id" id="id" value="">
+            <input type="hidden" name="nameSurname" id="nameSurname" value="">
+            <input type="hidden" name="cardNo" id="cardNo" value="">
+            <input type="hidden" name="search" id="search" value="">
+
+            <input type="submit" class="btn btn-primary" name="önce" value="Önceki">
+            <input type="submit" class="btn btn-primary" name="bu_ay" value="Bu ay">
+            <input type="submit" class="btn btn-primary" name="sonra" value="Sonraki">
+        @endif
 
 
-        <table id="users-table" class="display">
+    </form>
 
-        </table>
+
+    <table id="users-table" class="display">
+
+    </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -341,7 +347,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
-    <script src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script>
+
 
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
@@ -353,6 +359,9 @@
 
     <script>
         $(function() {
+
+
+
             var currentUrl = window.location.href;
             var urlParams = new URLSearchParams(currentUrl);
 
@@ -361,7 +370,7 @@
             $('#cardNo').val(urlParams.get('cardNo') || '');
             $('#search').val(urlParams.get('search') || '');
 
-           
+
 
             $(document).ready(function() {
                 $("#openModalButton").click(function() {
@@ -394,29 +403,80 @@
                 columns: [
 
                     {
-                        data: 'ad_soyad',
+                        data: function(data, type) {
+                            if (type == 'display') {
+                                return `<input type='text' name='adSoyad' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.ad_soyad}' disable> `
+
+                            } else {
+
+                                return data.ad_soyad
+                            }
+                        },
                         title: 'ad soyad'
                     },
-                    // {
-                    //     data: 'firmaGC',
-                    //     title: 'firma'
-                    // },
                     {
-                        data: 'trh',
+                        data: function(data, type) {
+                            if (type == 'display') {
+                                return `<input type='text' name='tarih' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.trh}' disable> `
+
+                            } else {
+
+                                return data.trh
+                            }
+                        },
+                       
                         title: 'tarih'
                     },
 
                     {
-                        data: 'giris',
+                        data: function(data, type) {
+                            if (type == 'display') {
+                                return `<input type='text' name='girist' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.giris}' disable> `
+
+                            } else {
+
+                                return data.giris
+                            }
+                        },
+             
                         title: 'Giriş'
                     },
                     {
-                        data: 'cikis',
+                        data: function(data, type) {
+                            if (type == 'display') {
+                                return `<input type='text' name='cikist' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.cikis}' disable> `
+
+                            } else {
+
+                                return data.cikis
+                            }
+                        },
+                    
                         title: 'Çıkış'
                     },
                     {
-                        data: 'mesaiSüresi',
+                        data: function(data, type) {
+                            if (type == 'display') {
+                                return `<input type='text' name='mesaiS' style='background-color: rgba(0, 0, 0, 0);pointer-events: none;border:none; ' value='${data.mesaiSüresi}' disable> `
+
+                            } else {
+
+                                return data.mesaiSüresi
+                            }
+                        },
+             
                         title: 'Mesai'
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return `<input type="button" id= "btn-detay" name="btn-d" class="btn btn-primary btn-d" value="detay...">
+								`;
+                            }
+                            return data;
+                        },
+                        title: "eylemler"
                     },
 
                 ],
@@ -667,9 +727,16 @@
 
 
                 }
+
             });
 
-
+            $('#users-table').on('click', '.btn-d', function() {
+                var row = $(this).closest('tr').clone().appendTo('#detayform');
+                $('#detayform').submit();
+                console.log(row);
+                // Seçilen satırı kullan
+            });
+            document.getElementById("myInput").disabled = true;
             // $("#min, #max").on("change", function() {
             //     table.draw();
             // });

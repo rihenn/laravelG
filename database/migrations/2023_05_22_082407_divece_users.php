@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('card_number');
             $table->string('divece_id');
-
+           
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

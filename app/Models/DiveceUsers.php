@@ -10,7 +10,7 @@ class DiveceUsers extends Model
     use HasFactory;
 
   
-
+    public $timestamps = true;
     protected $table="pdks_divece_users";
 
     protected $fillable=["id","uid","name","role","password","card_number","divece_id"];
