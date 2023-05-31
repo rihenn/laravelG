@@ -17,7 +17,7 @@ class ProfilController extends Controller
             foreach ($veriler as  $value) {
                 $url =public_path('img\photo-1497366754035-f200968a6e72.png');
                 $data=[
-                "ad" => $value->name_surename,
+                "ad" => $value->name_surname,
                 "mail" => $value->mail,
                 "tel"    => $value->telephone,
                 "profil"    => $value->profile_url,
