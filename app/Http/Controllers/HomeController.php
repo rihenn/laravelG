@@ -148,7 +148,7 @@ class HomeController extends Controller
         $süreler = hesaplaCalismaSure($veriler);
     // dd($süreler);
 */
-        if (isset($test)) {
+        if (isset($test) || session('adminlik') == 0) {
 
             $sid = Session::get('sid');
             if (session('adminlik') == 0) {
