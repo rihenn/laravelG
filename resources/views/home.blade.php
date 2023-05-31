@@ -250,7 +250,9 @@
     </nav>
     <div class="container">
 
-
+        @if (session('adminlik') == 1)
+            
+      
         <div class="container w-50">
             @if (isset($mesaj))
                 {!! $mesaj !!}
@@ -292,24 +294,29 @@
                             <label for="inputEmail">Kart Numarası</label>
                             <input type="text" class="form-control" name="cardNo" placeholder="Kart Numarası">
                         </div>
-                        <input type="submit" id class="btn btn-primary mx-3 mb-2" name="search" value="Ara">
+                        <input type="submit"  class="btn btn-primary mx-3 mb-2" name="search" value="Ara">
 
                     </form>
                 </div>
             </div>
         </div>
-
+        @endif
 
         @php
-            $a = $veri[0] ==! null;
+            
+            $a = $veri[0] == !null;
         @endphp
 
         <form action="{{ route('anasayfa') }}" method="get">
             @if ($a == true)
                 <input type="text" name="ay" value="{{ $ay }}" hidden>
                 <input type="text" name="yil" value="{{ $yil }}" hidden>
-                <input type="text" name="veri" value="" hidden>
-               
+
+                <input type="hidden" name="id" id="id" value="">
+                <input type="hidden" name="nameSurname" id="nameSurname" value="">
+                <input type="hidden" name="cardNo" id="cardNo" value="">
+                <input type="hidden" name="search" id="search" value="">
+
                 <input type="submit" class="btn btn-primary" name="önce" value="Önceki">
                 <input type="submit" class="btn btn-primary" name="bu_ay" value="Bu ay">
                 <input type="submit" class="btn btn-primary" name="sonra" value="Sonraki">
@@ -346,16 +353,15 @@
 
     <script>
         $(function() {
-            $(".search").click(function() {
-                var id = $("input[name=id]").val();
-                var cardNo = $("input[name=cardNo]").val();
-                var nameSurname = $("input[name=nameSurname]").val();
-                var veriFromURL = getUrlParameter("veri");
-                var finalVeri = veriFromURL ? veriFromURL + ", " + id + ", " + cardNo + ", " + nameSurname :
-                    id + ", " + cardNo + ", " + nameSurname;
-                $("input[name=veri]").val(finalVeri);
-                $("#form2").submit();
-            });
+            var currentUrl = window.location.href;
+            var urlParams = new URLSearchParams(currentUrl);
+
+            $('#id').val(urlParams.get('id') || '');
+            $('#nameSurname').val(urlParams.get('nameSurname') || '');
+            $('#cardNo').val(urlParams.get('cardNo') || '');
+            $('#search').val(urlParams.get('search') || '');
+
+           
 
             $(document).ready(function() {
                 $("#openModalButton").click(function() {
@@ -668,11 +674,6 @@
             //     table.draw();
             // });
         });
-
-        function getUrlParameter(parameterName) {
-            var urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(parameterName);
-        }
     </script>
 
 </body>

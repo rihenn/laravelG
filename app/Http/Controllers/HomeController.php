@@ -8,12 +8,15 @@ use App\Models\Veri;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use Symfony\Component\VarDumper\VarDumper;
 
 class HomeController extends Controller
 {
     public function value(Request $request)
     {
+
+      
+
         $sid = Session::get('sid');
 
         $profilurl = "";
