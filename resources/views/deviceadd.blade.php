@@ -214,7 +214,7 @@
                     <form action="{{ route('diveceAdd') }}" method="post">
                             @csrf
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">Cihaz Ekle</h6>
+                                <h6 class="mb-2 text-primary">kapı Ekle</h6>
                             </div>
                             <div>
                                
