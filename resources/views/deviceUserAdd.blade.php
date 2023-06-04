@@ -221,10 +221,20 @@
                                 $a=0;
                                 $a++
                             @endphp 
-                               @foreach ($allData as $data)
-                              
-                               <input type="checkbox" style="height: 12px" name="veriler[]"  value="{!! $data["id"] !!}"><label for="">{!! $data["name"] !!}</label><br> 
-                               @endforeach
+                               
+                               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="inputName">Cihaz Adı</label>
+                                    <select class="form-control" name="veriler" id="inputList">
+                                        @foreach ($allData as $data)
+                                        <option value="{!! $data["id"] !!}">{!! $data["name"] !!}</option>
+                                        
+                                      @endforeach
+                                    </select>
+                                  </div>
+                            </div>
+                            
+                             
                               
                              
                            

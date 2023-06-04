@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>düzenle</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detay</title>
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png" type="image/png"
     sizes="32x32">
 <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png"
@@ -147,9 +146,7 @@
                 background-color: #EEEEEE;
             }
         </style>
-
 </head>
-
 <body>
     <nav id="div2" class="navbar navbar-expand" style="width:100%;">
 
@@ -214,7 +211,7 @@
                     <form action="{{ route('diveceAdd') }}" method="post">
                             @csrf
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">Cihaz Ekle</h6>
+                                <h6 class="mb-2 text-primary">Detay</h6>
                             </div>
                             <div>
                                
@@ -225,33 +222,26 @@
                                     
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2">
                                         <div class="form-group">
-                                            <label for="inputName">Cihaz Adı</label>
-                                            <select class="form-control" name="cihazname" id="inputList">
-                                              <option value="Giriş">Giriş</option>
-                                              <option value="Çıkış">Çıkış</option>
-                                             
-                                            </select>
+                                            <label for="inputName">Tarih</label>
+                                            <h1>{!! $tarih !!}</h1>
                                           </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label>Bölge İsmi</label>
-                                            <input class="form-control" id="firmaCihazName" placeholder="Cihazın bulunduğu bölgeyi giriniz"
-                                                name="firmaCihazName">
+                                            <label>Ad Soyad</label>
+                                            <h2>{{ $ad_soyad }}</h2>
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label>Ip</label>
-                                            <input class="form-control" id="ip" placeholder="İp giriniz"
-                                                name="ip">
+                                            <label>Mesai Saati</label>
+                                            <h2>{!! $mesai !!}</h2>
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <label>Port</label>
-                                            <input class="form-control" id="port" placeholder="Port giriniz"
-                                                name="port">
+                                            <label>Çalışma Süresi</label>
+                                            <h2>{!! $ofisSüre !!}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -261,7 +251,7 @@
                                         <div class="text-right">
                                            
 
-                                            <button type="submit" name="submit" class="btn btn-primary">Ekle</button>
+                                            <a href="{{ route ("anasayfa")}}" class="btn btn-primary ">Geri Dön</a>
 
                                         </div>
                                     </div>
@@ -273,11 +263,9 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-   
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
 </html>

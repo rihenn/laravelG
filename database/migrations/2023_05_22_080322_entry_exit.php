@@ -14,16 +14,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pdks-entry_exit', function (Blueprint $table) {
+        Schema::create('pdks_entry_exit', function (Blueprint $table) {
         
-            $table->string('uid')->unique();
-            $table->string('person_id')->unique();
+            $table->string('person_id');
             $table->string('name_surname');
-            $table->string('divece_id');
-            $table->date('date_record')->datetime()->unique();
+            $table->string('device_id');
+            $table->dateTime('date_record');
+            $table->unique(['device_id', 'date_record']);
             $table->string('input_output');
-            $table->timestamps();
+           
         });
+   
     }
 
     /**
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pdks-entry_exit');
+        Schema::dropIfExists('pdks_entry_exit');
     }
 };

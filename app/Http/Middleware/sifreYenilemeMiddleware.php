@@ -25,10 +25,10 @@ class sifreYenilemeMiddleware
     $kod3 = str_replace("%2F", "/", $kod2);
     $kod4 = trim($kod3);
 
-    $veri = SifreKodModels::where("yenilemeKodu", "=", $kod4)->get()->first();
+    $veri = SifreKodModels::where("refresh_token", "=", $kod4)->get()->first();
     // dd($veri->durumu === 0);
         
-    if ($veri && $veri->durumu === 1) {
+    if ($veri && $veri->refresh_status === 0) {
         return redirect('Red1');
         
     }else{

@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pdks-devices', function (Blueprint $table) {
+        Schema::create('pdks_devices', function (Blueprint $table) {
             $table->id();
             $table->string('ip');
             $table->integer('port');
-            $table->string('divece_name');
+            $table->string('device_name');
             $table->string('company_device_name');
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pdks-devices');
+        Schema::dropIfExists('pdks_devices');
     }
 };

@@ -27,8 +27,8 @@ class SifreGüncellemeController extends Controller
 
 
         foreach ($veriler as $value) {
-            $mail = $value->gmail;
-            $durumu = $value->durumu;
+            $mail = $value->mail;
+            $durumu = $value->refresh_status;
         }
 
 
@@ -54,7 +54,7 @@ class SifreGüncellemeController extends Controller
 
                         ]);
                         SifreKodModels::where("refresh_token", $kod4)->update([
-                            "durumu" => 0,
+                            "refresh_status" => 0,
 
                         ]);
 

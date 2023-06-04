@@ -20,6 +20,26 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
     <style>
+        #modalOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+        }
+
+        #modalCard {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            z-index: 10000;
+        }
+
         #div1 {
             margin-left: 30px;
             margin-right: 30px;
@@ -167,32 +187,17 @@
         <div class="collapse navbar-collapse" id="navbarsExample02">
             <ul class="navbar-nav mr-auto">
                 <li>
-                    <a target="_blank" href="https://www.gruparge.com/">
-                        <img decoding="async"
-                            src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-114-r-w.png"
-                            width="90px"
-                            data-lazy-src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-114-r-w.png"
-                            data-ll-status="loaded" class="entered lazyloaded" style="margin-left:10px">
+
+                    <img decoding="async"
+                        src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-114-r-w.png"
+                        width="90px"
+                        data-lazy-src="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-logo-114-r-w.png"
+                        data-ll-status="loaded" class="entered lazyloaded" style="margin-left:10px">
                     </a>
                 </li>
 
 
-                {{-- <li class="nav-item">
-                    <a id="btn" class="btn mx-2 mt-2" href="{{ route('excelekleme') }}">Veri
-                        Ekleme</a>
-                </li> --}}
-                {{-- <li>
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle mt-2 mx-2" style=" background-color: #2087cd;color:white"
-                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Mesai Süresi
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{{ route('DayTime') }}">Günlük</a>
-                            <a class="dropdown-item" href="{{ route('WeekWork') }}">Haftalık</a>
-                        </div>
-                    </div>
-                </li> --}}
+
 
                 <li>
                     @if (session('adminlik') == 1)
@@ -243,45 +248,97 @@
 
 
     </nav>
+    <form id="detayform" action="{{ route('detaylar') }}" method="post" class="d-none">
+        @csrf
+
+    </form>
     <div class="container">
 
-        {{-- <table style="border:0px;" class="mb-2"  cellspacing="5" cellpadding="5">
-        <tbody>
-            <tr>
-                <td>Minimum date:</td>
-                <td><input type="text" id="min" name="min"></td>
-            </tr>
-            <tr>
-                <td>Maximum date:</td>
-                <td><input type="text" id="max" name="max"></td>
-            </tr>
-        </tbody>
-    </table> --}}
+        @if (session('adminlik') == 1)
 
 
-        @if (isset($veri))
-            
-        <form action="{{ route('anasayfa') }}" method="get">
+            <div class="container w-50">
+                @if (isset($mesaj))
+                    {!! $mesaj !!}
+                @endif
+                <button class="btn btn-primary" id="openModalButton" data-toggle="collapse"
+                    data-target="#myCard">Kullanıcı Ara</button>
+
+                <div id="modalOverlay">
+                    <div id="modalCard" class="card">
+                        <a id="closeModalButton" class="text-end">
+                            <img src="../img/icons8-x-30.png" style="height:1.5rem ;width:1.5rem"
+                                class="text-end"></a>
+                        <form action="{{ route('anasayfa') }}" method="get">
+                            <div class="form-group m-3">
+                                <label for="inputEmail">id</label>
+                                <input type="text" class="form-control" name="id" placeholder="id">
+                            </div>
+                            <div class="form-group">
+
+
+
+
+                                <div class="form-group m-3">
+                                    <label for="inputName">Ad Soyad</label>
+                                    <input type="text" class="form-control bg-white" name="nameSurname"
+                                        id="inputList" list="datalistOptions">
+                                    <datalist id="datalistOptions" class="bg-white">
+                                        <option value="">
+                                            @if (isset($namelist))
+                                                @foreach ($namelist as $data)
+                                        <option value="{{ $data['name'] }}">
+        @endforeach
+        @endif
+
+
+
+        </datalist>
+    </div>
+    </div>
+    <div class="form-group m-3">
+        <label for="inputEmail">Kart Numarası</label>
+        <input type="text" class="form-control" name="cardNo" placeholder="Kart Numarası">
+    </div>
+    <input type="submit" class="btn btn-primary mx-3 mb-2" name="search" value="Ara">
+
+    </form>
+    </div>
+    </div>
+    </div>
+    @endif
+
+    @php
+        
+        $a = $veri[0] == !null;
+    @endphp
+
+    <form action="{{ route('anasayfa') }}" method="get">
+        @if ($a == true)
             <input type="text" name="ay" value="{{ $ay }}" hidden>
             <input type="text" name="yil" value="{{ $yil }}" hidden>
+
+            <input type="hidden" name="id" id="id" value="">
+            <input type="hidden" name="nameSurname" id="nameSurname" value="">
+            <input type="hidden" name="cardNo" id="cardNo" value="">
+            <input type="hidden" name="search" id="search" value="">
+
             <input type="submit" class="btn btn-primary" name="önce" value="Önceki">
             <input type="submit" class="btn btn-primary" name="bu_ay" value="Bu ay">
             <input type="submit" class="btn btn-primary" name="sonra" value="Sonraki">
-            {{-- <br>
-        <input type="submit" class="btn btn-dark my-2" name="Yilönce" value="Önceki">
-        <input type="submit" class="btn btn-dark my-2" name="buYil" value="Bu yıl">
-        <input type="submit" class="btn btn-dark my-2" name="Yilsonra" value="Sonraki"> --}}
         @endif
-        <input type="submit" class="btn btn-primary" value="test" name="test">
-    
-        </form>
 
 
-        <table id="users-table" class="display">
+    </form>
 
-        </table>
+
+    <table id="users-table" class="display">
+
+    </table>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -290,7 +347,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
-    <script src="https://cdn.datatables.net/datetime/1.4.1/js/dataTables.dateTime.min.js"></script>
+
 
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
@@ -301,36 +358,36 @@
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
 
     <script>
-        // var minDate, maxDate;
-        // var table;
-        // $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-        //     var min = minDate.val();
-        //     var max = maxDate.val();
-        //     var date = new Date(data[2]);
-
-        //     if (
-        //         (min === null && max === null) ||
-        //         (min === null && date <= max) ||
-        //         (min <= date && max === null) ||
-        //         (min <= date && date <= max)
-        //     ) {
-        //         return true;
-        //     }
-        //     return false;
-        // });
-
-        // minDate = new DateTime($('#min'), {
-        //     format: 'YYYY-MM-DD'
-        // });
-        // maxDate = new DateTime($('#max'), {
-        //     format: 'YYYY-MM-DD'
-        // });
-
         $(function() {
 
-            let mydata = {!! json_encode($veri[0]) !!};
-            if (typeof mydata !== 'undefined') {
 
+
+            var currentUrl = window.location.href;
+            var urlParams = new URLSearchParams(currentUrl);
+
+            $('#id').val(urlParams.get('id') || '');
+            $('#nameSurname').val(urlParams.get('nameSurname') || '');
+            $('#cardNo').val(urlParams.get('cardNo') || '');
+            $('#search').val(urlParams.get('search') || '');
+
+
+
+            $(document).ready(function() {
+                $("#openModalButton").click(function() {
+                    $("#modalOverlay").fadeIn();
+                });
+
+                $("#closeModalButton").click(function() {
+                    $("#modalOverlay").fadeOut();
+                });
+            });
+            $("#closeModalButton, #modalOverlay").click(function(event) {
+                if (event.target.id === "modalOverlay" || event.target.id === "closeModalButton") {
+                    $("#modalOverlay").fadeOut();
+                }
+            });
+
+            let mydata = {!! json_encode($veri[0]) !!};
 
             datatableData = [];
             Object.keys(mydata).forEach(function(key) {
@@ -346,29 +403,80 @@
                 columns: [
 
                     {
-                        data: 'ad_soyad',
+                        data: function(data, type) {
+                            if (type == 'display') {
+                                return `<input type='text' name='adSoyad' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.ad_soyad}' disable> `
+
+                            } else {
+
+                                return data.ad_soyad
+                            }
+                        },
                         title: 'ad soyad'
                     },
                     {
-                        data: 'firmaGC',
-                        title: 'firma'
-                    },
-                    {
-                        data: 'trh',
+                        data: function(data, type) {
+                            if (type == 'display') {
+                                return `<input type='text' name='tarih' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.trh}' disable> `
+
+                            } else {
+
+                                return data.trh
+                            }
+                        },
+                       
                         title: 'tarih'
                     },
 
                     {
-                        data: 'giris',
+                        data: function(data, type) {
+                            if (type == 'display') {
+                                return `<input type='text' name='girist' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.giris}' disable> `
+
+                            } else {
+
+                                return data.giris
+                            }
+                        },
+             
                         title: 'Giriş'
                     },
                     {
-                        data: 'cikis',
+                        data: function(data, type) {
+                            if (type == 'display') {
+                                return `<input type='text' name='cikist' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.cikis}' disable> `
+
+                            } else {
+
+                                return data.cikis
+                            }
+                        },
+                    
                         title: 'Çıkış'
                     },
                     {
-                        data: 'mesaiSüresi',
+                        data: function(data, type) {
+                            if (type == 'display') {
+                                return `<input type='text' name='mesaiS' style='background-color: rgba(0, 0, 0, 0);pointer-events: none;border:none; ' value='${data.mesaiSüresi}' disable> `
+
+                            } else {
+
+                                return data.mesaiSüresi
+                            }
+                        },
+             
                         title: 'Mesai'
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            if (type === 'display') {
+                                return `<input type="button" id= "btn-detay" name="btn-d" class="btn btn-primary btn-d" value="detay...">
+								`;
+                            }
+                            return data;
+                        },
+                        title: "eylemler"
                     },
 
                 ],
@@ -619,9 +727,16 @@
 
 
                 }
-            });
-        }
 
+            });
+
+            $('#users-table').on('click', '.btn-d', function() {
+                var row = $(this).closest('tr').clone().appendTo('#detayform');
+                $('#detayform').submit();
+                console.log(row);
+                // Seçilen satırı kullan
+            });
+            document.getElementById("myInput").disabled = true;
             // $("#min, #max").on("change", function() {
             //     table.draw();
             // });

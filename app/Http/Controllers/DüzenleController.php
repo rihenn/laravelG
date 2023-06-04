@@ -89,13 +89,13 @@ class DüzenleController extends Controller
         $id = session('sid');
         $veriler = Users::where("id", "=", $id)
         ->get();
-        $allData=[];
+  
     foreach ($veriler as  $value) {
-        $profilurl = $value->profilurl;
-        $nameSurename = $value->nameSurename;
+        $profilurl = $value->profile_url;
+        $nameSurename = $value->name_surname;
         $mail = $value->mail;
-        $tel = $value->tel;
-        $görev = $value->görev;
+        $tel = $value->telephone;
+        $görev = $value->task; 
 
         
     }

@@ -10,7 +10,7 @@
         sizes="32x32">
     <link rel="icon" href="https://www.gruparge.com/wp-content/uploads/2022/07/grup-arge-favicon.png"
         type="image/png" sizes="16x16">
-  
+
 
     <link href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.4/datatables.min.css" rel="stylesheet" />
 
@@ -154,7 +154,7 @@
     <link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.13.4/datatables.min.css" rel="stylesheet" />
 </head>
 
-<body> 
+<body>
     <nav id="div2" class="navbar navbar-expand" style="width:100%;">
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
@@ -173,12 +173,12 @@
                 </li>
 
                 <li class="nav-item">
-                    <a  class="btn mx-2 mt-2 btn-primary text-white" href="{{ route('anasayfa') }}">Ana Sayfa</a>
+                    <a class="btn mx-2 mt-2 btn-primary text-white" href="{{ route('anasayfa') }}">Ana Sayfa</a>
                 </li>
                 <li class="nav-item">
-                     <div class="dropdown">
-                        <button class="btn dropdown-toggle btn-primary mt-2 mx-2" 
-                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle btn-primary mt-2 mx-2" type="button"
+                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Admin
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -190,7 +190,7 @@
                             <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a>
                         </div>
                     </div>
-                </li> 
+                </li>
 
 
 
@@ -243,7 +243,7 @@
                 </form>
             </div>
             <div class="d-flex" style="justify-content: center">
-                <h1> {{ $cihazname }}   Cihazı </h1>
+                <h1> {{ $cihazname }} Cihazı </h1>
 
             </div>
 
@@ -290,20 +290,22 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
     <script src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
 
     <script>
         $(document).ready(function() {
-          
+
             let mydata = {!! json_encode($users) !!};
             datatableData = [];
             Object.keys(mydata).forEach(function(key) {
                 datatableData.push(mydata[key])
-           
+
 
             });
-           
+
 
             $('#disp').DataTable({
 
@@ -391,7 +393,8 @@
                         }
                     }
 
-                ],  language: {
+                ],
+                language: {
                     "emptyTable": "Tabloda herhangi bir veri mevcut değil",
                     "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
                     "infoEmpty": "Kayıt yok",
@@ -653,7 +656,7 @@
                 var row = $(this).closest('tr').clone().appendTo('#removeform');
                 $('#removeform').submit();
                 console.log(row);
-        
+
             });
 
 
@@ -671,21 +674,21 @@
                 'Ş': 'S',
                 'Ü': 'U'
             };
-            $('#disp').on('keyup','input#name', function() {
-                
+            $('#disp').on('keyup', 'input#name', function() {
+
                 const inputValue = $(this).val();
-  let updatedValue = '';
+                let updatedValue = '';
 
-  for (let i = 0; i < inputValue.length; i++) {
-    const char = inputValue.charAt(i).toUpperCase();
-    if (Object.keys(turkishChars).includes(char)) {
-      updatedValue += turkishChars[char];
-    } else {
-      updatedValue += char;
-    }
-  }
+                for (let i = 0; i < inputValue.length; i++) {
+                    const char = inputValue.charAt(i).toUpperCase();
+                    if (Object.keys(turkishChars).includes(char)) {
+                        updatedValue += turkishChars[char];
+                    } else {
+                        updatedValue += char;
+                    }
+                }
 
-  $(this).val(updatedValue);
+                $(this).val(updatedValue);
             });
 
         });

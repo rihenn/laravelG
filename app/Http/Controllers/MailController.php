@@ -24,6 +24,8 @@ class MailController extends Controller
     foreach ($veriler as  $value) {
    
         $eposta    = $value->mail;
+        $ad_soyad = $value->name_surname;
+       
     }
         if (isset($eposta)) {
        
@@ -31,20 +33,20 @@ class MailController extends Controller
 
           
         $array =[
-          'name'=>'Yusuf Can',
-          'surname'=>'Yüce' ,
+          'name'=>$ad_soyad,
+         
           'date' => date("y-m-d"), 
           "url"=>$url
         ];
-        SifreKodModels::insert([
-            "gmail"=>$eposta,
-            "yenilemeKodu"=>"$sifrelenmiş_gmail",
-            "durumu"=>1
+        SifreKodModels::create([
+            "mail"=>$mail,
+            "refresh_token"=>"$sifrelenmiş_gmail",
+            "refresh_status"=>1
 
             
         ]);
         Mail::send("email.test", $array , function ($message)use ($mail){
-            $message->subject("Hoşgeldiniz");
+            $message->subject("Sifre Yenileme Talebi");
             $message->to($mail);
           
             

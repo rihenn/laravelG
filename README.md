@@ -1,14 +1,14 @@
- <h1>Grup Arge</h1>  
-    
- <h4>laravel framework 9.52.5 </h4> 
- 
- <h4>php 8.0</h4>
- 
- <h2>Kurulum</h2>
+<h1>Grup Arge</h1>
+
+<h4>laravel framework 9.52.5 </h4>
+
+<h4>php 8.0</h4>
+
+<h2>Kurulum</h2>
  
 <li> ilk kurulumda "php artisan migrate" komutu çalıştırılacak.</li>
 
- <li>ikinci olarak "php artisan db::seed --class=UsersSeeder" komutu çalıştırılacak.</li>
+<li>ikinci olarak "php artisan db:seed --class=UsersSeeder" komutu çalıştırılacak.</li>
 
 <li> login kısmında ilk kurulumda kullanıcı adı: Admin şifre:1234 </li>
 

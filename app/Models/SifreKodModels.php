@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SifreKodModels extends Model
 {
     use HasFactory;
-    protected $table = 'pdks-password_reset';
+    protected $table = 'pdks_password_reset';
 
     protected $fillable = [
         'mail',

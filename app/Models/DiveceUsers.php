@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DiveceUsers extends Model
+class deviceUsers extends Model
 {
     use HasFactory;
 
-    protected $table="pdks-divece_users";
+  
+    public $timestamps = true;
+    protected $table="pdks_device_users";
 
-    protected $fillable=["id","uid","name","role","password","card_number","divece_id"];
+    protected $fillable=["id","uid","name","role","password","card_number","device_id"];
 }

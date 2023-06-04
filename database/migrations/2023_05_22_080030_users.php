@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pdks-web_users', function (Blueprint $table) {
+        Schema::create('pdks_web_users', function (Blueprint $table) {
             $table->id();
             $table->string('name_surname');
             $table->string('card_number');
@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('telephone');
             $table->string('user_name'); 
             $table->string('password');
-            $table->string('profile_url');
+            $table->string('profile_url')->nullable();
             $table->string('task');
+          
             $table->boolean('admin')->default(false);
             $table->timestamps();
         });
@@ -36,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pdks-users');
+        Schema::dropIfExists('pdks_web_users');
     }
 };

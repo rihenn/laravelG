@@ -17,9 +17,6 @@ class ZktController extends Controller
   {
     $id = $request->input('cihazId');
 
-    if (!Schema::hasTable('pdks-divece_users')) {
-      DiveceUsers::where('divece_number', $id)->delete();
-    }
     $cihazdata = Device::where("id", "=", $id)
       ->get();
     foreach ($cihazdata as $dat) {
@@ -28,7 +25,7 @@ class ZktController extends Controller
     }
     $zk = new ZKTeco($ip, $port);
     $zk->connect();
-    $zk->disableDevice();
+    $zk->disableDevice(); 
     $users = $zk->getUser();
     $data = [];
     foreach ($users as $user) {
@@ -42,14 +39,14 @@ class ZktController extends Controller
         'divece_id' => $id
       ];
     }
-    DiveceUsers::insert($data);
+    DiveceUsers::insertOrIgnore($data);
     return back();
   }
 
 
   public function Userdata(Request $request)
   {
-    
+
     $diveceData  = Device::first();
     $diveceId = $diveceData->id;
     $ip = $diveceData->ip;
@@ -92,9 +89,11 @@ class ZktController extends Controller
 
   public function addUser(Request $request)
   {
+
+
     function ID($sayilar)
     {
-      sort($sayilar); // Sayıları küçükten büyüğe sırala
+      sort($sayilar);
       $eksikSayi = null;
 
       for ($i = 0; $i < count($sayilar) - 1; $i++) {
@@ -112,15 +111,17 @@ class ZktController extends Controller
       return $eksikSayi;
     }
     $veriler = $request->input('veriler');
-    $seciliVeriler = [];
+ 
     if (isset($veriler)) {
 
       $cihazdata = Device::get();
-      foreach ($cihazdata as $dat) {
+     
 
-        foreach ($veriler as $veri) {
+        foreach ($cihazdata as $dat) {
+         
 
-          if ($veri == $dat->id) {
+
+          if ($veriler == $dat->id) {
 
 
             $ip = $dat->ip;
@@ -150,6 +151,12 @@ class ZktController extends Controller
 
               $zk->setUser($uid, $id, $name, $password, $role, $cardno);
               $zk->enableDevice();
+
+              $htmlMessage = '<div class="alert alert-success" role="alert">
+              başarılı bir şekilde kayıt yapıldı.
+            </div>';
+              Session::flash('success_message', $htmlMessage);
+
               return redirect()->back();
             } else {
               $htmlMessage = '<div class="alert alert-danger" role="alert">
@@ -160,7 +167,7 @@ class ZktController extends Controller
             }
           }
         }
-      }
+      
     } else {
 
       $htmlMessage = '<div class="alert alert-danger" role="alert">
@@ -298,33 +305,33 @@ class ZktController extends Controller
     $Alldata = [];
     $veriler = DiveceUsers::where("divece_id", "=", $cihaz_id)->get();
     foreach ($veriler as $veri) {
+      $card_no = $veri->card_number;
       $name = $veri->name;
       $Userid = $veri->id;
-     
+
 
       foreach ($attendaces as $data) {
 
         $Timeuid = $data["uid"];
         $Timeid = $data["id"];
-        
+
         $Timestamp = $data["timestamp"];
         if ($Timeid == $Userid) {
           $tarih = Carbon::parse($Timestamp)->format('Y-m-d');
           $saat = Carbon::parse($Timestamp)->format('H:i:s');
-          
-          $Alldata []= [
+
+          $Alldata[] = [
             "person_id" => $Timeid,
-            'uid' => $Timeuid,
             'name_surname' => $name,
             'divece_id' => $diveceId,
             'date_record' => $tarih . " " . $saat,
             'input_output' => $cihazName,
 
           ];
-
         }
       }
     }
+
     Veri::insertOrIgnore($Alldata);
     return redirect()->back();
   }

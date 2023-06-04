@@ -9,13 +9,13 @@ class Veri extends Model
 {
     use HasFactory;
 
-    protected $table="pdks-entry_exit";
+    protected $table="pdks_entry_exit";
     protected $fillable=[
         
         'pId',
         'uid',
         'name_surname',
-        'divece_id',
+        'device_id',
         'date_record',
         'input_output',
     ];
