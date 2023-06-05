@@ -91,11 +91,15 @@ class HomeController extends Controller
 
                     return view("home", ["mesaj" => $mesaj, "profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
                 }
+              
+            
                 $trhv = $query->whereYear('date_record', '=', $yil)
                     ->whereMonth("date_record", "=", $ay)
                     ->select("date_record", "name_surname", "device_id")
                     ->distinct()
                     ->get();
+            
+                
                 if ($trhv->isEmpty()) {
                     $mesaj = ' <div class="alert alert-danger"><strong>UYARI!</strong> kullanıcı bilgilerini lütfen doğru giriniz .</div>';
 

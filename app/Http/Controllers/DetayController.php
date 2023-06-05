@@ -46,35 +46,36 @@ class DetayController extends Controller
         
                 $saniye_farki = $giris->diffInSeconds($cikis, false);
                 $dakika_farki = $giris->diffInMinutes($cikis, false);
-                $saat_farki   = $giris->diffInHours($cikis, false);
+              
         
                 
-                $saat +=$saat_farki;
-                $dakika += $dakika_farki;
-                $saniye += $saniye_farki;
+                $saat +=($saniye_farki - ($saniye_farki %60))/60/60/60;
+                $dakika += ( $saniye_farki-($saniye_farki % 60))/60;
+                $saniye += $saniye_farki % 60;
                 if ($saniye >= 60) {
                     $saniye_farki = $saniye_farki % 60;
-                    $saniye = $saniye % 60;
                     $dakika += ($saniye-($saniye % 60)) / 60;
+                    $saniye = $saniye % 60;
                 }
                 
                 if ($dakika >= 60) {
                     $dakika_farki = $dakika_farki % 60;
-                    $dakika = $dakika % 60;
+                
                     $saat += ($dakika-($dakika % 60)) / 60;
+                    $dakika = $dakika % 60;
                 }
         
             }
         }
         $date = [
-            "saat" => $saat,
+            "saat" => intval($saat),
             "dakika" => $dakika,
             "saniye" => $saniye,
             
         ];
      
-        
 
-        return view("detay", ["ad_soyad" => $ad, "tarih" => $tarihV, "mesai" => $mesai,"saat" => $saat, "dakika" => $dakika,"saniye" => $saniye,]);
+
+        return view("detay", ["ad_soyad" => $ad, "tarih" => $tarihV, "mesai" => $mesai,"saat" => intval($saat), "dakika" => $dakika,"saniye" => $saniye,]);
     }
 }
