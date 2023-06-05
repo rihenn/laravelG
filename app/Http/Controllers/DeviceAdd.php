@@ -18,11 +18,12 @@ class DeviceAdd extends Controller
                 if (isset($ip)) {
                     if (isset($port)) {
                         $data=[
-                            "divece_name"=>$cihazname,
+                            "device_name"=>$cihazname,
                             "ip"=>$ip,
                             "port"=>$port,
                             "company_device_name"=>$firmaCihazName
                            ];
+                 
                            Device::create($data);
                            $htmlMessage = '<div class="alert alert-success" role="alert">
                            kayıt işlemleri başarılı bir şekilde gerçekleştirilmiştir .
