@@ -98,13 +98,27 @@ class HomeController extends Controller
                     ->select("date_record", "name_surname", "device_id")
                     ->distinct()
                     ->get();
-            
+                    if ($trhv->isEmpty()) {
+                        $previousMonth = $ay - 1;
+                        $previousYear = $yil;
+                    
+                        if ($previousMonth == 0) {
+                            $previousMonth = 12;
+                            $previousYear = $yil - 1;
+                        }
+                    
+                        $trhv = $query->whereYear('date_record', '=', $previousYear)
+                                      ->whereMonth("date_record", "=", $previousMonth)
+                                      ->select("date_record", "name_surname", "device_id")
+                                      ->distinct()
+                                      ->get();
+                    }
                 
-                if ($trhv->isEmpty()) {
-                    $mesaj = ' <div class="alert alert-danger"><strong>UYARI!</strong> kullanıcı bilgilerini lütfen doğru giriniz .</div>';
+                // if ($trhv->isEmpty()) {
+                //     $mesaj = ' <div class="alert alert-danger"><strong>UYARI!</strong> kullanıcı bilgilerini lütfen doğru giriniz .</div>';
 
-                    return view("home", ["mesaj" => $mesaj, "profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
-                }
+                //     return view("home", ["mesaj" => $mesaj, "profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
+                // }
             }
             $data = [];
             foreach ($trhv as $key) {

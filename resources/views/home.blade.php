@@ -310,11 +310,11 @@
 
     @php
         
-        $a = $veri[0] == !null;
+     
     @endphp
 
     <form action="{{ route('anasayfa') }}" method="get">
-        @if ($a == true)
+        @if (isset($_GET["search"]))
             <input type="text" name="ay" value="{{ $ay }}" hidden>
             <input type="text" name="yil" value="{{ $yil }}" hidden>
 
