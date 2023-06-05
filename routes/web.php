@@ -10,6 +10,7 @@ use App\Http\Controllers\DetayController;
 use App\Http\Controllers\DeviceAdd;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\DüzenleController;
+use App\Http\Controllers\Goback;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\Veriler;

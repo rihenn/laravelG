@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Veri;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+
 
 class DetayController extends Controller
 {
 
     public function detaylar(Request $request)
     {
-        
+
 
         $ad = $request->input("adSoyad");
         $tarihV = $request->input("tarih");
@@ -18,29 +20,61 @@ class DetayController extends Controller
         $gun = date("d", strtotime($tarihV));
         $ay = date("m", strtotime($tarihV));
         $yil = date("Y", strtotime($tarihV));
-
+        
         $data = Veri::whereMonth("date_record", $ay)
             ->whereYear("date_record", $yil)
             ->whereDay("date_record", $gun)
             ->where("name_surname", $ad)
+            ->orderBy("date_record", "asc")
             ->get();
-
-        $ilk_giris = null;
-        $toplam_sure = 0;
-
+        
+        $giris = null;
+        $e = 0;
+        $saat = 0;
+        $dakika = 0;
+        $saniye = 0;
+        $alldata = [];
+        
         foreach ($data as $dat) {
-            if ($dat->input_output == 'Giriş') {
-                $ilk_giris = strtotime($dat->date_record);
-            } elseif ($dat->input_output == 'Çıkış' && $ilk_giris != null) {
-                $cikis = strtotime($dat->date_record);
-                $sure = $ilk_giris - $cikis;
-                $toplam_sure += $sure;
-                $ilk_giris = null;
+            if ($dat->input_output == 'Giriş' && $e == 0) {
+                $giris = Carbon::parse($dat->date_record);
+                $e = 1;
+                
+            } else if ($dat->input_output == 'Çıkış' && $giris != null) {
+                $e = 0;
+                $cikis = Carbon::parse($dat->date_record);
+        
+                $saniye_farki = $giris->diffInSeconds($cikis, false);
+                $dakika_farki = $giris->diffInMinutes($cikis, false);
+                $saat_farki   = $giris->diffInHours($cikis, false);
+        
+                
+                $saat +=$saat_farki;
+                $dakika += $dakika_farki;
+                $saniye += $saniye_farki;
+                if ($saniye >= 60) {
+                    $saniye_farki = $saniye_farki % 60;
+                    $saniye = $saniye % 60;
+                    $dakika += ($saniye-($saniye % 60)) / 60;
+                }
+                
+                if ($dakika >= 60) {
+                    $dakika_farki = $dakika_farki % 60;
+                    $dakika = $dakika % 60;
+                    $saat += ($dakika-($dakika % 60)) / 60;
+                }
+        
             }
         }
+        $date = [
+            "saat" => $saat,
+            "dakika" => $dakika,
+            "saniye" => $saniye,
+            
+        ];
+     
+        
 
-        $toplam_sure_saat = floor($toplam_sure / 3600) . ":" . floor(($toplam_sure % 3600) / 60) . ":" . ($toplam_sure % 60); // Saat cinsinden
-
-        return view("detay", ["ad_soyad" => $ad, "tarih" => $tarihV, "mesai" => $mesai, "ofisSüre" => $toplam_sure_saat]);
+        return view("detay", ["ad_soyad" => $ad, "tarih" => $tarihV, "mesai" => $mesai,"saat" => $saat, "dakika" => $dakika,"saniye" => $saniye,]);
     }
 }
