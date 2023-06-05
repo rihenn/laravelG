@@ -8,7 +8,7 @@ use App\Models\Device;
 
 class DeviceAdd extends Controller
 {  
-    public function AddDivece(Request $request){
+    public function AddDivece(Request $request){ 
         $ip = $request->input('ip');
         $port = $request->input('port');
         $firmaCihazName = $request->input('firmaCihazName');

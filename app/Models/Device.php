@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Device extends Model
 {
     use HasFactory;
-    
+     
     protected $table="pdks_devices";
 
     protected $fillable=["id","ip","port","device_name","company_device_name","type"];

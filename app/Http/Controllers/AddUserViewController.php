@@ -15,7 +15,7 @@ class AddUserViewController extends Controller
       foreach ($cihazdata as $dat) {
         $data=[
         "id" => $dat->id,
-        "name" => $dat->divece_name,
+        "name" => $dat->device_name,
 
         ];  
         $AllData []=$data; 
