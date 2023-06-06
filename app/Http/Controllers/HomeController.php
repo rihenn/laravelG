@@ -258,6 +258,9 @@ class HomeController extends Controller
             
        $datadate[] = $veri;
       
+            if (isset($id)) {
+                return view("home", ["profilurl" => $profilurl, "veri" => $datadate, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata,"id"=>$id]);
+            }
             return view("home", ["profilurl" => $profilurl, "veri" => $datadate, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
         } else {
             if (isset($Namedata)) {
