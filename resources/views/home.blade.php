@@ -250,6 +250,9 @@
     </nav>
     <form id="detayform" action="{{ route('detaylar') }}" method="post" class="d-none">
         @csrf
+        @if (isset($id))
+        <input type="hidden" name="idDetay" value="{{ $id }}">
+        @endif
 
     </form>
     <div class="container">
