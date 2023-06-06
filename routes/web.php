@@ -62,7 +62,7 @@ Route::get('/excel', function () {
 Route::post('/detaylar', [DetayController::class , "detaylar"])->name("detaylar");
 Route::get('/detay', function(){ return view("detay") ;})->name("detay");
 
-Route::get('/diveceuseradd',[AddUserViewController::class,"checkboxValue"])->name("userUpdate")->middleware('checklogin');
+Route::get('/diveceuseradd',[AddUserViewController::class,"DeviceAddUserView"])->name("userUpdate")->middleware('checklogin');
 Route::get('/userlist', [ZktController::class,'Userdata'])->name('UserData')->middleware('checklogin');
 
 

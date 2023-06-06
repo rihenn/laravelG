@@ -36,11 +36,11 @@ class DetayController extends Controller
         $alldata = [];
         
         foreach ($data as $dat) {
-            if ($dat->input_output == 'Giriş' && $e == 0) {
+            if ($dat->input_output == 'giris' && $e == 0) {
                 $giris = Carbon::parse($dat->date_record);
                 $e = 1;
                 
-            } else if ($dat->input_output == 'Çıkış' && $giris != null) {
+            } else if ($dat->input_output == 'cikis' && $giris != null) {
                 $e = 0;
                 $cikis = Carbon::parse($dat->date_record);
         

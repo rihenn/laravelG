@@ -212,7 +212,7 @@
                                 <a class="dropdown-item" href="{{ route('webadduser') }}">Kullanıcı Ekle (web)</a>
                                 <a class="dropdown-item" href="{{ route('userUpdate') }}">Kullanıcı Ekle (Cihaz)</a>
                                 <a class="dropdown-item" href="{{ route('deviceData') }}">Cihazlar</a>
-                                <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a>
+                                <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a> 
                             </div>
                         </div>
                     @endif
@@ -481,7 +481,7 @@
 
                 ],
                 language: {
-                    "emptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "emptyTable": "Bu ay giriş çıkış bulunmamaktadır",
                     "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
                     "infoEmpty": "Kayıt yok",
                     "infoFiltered": "(_MAX_ kayıt içerisinden bulunan)",

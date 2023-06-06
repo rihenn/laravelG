@@ -221,13 +221,14 @@
                                 $a=0;
                                 $a++
                             @endphp 
-                               
+                               <input type="hidden" name="door_id" value="{{$door_id}}">
                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2">
                                 <div class="form-group">
                                     <label for="inputName">Cihaz Adı</label>
                                     <select class="form-control" name="veriler" id="inputList">
                                         @foreach ($allData as $data)
-                                        <option value="{!! $data["id"] !!}">{!! $data["name"] !!}</option>
+                                        <option value="{!! $data["ipG"] !!}">{!! $data["name"]. " Giriş" !!}</option>
+                                        <option value="{!! $data["ipC"] !!}">{!! $data["name"]." Çıkış" !!}</option>
                                         
                                       @endforeach
                                     </select>

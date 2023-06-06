@@ -12,8 +12,7 @@ class Veri extends Model
     protected $table="pdks_entry_exit";
     protected $fillable=[
         
-        'pId',
-        'uid',
+        'person_id',
         'name_surname',
         'device_id',
         'date_record',

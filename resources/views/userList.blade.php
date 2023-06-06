@@ -218,8 +218,9 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                         @foreach ($cihazAllData as $data)
-                            <button type="submit" class="btn d-block" name="cihazId"
-                                value="{{ $data['id'] }}">{{ $data['cihazname'] }}</button>
+                            <button type="submit" class="btn d-block" name="id"
+                                value="{{ $data['id'] }}">{{ $data['company_name'] }}</button>
+                          
                         @endforeach
 
                     </div>
@@ -235,8 +236,10 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                         @foreach ($cihazAllData as $data)
-                            <button type="submit" class="btn d-block" name="sırala"
-                                value="{{ $data['id'] }}">{{ $data['cihazname'] }}</button>
+                        <button type="submit" class="btn d-block" name="ip"
+                        value="{{ $data['giris_ip'] }}">{{ $data['giris_devicename'] }}</button>
+                    <button type="submit" class="btn d-block" name="ip"
+                        value="{{ $data['cikis_ip'] }}">{{ $data['cikis_devicename'] }}</button>
                         @endforeach
 
                     </div>
@@ -260,12 +263,15 @@
                 <div id="mydiv" class="d-flex justify-content-center col">
 
                     <form action="{{ route('diveceUserUpdate') }}" method="post" id="updateform" class="d-none">
-
                         @csrf
+                        <input type="hidden" name="ipler" value="{{ $ip }}">
+                        <input type="hidden" name="firmaid" value="{{ $idDoor }}">
                     </form>
                     <form action="{{ route('diveceUserRemove') }}" method="post" id="removeform" class="d-none">
-                        <input type="hidden" name="CihazName" value="{{ $cihazname }}">
                         @csrf
+                        <input type="hidden" name="ipler" value="{{ $ip }}">
+                        <input type="hidden" name="firmaid" value="{{ $idDoor }}">
+                        
                     </form>
                     <table class="table bg-white table-responsive-sm" id="disp">
                         <thead>

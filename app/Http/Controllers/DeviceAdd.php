@@ -9,19 +9,23 @@ use App\Models\Device;
 class DeviceAdd extends Controller
 {  
     public function AddDivece(Request $request){ 
-        $ip = $request->input('ip');
-        $port = $request->input('port');
-        $firmaCihazName = $request->input('firmaCihazName');
-        $cihazname = $request->input('cihazname');
+        $ipG = $request->input('ipG');
+        $ipC = $request->input('ipC');
+        $portG = $request->input('portG');
+        $portC = $request->input('portC');
+        $firmaCihazName = $request->input('company_name');
+        $cihazname = $request->input('doorName');
         if (isset($cihazname)) {
             if (isset($firmaCihazName)) {
-                if (isset($ip)) {
-                    if (isset($port)) {
+                if (isset($ipG)) {
+                    if (isset($portG)) {
                         $data=[
-                            "device_name"=>$cihazname,
-                            "ip"=>$ip,
-                            "port"=>$port,
-                            "company_device_name"=>$firmaCihazName
+                            "door_name"=>$cihazname,
+                            "company_name"=>$firmaCihazName,
+                            "giris_ip"=>$ipG,
+                            "cikis_ip"=>$ipC,
+                            "cikis_port"=>$portG,
+                            "giris_port"=>$portC
                            ];
                  
                            Device::create($data);

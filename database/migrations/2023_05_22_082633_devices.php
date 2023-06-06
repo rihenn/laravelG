@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pdks_devices', function (Blueprint $table) {
+        Schema::create('pdks_door', function (Blueprint $table) {
             $table->id();
-            $table->string('ip');
-            $table->integer('port');
-            $table->string('device_name');
-            $table->string('company_device_name');
+            $table->string('giris_ip');
+            $table->string('cikis_ip');
+            $table->integer('giris_port');
+            $table->integer('cikis_port');
+            $table->string('door_name');
+            $table->string('company_name');
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pdks_devices');
+        Schema::dropIfExists('pdks_door');
     }
 };

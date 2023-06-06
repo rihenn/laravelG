@@ -146,13 +146,13 @@ class HomeController extends Controller
                 $trh = sprintf("%02d", $day) . '-' . sprintf("%02d", $month) . '-' . sprintf("%04d", $year);
             
                 $ilkKayit = Veri::where('name_surname', $ad_soyad)
-                    ->where("input_output", "Giriş")
+                    ->where("input_output", "giris")
                     ->whereDate("date_record", $tarih)
                     ->orderBy('date_record', 'asc')
                     ->first();
             
                 $sonKayit = Veri::where('name_surname', $ad_soyad)
-                    ->where("input_output", "Çıkış")
+                    ->where("input_output", "cikis")
                     ->whereDate("date_record", $tarih)
                     ->orderBy('date_record', 'desc')
                     ->first();

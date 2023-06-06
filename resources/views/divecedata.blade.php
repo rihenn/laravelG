@@ -212,10 +212,12 @@
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">IP</th>
+                            <th scope="col">IP GİRİŞ</th>
+                            <th scope="col">IP ÇIKIŞ</th>
+                            <th scope="col">Port</th>
                             <th scope="col">Port</th>
                             <th scope="col">Cihaz Adı</th>
-                            <th scope="col">type</th>
+                          
 
                         </tr>
                     </thead>
@@ -224,10 +226,12 @@
                         @foreach ($cihazData as $device)
                             <tr>
                                 <td>{{ $device['id'] }}</td>
-                                <td>{{ $device['ip'] }}</td>
-                                <td>{{ $device['port'] }}</td>
+                                <td>{{ $device['ipG'] }}</td>
+                                <td>{{ $device['ipC'] }}</td>
+                                <td>{{ $device['portG'] }}</td>
+                                <td>{{ $device['portC'] }}</td>
                                 <td>{{ $device['cihazname'] }}</td>
-                                <td>{{ $device['type'] }}</td>
+                                
                             </tr>
                         @endforeach
                     </tbody>

@@ -207,51 +207,94 @@
               
                 <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 
-                <div class="card h-100">
+                <div class="card h-100 p-2" style="width: 45rem">
                     @if(Session::has('message'))
                     {!! Session::get('message') !!}
                 @endif
                     <form action="{{ route('diveceAdd') }}" method="post">
                             @csrf
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">Cihaz Ekle</h6>
+                                <h2 class="mb-2 text-primary">Kapı Ekle</h2>
                             </div>
-                            <div>
-                               
-                               
-                           
+                            
                             <div class="card-body">
+                                <h4>Bölge</h4>
                                 <div class="row gutters">
                                     
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2">
-                                        <div class="form-group">
-                                            <label for="inputName">Cihaz Adı</label>
-                                            <select class="form-control" name="cihazname" id="inputList">
-                                              <option value="Giriş">Giriş</option>
-                                              <option value="Çıkış">Çıkış</option>
-                                             
-                                            </select>
-                                          </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label>Bölge İsmi</label>
-                                            <input class="form-control" id="firmaCihazName" placeholder="Cihazın bulunduğu bölgeyi giriniz"
-                                                name="firmaCihazName">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-2">
+                                <div class="form-group">
+                                    <label for="inputName">Kapı Adı</label>
+                       
+                                    <input class="form-control" id="doorName" placeholder="Kapı adını giriniz"
+                                    name="doorName">
+                                  </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Bölge İsmi</label>
+                                    <input class="form-control" id="firmaCihazName" placeholder="Cihazın bulunduğu bölgeyi giriniz"
+                                        name="company_name">
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+
+
+                            
+                            <div> 
+                                <div class="card-body">
+                                    <h4>Giriş Cihazı</h4>
+                                    <div class="row gutters">
+                                        
+                                      
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <label>Ip</label>
+                                                <input class="form-control" id="ipG" placeholder="İp giriniz"
+                                                    name="ipG">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <label>Port</label>
+                                                <input class="form-control" id="portG" placeholder="Port giriniz"
+                                                    name="portG">
+                                            </div>
                                         </div>
                                     </div>
+    
+                                    <div class="row gutters">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="text-right">
+                                               
+    
+                                              
+    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <div> 
+                                <div class="card-body">
+                                <h4>Çıkış Cihazı</h4>
+                                <div class="row gutters">
+                                    
+                                   
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label>Ip</label>
-                                            <input class="form-control" id="ip" placeholder="İp giriniz"
-                                                name="ip">
+                                            <input class="form-control" id="ipC" placeholder="İp giriniz"
+                                                name="ipC">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label>Port</label>
-                                            <input class="form-control" id="port" placeholder="Port giriniz"
-                                                name="port">
+                                            <input class="form-control" id="portC" placeholder="Port giriniz"
+                                                name="portC">
                                         </div>
                                     </div>
                                 </div>

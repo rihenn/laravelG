@@ -219,13 +219,13 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                         @foreach ($cihazAllData as $data)
-                            <button type="submit" class="btn d-block" name="sırala"
-                                value="{{ $data['id'] }}">{{ $data['cihazname'] }}</button>
+                        <button type="submit" class="btn d-block" name="id"
+                        value="{{ $data['id'] }}">{{ $data['company_name'] }}</button>
                         @endforeach
 
                     </div>
                 </form>
-            </div>
+            </div> 
 
 
 
@@ -238,8 +238,10 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                         @foreach ($cihazAllData as $data)
-                            <button type="submit" class="btn d-block" name="sırala"
-                                value="{{ $data['id'] }}">{{ $data['cihazname'] }}</button>
+                        <button type="submit" class="btn d-block" name="ip"
+                        value="{{ $data['giris_ip'] }}">{{ $data['giris_devicename'] }}</button>
+                    <button type="submit" class="btn d-block" name="ip"
+                        value="{{ $data['cikis_ip'] }}">{{ $data['cikis_devicename'] }}</button>
                         @endforeach
 
                     </div>

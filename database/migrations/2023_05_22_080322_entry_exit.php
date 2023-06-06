@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name_surname');
             $table->string('device_id');
             $table->dateTime('date_record');
-            $table->unique(['device_id', 'date_record']);
+            $table->unique(['device_id', 'date_record','person_id']);
             $table->string('input_output');
            
         });
