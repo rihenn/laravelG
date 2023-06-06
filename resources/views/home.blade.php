@@ -321,7 +321,11 @@
             <input type="text" name="ay" value="{{ $ay }}" hidden>
             <input type="text" name="yil" value="{{ $yil }}" hidden>
 
-            <input type="hidden" name="id" id="id" value="">
+            @csrf
+            @if (isset($id))
+            <input type="hidden" name="idDetay" value="{{ $id }}">
+            @endif
+
             <input type="hidden" name="nameSurname" id="nameSurname" value="">
             <input type="hidden" name="cardNo" id="cardNo" value="">
             <input type="hidden" name="search" id="search" value="">
