@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Device;
 use App\Models\Users;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,7 +17,6 @@ class UsersSeeder extends Seeder
     public function run()
     {
         $users = [
-            [
                 'name_surname' => 'Admin',
                 'card_number' => ' ',
                 'mail' => ' ',
@@ -26,11 +26,17 @@ class UsersSeeder extends Seeder
                 'profile_url' => '',
                 'task' => '',
                 'admin' => true,
-            ],
-
         ];
-        foreach ($users as $userData) {
-            Users::create($userData);
-        }
+        $devices = [
+                'giris_ip'=> "192.168.1.123",
+                'cikis_ip'=>"192.168.1.9",
+                'giris_port'=>"4370",
+                'cikis_port'=>"4370",
+                'door_name'=>"Arge",
+                'company_name'=>"Netvar"
+        ];
+         Users::create($users);
+         Device::create($devices);
+        
     }
 }

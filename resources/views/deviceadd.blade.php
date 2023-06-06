@@ -231,7 +231,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Bölge İsmi</label>
+                                    <label>Firma Adı</label>
                                     <input class="form-control" id="firmaCihazName" placeholder="Cihazın bulunduğu bölgeyi giriniz"
                                         name="company_name">
                                 </div>
