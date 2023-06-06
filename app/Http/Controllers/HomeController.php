@@ -263,6 +263,7 @@ class HomeController extends Controller
             if (isset($Namedata)) {
                 return view("home", ["profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
             }
+            $veri =[""];
             return view("home", ["profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil]);
         }
     }
