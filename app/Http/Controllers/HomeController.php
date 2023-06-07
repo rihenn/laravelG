@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DeviceUsers;
-use App\Models\Users;
-use App\Models\Veri;
+
+use App\Models\PDKSdeviceUsers;
+use App\Models\PDKSentryExit;
+use App\Models\PDKSwebUsers;
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Symfony\Component\VarDumper\VarDumper;
+
 
 class HomeController extends Controller
 {
@@ -20,7 +22,7 @@ class HomeController extends Controller
         $sid = Session::get('sid');
 
         $profilurl = "";
-        $veriler = Users::where("id", "=", $sid)
+        $veriler = PDKSwebUsers::where("id", "=", $sid)
             ->get();
         foreach ($veriler as $veri) {
             $profilurl = $veri->profile_url;
@@ -51,7 +53,7 @@ class HomeController extends Controller
             $ay = date('m');
         }
 
-        $name_surname = Veri::select("name_surname")->distinct()->get();
+        $name_surname = PDKSentryExit::select("name_surname")->distinct()->get();
 
         foreach ($name_surname as $name) {
             $Namedata[] = [
@@ -63,23 +65,23 @@ class HomeController extends Controller
 
             $sid = Session::get('sid');
             if (session('adminlik') == 0) {
-                $users = Users::where("id", "=", $sid)->first();
+                $users = PDKSwebUsers::where("id", "=", $sid)->first();
                 $cardno = $users->card_number;
-                $diveceusers = DeviceUsers::where("card_number", "=", $cardno)->first();
+                $diveceusers = PDKSdeviceUsers::where("card_number", "=", $cardno)->first();
 
-                $trhv = Veri::where("person_id", "=", $diveceusers->id)
+                $trhv = PDKSentryExit::where("person_id", "=", $diveceusers->id)
                     ->whereYear('date_record', '=', $yil)
                     ->whereMonth("date_record", "=", $ay)
                     ->select("date_record", "name_surname", "divece_id")
                     ->distinct()
                     ->get();
             } else {
-                $query = Veri::query();
+                $query = PDKSentryExit::query();
                 if (isset($searchid)) {
                     $query->where('person_id', $searchid);
                 }
                 if (isset($searchcardno)) {
-                    $diveceusers = DeviceUsers::where("card_number", "=", $searchcardno)->first();
+                    $diveceusers = PDKSdeviceUsers::where("card_number", "=", $searchcardno)->first();
 
                     $query->where("person_id", $diveceusers->id);
                 }
@@ -145,13 +147,13 @@ class HomeController extends Controller
                 $tarih = $year . '-' . $month . '-' . $day;
                 $trh = sprintf("%02d", $day) . '-' . sprintf("%02d", $month) . '-' . sprintf("%04d", $year);
             
-                $ilkKayit = Veri::where('name_surname', $ad_soyad)
+                $ilkKayit = PDKSentryExit::where('name_surname', $ad_soyad)
                     ->where("input_output", "giris")
                     ->whereDate("date_record", $tarih)
                     ->orderBy('date_record', 'asc')
                     ->first();
             
-                $sonKayit = Veri::where('name_surname', $ad_soyad)
+                $sonKayit = PDKSentryExit::where('name_surname', $ad_soyad)
                     ->where("input_output", "cikis")
                     ->whereDate("date_record", $tarih)
                     ->orderBy('date_record', 'desc')
@@ -258,8 +260,8 @@ class HomeController extends Controller
             
        $datadate[] = $veri;
       
-            if (isset($id)) {
-                return view("home", ["profilurl" => $profilurl, "veri" => $datadate, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata,"id"=>$id]);
+            if (isset($sid)) {
+                return view("home", ["profilurl" => $profilurl, "veri" => $datadate, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata,"id"=>$sid]);
             }
             return view("home", ["profilurl" => $profilurl, "veri" => $datadate, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
         } else {

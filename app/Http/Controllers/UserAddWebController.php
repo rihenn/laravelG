@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use App\Models\Users;
+use App\Models\PDKSdeviceUsers;
 
 class UserAddWebController extends Controller
 {
@@ -35,7 +35,7 @@ class UserAddWebController extends Controller
                                 }else{
                                     $adminlik = 0;
                                 }
-                                $data=Users::select("user_name","card_number")->get();
+                                $data=PDKSdeviceUsers::select("user_name","card_number")->get();
                                 foreach($data as $dat){
                                     if ($kulad == $dat->user_name) {
                                         $htmlMessage = '<div class="alert alert-danger" role="alert">
@@ -55,7 +55,7 @@ class UserAddWebController extends Controller
                                 kayıt işlemleri başarılı bir şekilde gerçekleştirilmiştir .
                               </div>';
                                     Session::flash('message', $htmlMessage);
-                                 Users::create([
+                                    PDKSdeviceUsers::create([
                                     
                                     'name_surname' => $name,
                                     'mail' => $mail,

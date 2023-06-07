@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use App\Models\Device;
+
+use App\Models\PDKSdevice;
 
 class DeviceAdd extends Controller
 {  
@@ -22,13 +23,13 @@ class DeviceAdd extends Controller
                         $data=[
                             "door_name"=>$cihazname,
                             "company_name"=>$firmaCihazName,
-                            "giris_ip"=>$ipG,
-                            "cikis_ip"=>$ipC,
-                            "cikis_port"=>$portG,
-                            "giris_port"=>$portC
+                            "entry_ip"=>$ipG,
+                            "exit_ip"=>$ipC,
+                            "exit_port"=>$portG,
+                            "entry_port"=>$portC
                            ];
                  
-                           Device::create($data);
+                           PDKSdevice::create($data);
                            $htmlMessage = '<div class="alert alert-success" role="alert">
                            kayıt işlemleri başarılı bir şekilde gerçekleştirilmiştir .
                          </div>';

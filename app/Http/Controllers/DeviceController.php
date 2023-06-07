@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Device;
 
+use App\Models\PDKSdevice;
 
 class DeviceController extends Controller
 {
     public function DiveceData(){
         $cihazAllData = [];
-        $cihazdata = Device::get();
+        $cihazdata = PDKSdevice::get();
         foreach ($cihazdata as $dat) {
           $cihazData = [
             "id" => $dat->id,
             "cihazname" => $dat->door_name,
-            "ipC" => $dat->cikis_ip,
-            "ipG" => $dat->giris_ip,
-            "portC" => $dat->cikis_port,
-            "portG" => $dat->giris_port,
+            "ipC" => $dat->exit_ip,
+            "ipG" => $dat->entry_ip,
+            "portC" => $dat->exit_port,
+            "portG" => $dat->entry_port,
         
           ];
       

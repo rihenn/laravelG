@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Device;
 
-
-
+use App\Models\PDKSdevice;
 
 class AddUserViewController extends Controller
 {
     public function DeviceAddUserView(){
-        $cihazdata = Device::get();
+        $cihazdata = PDKSdevice::get();
         $AllData=[];
       foreach ($cihazdata as $dat) {
         $data=[
-        "portG" => $dat->giris_port,
-        "ipG" => $dat->giris_ip,
-        "portC" => $dat->cikis_port,
-        "ipC" => $dat->cikis_ip,
+        "portG" => $dat->entry_port,
+        "ipG" => $dat->entry_ip,
+        "portC" => $dat->exit_port,
+        "ipC" => $dat->exit_ip,
         "name" => $dat->door_name,
        
         

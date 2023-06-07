@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Device;
-use App\Models\DeviceUsers;
-use App\Models\Veri;
+use App\Models\PDKSdevice;
+use App\Models\PDKSdeviceUsers;
+use App\Models\PDKSentryExit;
 
 use Rats\Zkteco\Lib\ZKTeco;
 use Illuminate\Http\Request;
@@ -17,14 +17,14 @@ class ZktController extends Controller
   {
     $id = $request->input('id');
 
-    $dat = Device::where("id", "=", $id)
+    $dat = PDKSdevice::where("id", "=", $id)
       ->first();
 
 
-    $ipG = $dat->giris_ip;
-    $portG = $dat->giris_port;
-    $ipC = $dat->cikis_ip;
-    $portC = $dat->cikis_port;
+    $ipG = $dat->entry_ip;
+    $portG = $dat->entry_port;
+    $ipC = $dat->exit_ip;
+    $portC = $dat->exit_port;
 
     $zk = new ZKTeco($ipG, $portG);
     $zk->connect();
@@ -60,7 +60,7 @@ class ZktController extends Controller
       ];
     }
 
-    DeviceUsers::insertOrIgnore($data);
+    PDKSdeviceUsers::insertOrIgnore($data);
     return back();
   }
 
@@ -68,11 +68,11 @@ class ZktController extends Controller
   public function Userdata(Request $request)
   {
 
-    $diveceData  = Device::first();
+    $diveceData  = PDKSdevice::first();
 
     $companyDoorId = $diveceData->id;
-    $ip = $diveceData->giris_ip;
-    $port = $diveceData->giris_port;
+    $ip = $diveceData->entry_ip;
+    $port = $diveceData->entry_port;
     $company_name = $diveceData->company_name;
     $cihazname = $diveceData->door_name . " Giriş";
 
@@ -90,7 +90,7 @@ class ZktController extends Controller
 
     $cihazAllData = [];
 
-    $cihazdata = Device::get();
+    $cihazdata = PDKSdevice::get();
 
     foreach ($cihazdata as $dat) {
 
@@ -98,20 +98,20 @@ class ZktController extends Controller
         "id" => $dat->id,
         "company_name" => $company_name,
         "giris_devicename" => $dat->door_name . "giris",
-        "giris_ip" => $dat->giris_ip,
+        "giris_ip" => $dat->entry_ip,
         "cikis_devicename" => $dat->door_name . "cikis",
-        "cikis_ip" => $dat->cikis_ip,
+        "cikis_ip" => $dat->exit_ip,
       ];
 
       $cihazAllData[] = $cihazData;
-      if ($ipler == $dat->giris_ip) {
+      if ($ipler == $dat->entry_ip) {
         $ip = $ipler;
-        $port = $dat->giris_port;
+        $port = $dat->entry_port;
         $id = $dat->id;
         $cihazname = $dat->door_name . " Giriş";
-      } elseif ($ipler == $dat->cikis_ip) {
+      } elseif ($ipler == $dat->exit_ip) {
         $ip = $ipler;
-        $port = $dat->cikis_port;
+        $port = $dat->exit_port;
         $id = $dat->id;
         $cihazname = $dat->door_name . " Çıkış";
       }
@@ -157,7 +157,7 @@ class ZktController extends Controller
     // dd($door_id);
     if (isset($veriler)) {
 
-      $cihazdata = Device::where("id",$door_id)->get();
+      $cihazdata = PDKSdevice::where("id",$door_id)->get();
 
 
       foreach ($cihazdata as $dat) {
@@ -165,14 +165,14 @@ class ZktController extends Controller
         // dd(isset($veriler));
 
 
-        if ($veriler == $dat->giris_ip || $veriler == $dat->cikis_ip) {
+        if ($veriler == $dat->entry_ip || $veriler == $dat->exit_ip) {
           
           $ip = $veriler;
-          if($ip == $dat->giris_ip ){
-            $port = $dat->giris_port;
+          if($ip == $dat->entry_ip ){
+            $port = $dat->entry_port;
           }
-          elseif($ip == $dat->cikis_ip ){
-            $port = $dat->cikis_port;
+          elseif($ip == $dat->exit_ip ){
+            $port = $dat->exit_port;
           }
           $zk = new ZKTeco($ip, $port);
 
@@ -241,16 +241,16 @@ class ZktController extends Controller
     $ip = $request->input('ipler');
     $firmaid = $request->input('firmaid');
 
-    $cihazdata = Device::where('id', $firmaid)
+    $cihazdata = PDKSdevice::where('id', $firmaid)
     ->get();
     foreach ($cihazdata as $dat) {
 
-      if ($dat->giris_ip == $ip) {
-        $ip =$dat->giris_ip;
-        $port =$dat->giris_port;
-      }elseif($dat->cikis_ip == $ip){
-        $ip =$dat->cikis_ip;
-        $port =$dat->cikis_port;
+      if ($dat->entry_ip == $ip) {
+        $ip =$dat->entry_ip;
+        $port =$dat->entry_port;
+      }elseif($dat->exit_ip == $ip){
+        $ip =$dat->exit_ip;
+        $port =$dat->exit_port;
       }
     
     }
@@ -276,16 +276,16 @@ class ZktController extends Controller
 
 
 
-    $cihazdata = Device::where("id", $firmaid)
+    $cihazdata = PDKSdevice::where("id", $firmaid)
       ->get();
     foreach ($cihazdata as $dat) {
 
-      if ($dat->giris_ip == $ip) {
-        $ip =$dat->giris_ip;
-        $port =$dat->giris_port;
-      }elseif($dat->cikis_ip == $ip){
-        $ip =$dat->cikis_ip;
-        $port =$dat->cikis_port;
+      if ($dat->entry_ip == $ip) {
+        $ip =$dat->entry_ip;
+        $port =$dat->entry_port;
+      }elseif($dat->exit_ip == $ip){
+        $ip =$dat->exit_ip;
+        $port =$dat->exit_port;
       }
     }
 
@@ -302,7 +302,7 @@ class ZktController extends Controller
     $cardno = $request->input('cardno');
 
 
-    DeviceUsers::where('id', "=", $id)
+    PDKSdeviceUsers::where('id', "=", $id)
       ->where("device_id", "=", $firmaid)
       ->update(['uid' => $uid, 'id' => $id, 'name' => $name, 'role' => $role, 'password' => $password, 'card_number' => $cardno]);
     $zk->connect();
@@ -313,9 +313,9 @@ class ZktController extends Controller
 
   public function TimeData(Request $request)
   {
-    $device_data = Device::first();
-    $ip = $device_data->giris_ip;
-    $port = $device_data->giris_port;
+    $device_data = PDKSdevice::first();
+    $ip = $device_data->entry_ip;
+    $port = $device_data->entry_port;
     $company_name = $device_data->company_name;
     $cihazname = $device_data->door_name ." Giris";
 
@@ -323,28 +323,29 @@ class ZktController extends Controller
     $ipler = $request->input('ip');
 
     $cihazAllData = [];
-    $cihazdata = Device::get();
+    $cihazdata = PDKSdevice::get();
     foreach ($cihazdata as $dat) {
       $cihazData = [
         "id" => $dat->id,
         "company_name" => $company_name,
         "giris_devicename" => $dat->door_name . "giris",
-        "giris_ip" => $dat->giris_ip,
+        "giris_ip" => $dat->entry_ip,
         "cikis_devicename" => $dat->door_name . "cikis",
-        "cikis_ip" => $dat->cikis_ip,
+        "cikis_ip" => $dat->exit_ip,
       ];
 
       $cihazAllData[] = $cihazData;
       $cihaz_id = $dat->id;
 
-      if ($ipler == $dat->giris_ip) {
+
+      if ($ipler == $dat->entry_ip) {
         $ip = $ipler;
-        $port = $dat->giris_port;
+        $port = $dat->entry_port;
         $id = $dat->id;
         $cihazname = $dat->door_name . " Giriş";
-      } elseif ($ipler == $dat->cikis_ip) {
+      } elseif ($ipler == $dat->exit_ip) {
         $ip = $ipler;
-        $port = $dat->cikis_port;
+        $port = $dat->exit_port;
         $id = $dat->id;
         $cihazname = $dat->door_name . " Çıkış";
       }
@@ -365,11 +366,11 @@ class ZktController extends Controller
   {
       $id = $request->input('id');
     
-      $device_data = Device::where("id", $id)->first();
-      $ipG = $device_data->giris_ip;
-      $portG = $device_data->giris_port;
-      $ipC = $device_data->cikis_ip;
-      $portC = $device_data->cikis_port;
+      $device_data = PDKSdevice::where("id", $id)->first();
+      $ipG = $device_data->entry_ip;
+      $portG = $device_data->entry_port;
+      $ipC = $device_data->exit_ip;
+      $portC = $device_data->exit_port;
   
       $zk = new ZKTeco($ipG, $portG);
       $zk->connect();
@@ -385,7 +386,7 @@ class ZktController extends Controller
   
       $GAlldata = [];
       $CAlldata = [];
-      $veriler = DeviceUsers::get();
+      $veriler = PDKSdeviceUsers::get();
   
       foreach ($veriler as $veri) {
           $name = $veri->name;
@@ -406,7 +407,7 @@ class ZktController extends Controller
                       'input_output' => "giris",
                   ];
                   if (count($GAlldata) === 1000) {
-                    Veri::insertOrIgnore($GAlldata);
+                    PDKSentryExit::insertOrIgnore($GAlldata);
                     $GAlldata = []; // Alldata dizisini boşaltın
                 }
               }
@@ -427,15 +428,15 @@ class ZktController extends Controller
                       'input_output' => "cikis",
                   ];
                   if (count($CAlldata) === 1000) {
-                    Veri::insertOrIgnore($CAlldata);
+                    PDKSentryExit::insertOrIgnore($CAlldata);
                     $CAlldata = []; // Alldata dizisini boşaltın
                 }
               }
           }
       }
      
-      Veri::insertOrIgnore($GAlldata);
-      Veri::insertOrIgnore($CAlldata);
+      PDKSentryExit::insertOrIgnore($GAlldata);
+      PDKSentryExit::insertOrIgnore($CAlldata);
       return redirect()->back();
   }
   

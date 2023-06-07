@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Users;
+use App\Models\PDKSwebUsers;
+
 use Illuminate\Support\Facades\Session;
 
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class LoginController extends Controller
         $pass = $request->input('password');
       
         
-        $users = Users::select("id","user_name" , "password", "mail","admin")->get();
+        $users = PDKSwebUsers::select("id","user_name" , "password", "mail","admin")->get();
     
         foreach($users as $user)
         {

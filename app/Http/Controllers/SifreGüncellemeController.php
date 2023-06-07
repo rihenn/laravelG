@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SifreKodModels;
-use App\Models\Users;
+use App\Models\PDKSpasswordReset;
+use App\Models\PDKSwebUsers;
+
 use Illuminate\Http\Request;
 
 
@@ -22,7 +23,7 @@ class SifreGüncellemeController extends Controller
 
         $sifre = $request->input('password');
         $sifret = $request->input('passwordt');
-        $veriler = SifreKodModels::where("refresh_token", "=", $kod4)
+        $veriler = PDKSpasswordReset::where("refresh_token", "=", $kod4)
             ->get();
 
 
@@ -39,7 +40,7 @@ class SifreGüncellemeController extends Controller
 
 
                 if (isset($sifre)) {
-                    $veriler = Users::where("mail", "=", $mail)
+                    $veriler = PDKSwebUsers::where("mail", "=", $mail)
                         ->get();
                     foreach ($veriler as $value) {
                         $sifreler = $value->password;
@@ -49,11 +50,11 @@ class SifreGüncellemeController extends Controller
                         return back();
                     } else {
 
-                        Users::where("mail", $mail)->update([
+                        PDKSwebUsers::where("mail", $mail)->update([
                             "password" => $sifre,
 
                         ]);
-                        SifreKodModels::where("refresh_token", $kod4)->update([
+                        PDKSpasswordReset::where("refresh_token", $kod4)->update([
                             "refresh_status" => 0,
 
                         ]);

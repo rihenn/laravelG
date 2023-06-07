@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Veri;
+use App\Models\PDKSentryExit;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class DetayController extends Controller
         $ay = date("m", strtotime($tarihV));
         $yil = date("Y", strtotime($tarihV));
         
-        $data = Veri::whereMonth("date_record", $ay)
+        $data = PDKSentryExit::whereMonth("date_record", $ay)
             ->whereYear("date_record", $yil)
             ->whereDay("date_record", $gun)
             ->where("name_surname", $ad)

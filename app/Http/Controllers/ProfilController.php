@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Users;
+use App\Models\PDKSwebUsers;
+
 use Illuminate\Support\Facades\Session;
 
 
@@ -11,7 +12,7 @@ class ProfilController extends Controller
     function profil(){
         $sid = Session::get('sid');
       
-        $veriler = Users::where("id", "=", $sid)
+        $veriler = PDKSwebUsers::where("id", "=", $sid)
                 ->get();
                 $allData=[];
             foreach ($veriler as  $value) {

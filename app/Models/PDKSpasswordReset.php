@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SifreKodModels extends Model
+class PDKSpasswordReset extends Model
 {
     use HasFactory;
+
     protected $table = 'pdks_password_reset';
 
     protected $fillable = [

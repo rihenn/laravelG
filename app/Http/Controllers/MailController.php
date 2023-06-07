@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SifreKodModels;
-use App\Models\Users;
+use App\Models\PDKSpasswordReset;
+use App\Models\PDKSwebUsers;
+
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class MailController extends Controller
         $mail = $request->input('gmail');
         $sifrelenmiş_gmail=password_hash($mail,PASSWORD_DEFAULT);
         
-        $veriler = Users::where("mail", "=", $mail)
+        $veriler = PDKSwebUsers::where("mail", "=", $mail)
         ->get();
     foreach ($veriler as  $value) {
    
@@ -38,7 +39,7 @@ class MailController extends Controller
           'date' => date("y-m-d"), 
           "url"=>$url
         ];
-        SifreKodModels::create([
+        PDKSpasswordReset::create([
             "mail"=>$mail,
             "refresh_token"=>"$sifrelenmiş_gmail",
             "refresh_status"=>1

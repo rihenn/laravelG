@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PDKSwebUsers;
 use Illuminate\Http\Request;
-use App\Models\Users;
+
 
 use Illuminate\Support\Facades\Session;
 
@@ -20,7 +21,7 @@ class DüzenleController extends Controller
             $tel = $request->input('tel');
             $görev = $request->input('görev');
         
-            Users::whereId($id)->update([
+            PDKSwebUsers::whereId($id)->update([
                 "name_surname"=>$isim,
                 "mail"=>$gmail,
                 "telephone"=>$tel,
@@ -41,7 +42,7 @@ class DüzenleController extends Controller
         if(isset($img1)) {
             $url = "../img/icons8-person-female-skin-type-1-and-2-80.png";                     
            
-            Users::whereId($id)->update([
+            PDKSwebUsers::whereId($id)->update([
                 "profile_url"=>$url,
                 
             ]);
@@ -50,7 +51,7 @@ class DüzenleController extends Controller
         else if (isset($img2)) {
             $url = "../img/icons8-person-male-skin-type-6-80.png";      
            
-            Users::whereId($id)->update([
+            PDKSwebUsers::whereId($id)->update([
                 "profile_url"=>$url,
                 
             ]);
@@ -59,7 +60,7 @@ class DüzenleController extends Controller
         else if (isset($img3)) {
             $url = "../img/icons8-person-male-skin-type-4-80.png";     
            
-            Users::whereId($id)->update([
+            PDKSwebUsers::whereId($id)->update([
                 "profile_url"=>$url,
             ]);
            
@@ -67,7 +68,7 @@ class DüzenleController extends Controller
         else if (isset($img4)) {
             $url = "../img/icons8-person-male-skin-type-3-80.png";      
            
-            Users::whereId($id)->update([
+            PDKSwebUsers::whereId($id)->update([
                 "profile_url"=>$url,
                 
             ]);
@@ -75,7 +76,7 @@ class DüzenleController extends Controller
         }else if (isset($img5)) {
             $url = "../img/icons8-person-female-skin-type-5-80.png";
                  
-            Users::whereId($id)->update([
+            PDKSwebUsers::whereId($id)->update([
                 "profile_url"=>$url,
                 
             ]);
@@ -87,7 +88,7 @@ class DüzenleController extends Controller
 
     public function getValue(){
         $id = session('sid');
-        $veriler = Users::where("id", "=", $id)
+        $veriler = PDKSwebUsers::where("id", "=", $id)
         ->get();
   
     foreach ($veriler as  $value) {
