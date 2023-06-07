@@ -133,5 +133,6 @@ Route::post('/remove', [ZktController::class, 'remove'])->name('diveceUserRemove
 Route::get('/device', [DeviceController::class, 'DiveceData'])->name('deviceData')->middleware('checklogin');
 
 Route::get('/device-select',[DeviceSelectController::class,"data"])->name("deviceSelect");
+Route::post('/cihaz-güncelle',[DeviceSelectController::class,"save"])->name("deviceSave");
 
 

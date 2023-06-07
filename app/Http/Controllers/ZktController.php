@@ -123,14 +123,21 @@ class ZktController extends Controller
     }
 
 
-    $zk = new ZKTeco($ip, $port);
+    try {
+      $zk = new ZKTeco($ip, $port);
     $zk->connect();
     $zk->disableDevice();
 
     $users = $zk->getUser();
     $users = (array) $users;
-
     return view("userList", ["users" => $users, "cihazAllData" => $cihazAllData, "cihazname" => $cihazname, "idDoor" => $id,"ip"=>$ip]);
+    } catch (\Throwable $th) {
+      session::flash("ConnectError",true);
+      return redirect()->route("anasayfa");
+    }
+    
+
+    
     
   }else{
 

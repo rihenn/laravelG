@@ -190,15 +190,21 @@
 
     <div class="container bg-light pt-2 mt-5 col-8">
             <div>
-
+                @if(Session::has('message'))
+                {!! Session::get('message') !!}
+            @endif
             </div>
+            <form id="company_form" action="{{ route('Adminanasayfa') }}" method="post" class="d-none">
+                @csrf
 
+              </form>
+            <form id="save_form" action="{{ route('deviceSave') }}" method="post" class="d-none">
+                @csrf
+
+              </form>
             <div class="flex col-12">
-                <table class="table" id="disp">
-                    <form id="company_form" action="{{ route('Adminanasayfa') }}" method="post" class="d-none">
-                      @csrf
-                        <input type="hidden" name="sayac" value={{$sayac}}>
-                    </form>
+                <table class="table bg-white" id="disp">
+                   
                 </table>
             </div>
            
@@ -216,9 +222,9 @@
                     {
                         data: function(data, type) {
                             if (type == 'display') {
-                                return `<input type='text' name='door_id' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.id}' disable> `
+                                return `<input type='text' name='door_id' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.id}' > `
 
-                            } else {
+                            }  else {
 
                                 return data.id
                             }
@@ -227,9 +233,8 @@
                     },
                     {
                         data: function(data, type) {
-                            if (type == 'display') {
-                                return `<input type='text' name='entry_ip' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.entry_ip}' disable> `
-
+                            if (type == "display") {
+                                return `  <input type="text" name="entry_ip" style='border:none;' value='${data.entry_ip}' disable>`;
                             } else {
 
                                 return data.entry_ip
@@ -239,10 +244,9 @@
                     },
                     {
                         data: function(data, type) {
-                            if (type == 'display') {
-                                return `<input type='text' name='company_region' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.entry_port}' disable> `
-
-                            } else {
+                            if (type == "display") {
+                                return `  <input type="text" name="entry_port" style='border:none;' value='${data.entry_port}'>`;
+                            }  else {
 
                                 return data.entry_port
                             }
@@ -251,10 +255,9 @@
                     },
                     {
                         data: function(data, type) {
-                            if (type == 'display') {
-                                return `<input type='text' name='exit_ip' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.exit_ip}' disable> `
-
-                            } else {
+                            if (type == "display") {
+                                return `  <input type="text" name="exit_ip" style='border:none;' value='${data.exit_ip}'>`;
+                            }  else {
 
                                 return data.exit_ip
                             }
@@ -263,10 +266,9 @@
                     },
                     {
                         data: function(data, type) {
-                            if (type == 'display') {
-                                return `<input type='text' name='exit_port' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.exit_port}' disable> `
-
-                            } else {
+                            if (type == "display") {
+                                return `  <input type="text" name="exit_port" style='border:none;' value='${data.exit_port}'>`;
+                            }  else {
 
                                 return data.exit_port
                             }
@@ -275,9 +277,8 @@
                     },
                     {
                         data: function(data, type) {
-                            if (type == 'display') {
-                                return `<input type='text' name='door_name' style=' pointer-events: none;border:none; background-color: rgba(0, 0, 0, 0);' value='${data.door_name}' disable> `
-
+                            if (type == "display") {
+                                return `  <input type="text" name="door_name" style='border:none;' value='${data.door_name}'>`;
                             } else {
 
                                 return data.door_name
@@ -289,7 +290,7 @@
                         data: null,
                         render: function(data, type, row) {
                             if (type === 'display') {
-                                return `<input type="button" id= "btn-detay" name="btn-d" class="btn btn-primary btn-d" value="Seç">
+                                return `<input type="button" id= "btn-detay" name="btn-d" class="btn btn-primary btn-d" value="Seç"></br><input type="button" id= "btn-kaydet" name="btn-k" class="btn btn-primary mt-1 btn-k" value="kaydet">
 								`;
                             }
                             return data;
@@ -548,6 +549,12 @@
             $('#disp').on('click', '.btn-d', function() {
                 var row = $(this).closest('tr').clone().appendTo('#company_form');
                 $('#company_form').submit();
+                console.log(row);
+
+            });
+            $('#disp').on('click', '.btn-k', function() {
+                var row = $(this).closest('tr').clone().appendTo('#save_form');
+                $('#save_form').submit();
                 console.log(row);
 
             });

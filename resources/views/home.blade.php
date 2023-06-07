@@ -382,6 +382,13 @@
                  usersalert=false;
                 alert("Cihaz bulunmamaktadır önce cihaz ekle sayfasından cihaz ekleyiniz");
             }
+            let ConnectError ={!! json_encode(session('ConnectError')) !!}
+   
+           
+            if(ConnectError == true){       
+                ConnectError=false;
+                alert("İp ve ya Port'unuz hatalıdır lütfen düzenleyiniz");
+            }
             let TimeDataAlert ={!! json_encode(session('timeDataAlert')) !!}
    
            
