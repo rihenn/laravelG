@@ -39,7 +39,7 @@ class ZktController extends Controller
         'role' => $user['role'],
         'password' => $user['password'],
         'card_number' => $user['cardno'],
-        'device_id' => "giris"
+        'device_id' => $id
       ];
     }
 
@@ -56,7 +56,7 @@ class ZktController extends Controller
         'role' => $user['role'],
         'password' => $user['password'],
         'card_number' => $user['cardno'],
-        'device_id' => "cikis"
+        'device_id' => $id
       ];
     }
 
@@ -67,9 +67,14 @@ class ZktController extends Controller
 
   public function Userdata(Request $request)
   {
+    $door_id =  session::get("Device_id");
+  
+  
+      
+    $diveceData  = PDKSdevice::where("id",$door_id)->first();
 
-    $diveceData  = PDKSdevice::first();
-
+   
+    if (isset($diveceData)) {
     $companyDoorId = $diveceData->id;
     $ip = $diveceData->entry_ip;
     $port = $diveceData->entry_port;
@@ -97,9 +102,9 @@ class ZktController extends Controller
       $cihazData = [
         "id" => $dat->id,
         "company_name" => $company_name,
-        "giris_devicename" => $dat->door_name . "giris",
+        "giris_devicename" => $dat->door_name . " giris",
         "giris_ip" => $dat->entry_ip,
-        "cikis_devicename" => $dat->door_name . "cikis",
+        "cikis_devicename" => $dat->door_name . " cikis",
         "cikis_ip" => $dat->exit_ip,
       ];
 
@@ -126,13 +131,19 @@ class ZktController extends Controller
     $users = (array) $users;
 
     return view("userList", ["users" => $users, "cihazAllData" => $cihazAllData, "cihazname" => $cihazname, "idDoor" => $id,"ip"=>$ip]);
+    
+  }else{
+
+    session::flash("userAlert",true);
+    return redirect()->route("anasayfa");
+  }
   }
 
 
   public function addUser(Request $request)
   {
 
-
+    $doorID =  session::get("Device_id");
     function ID($sayilar)
     {
       sort($sayilar);
@@ -152,14 +163,18 @@ class ZktController extends Controller
 
       return $eksikSayi;
     }
+
+
+
     $veriler = $request->input('veriler');
     $door_id = $request->input('door_id');
     // dd($door_id);
     if (isset($veriler)) {
 
-      $cihazdata = PDKSdevice::where("id",$door_id)->get();
+      $cihazdata = PDKSdevice::where("id",$doorID)->get();
 
-
+      if (isset($cihazdata)) {
+  
       foreach ($cihazdata as $dat) {
 
         // dd(isset($veriler));
@@ -222,7 +237,13 @@ class ZktController extends Controller
         return redirect()->back();
         }
       }
-    } else {
+    } else{
+      session::flash("AddUserAlert",true);
+    return redirect()->route("anasayfa");
+    }
+  
+
+    }else {
 
       $htmlMessage = '<div class="alert alert-danger" role="alert">
   lütfen cihaz seçiniz.
@@ -271,8 +292,7 @@ class ZktController extends Controller
     $ip = $request->input('ipler');
     $firmaid = $request->input('firmaid');
 
-    $ip = "192.168.1.123";
-    $port = "4370";
+    
 
 
 
@@ -313,7 +333,11 @@ class ZktController extends Controller
 
   public function TimeData(Request $request)
   {
-    $device_data = PDKSdevice::first();
+    $door_id =  session::get("Device_id");
+    $DeviceUserData = PDKSdeviceUsers::where("device_id",$door_id)->first();
+    
+    if(isset($DeviceUserData)){
+      $device_data = PDKSdevice::where("id",$door_id)->first();
     $ip = $device_data->entry_ip;
     $port = $device_data->entry_port;
     $company_name = $device_data->company_name;
@@ -328,9 +352,9 @@ class ZktController extends Controller
       $cihazData = [
         "id" => $dat->id,
         "company_name" => $company_name,
-        "giris_devicename" => $dat->door_name . "giris",
+        "giris_devicename" => $dat->door_name . " giris",
         "giris_ip" => $dat->entry_ip,
-        "cikis_devicename" => $dat->door_name . "cikis",
+        "cikis_devicename" => $dat->door_name . " cikis",
         "cikis_ip" => $dat->exit_ip,
       ];
 
@@ -359,6 +383,10 @@ class ZktController extends Controller
     $users = $zk->getUser();
 
     return view("timedata", ["attendaces" => $attendaces, "users" => $users, "cihazAllData" => $cihazAllData, "cihazname" => $cihazname, "Cihazid" => $id]);
+  }else{
+    session::flash("TimeDataAlert",true);
+    return redirect()->route("anasayfa");
+  }
   }
 
 

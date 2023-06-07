@@ -17,7 +17,16 @@ class HomeController extends Controller
     public function value(Request $request)
     {
 
+        $admin = Session::get('adminlik');
       
+        if ($admin == 1 && $request->input("door_id") !== session::get("door_id")) {
+            $companyid = $request->input("door_id"); 
+     
+            
+            Session::put('Device_id', $companyid);
+     
+        }
+        $door_id = session("Device_id");
 
         $sid = Session::get('sid');
 
@@ -53,11 +62,12 @@ class HomeController extends Controller
             $ay = date('m');
         }
 
-        $name_surname = PDKSentryExit::select("name_surname")->distinct()->get();
+        $name_surname = PDKSentryExit::select("name_surname","person_id")->distinct()->get();
 
         foreach ($name_surname as $name) {
             $Namedata[] = [
                 'name' => $name->name_surname,
+                'personID' => $name->person_id,
             ];
         };
 
@@ -70,6 +80,7 @@ class HomeController extends Controller
                 $diveceusers = PDKSdeviceUsers::where("card_number", "=", $cardno)->first();
 
                 $trhv = PDKSentryExit::where("person_id", "=", $diveceusers->id)
+                    ->where("door_id",$door_id)
                     ->whereYear('date_record', '=', $yil)
                     ->whereMonth("date_record", "=", $ay)
                     ->select("date_record", "name_surname", "divece_id")
@@ -86,7 +97,7 @@ class HomeController extends Controller
                     $query->where("person_id", $diveceusers->id);
                 }
                 if (isset($searchname)) {
-                    $query->where('name_surname', $searchname);
+                    $query->where('person_id', $searchname);
                 }
                 if (empty($searchcardno) && empty($searchid) && empty($searchname)) {
                     $mesaj = ' <div class="alert alert-danger"><strong>UYARI!</strong> lütfen kullanıcı bilgilerini doldurunuz .</div>';
@@ -116,11 +127,7 @@ class HomeController extends Controller
                                       ->get();
                     }
                 
-                // if ($trhv->isEmpty()) {
-                //     $mesaj = ' <div class="alert alert-danger"><strong>UYARI!</strong> kullanıcı bilgilerini lütfen doğru giriniz .</div>';
-
-                //     return view("home", ["mesaj" => $mesaj, "profilurl" => $profilurl, "veri" => $veri, "ay" => $ay, "yil" => $yil, "namelist" => $Namedata]);
-                // }
+            
             }
             $data = [];
             foreach ($trhv as $key) {

@@ -211,7 +211,7 @@
                                 <a class="dropdown-item" href="{{ route('timeData') }}">kullanıcılar Mesai</a>
                                 <a class="dropdown-item" href="{{ route('webadduser') }}">Kullanıcı Ekle (web)</a>
                                 <a class="dropdown-item" href="{{ route('userUpdate') }}">Kullanıcı Ekle (Cihaz)</a>
-                                <a class="dropdown-item" href="{{ route('deviceData') }}">Cihazlar</a>
+                                <a class="dropdown-item" href="{{ route('deviceSelect') }}">Cihaz Seç</a>
                                 <a class="dropdown-item" href="{{ route('DiveceAdd') }}">Cihaz Ekle</a> 
                             </div>
                         </div>
@@ -284,19 +284,19 @@
 
                                 <div class="form-group m-3">
                                     <label for="inputName">Ad Soyad</label>
-                                    <input type="text" class="form-control bg-white" name="nameSurname"
-                                        id="inputList" list="datalistOptions">
-                                    <datalist id="datalistOptions" class="bg-white">
-                                        <option value="">
-                                            @if (isset($namelist))
-                                                @foreach ($namelist as $data)
-                                        <option value="{{ $data['name'] }}">
-        @endforeach
-        @endif
-
-
-
-        </datalist>
+                                    <select class="form-control" name="nameSurname" id="inputList">
+                                        
+                                        <option value=""></option> 
+                                        @if (isset($namelist))
+                                            @foreach ($namelist as $data)
+                                                @if (isset($data['name']))
+                                                
+                                                    <option value="{{ $data['personID'] }}">{{ $data['name'] }}</option>    
+                                                @endif
+                            
+                                            @endforeach
+                                        @endif
+                                    </select>
     </div>
     </div>
     <div class="form-group m-3">
@@ -366,6 +366,36 @@
 
     <script>
         $(function() {
+            let data = {!! json_encode($namelist) !!};
+            console.log(data);
+            if(typeof namelist == 'null'){
+                $("#openModalButton").click(function(){
+                    alert("kullanlar bulunmamaktadır mesai sürelerini database  yazdırırnız");
+                    this.off("click");
+                })
+            }
+            
+            let usersalert ={!! json_encode(session('userAlert')) !!}
+   
+           
+            if(usersalert == true){       
+                 usersalert=false;
+                alert("Cihaz bulunmamaktadır önce cihaz ekle sayfasından cihaz ekleyiniz");
+            }
+            let TimeDataAlert ={!! json_encode(session('timeDataAlert')) !!}
+   
+           
+            if(TimeDataAlert == true){       
+                TimeDataAlert=false;
+                alert("Cihaz bulunmamaktadır önce cihaz ekle sayfasından cihaz ekleyiniz");
+            }
+            let AddUserAlert ={!! json_encode(session('AddUserAlert')) !!}
+   
+           
+            if(AddUserAlert == true){       
+                AddUserAlert=false;
+                alert("Cihaz bulunmamaktadır önce cihaz ekle sayfasından cihaz ekleyiniz");
+            }
 
 
 

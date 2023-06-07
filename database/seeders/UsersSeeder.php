@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Device;
+use App\Models\PDKSdevice;
+use App\Models\PDKSwebUsers;
 use App\Models\Users;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -28,15 +30,15 @@ class UsersSeeder extends Seeder
                 'admin' => true,
         ];
         $devices = [
-                'giris_ip'=> "192.168.1.123",
-                'cikis_ip'=>"192.168.1.9",
-                'giris_port'=>"4370",
-                'cikis_port'=>"4370",
+                'entry_ip'=> "192.168.1.123",
+                'exit_ip'=>"192.168.1.9",
+                'entry_port'=>"4370",
+                'exit_port'=>"4370",
                 'door_name'=>"Arge",
                 'company_name'=>"Netvar"
         ];
-         Users::create($users);
-         Device::create($devices);
+         PDKSwebUsers::create($users);
+         PDKSdevice::create($devices);
         
     }
 }

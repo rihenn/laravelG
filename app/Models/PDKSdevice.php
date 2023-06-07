@@ -11,5 +11,5 @@ class PDKSdevice extends Model
 
     protected $table="pdks_door";
 
-    protected $fillable=["id","giris_ip","cikis_ip","giris_port","cikis_port","door_name","company_name"];
+    protected $fillable=["id","entry_ip","exit_ip","entry_port","exit_port","door_name","company_name"];
 }

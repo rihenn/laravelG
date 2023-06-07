@@ -37,11 +37,20 @@ class LoginController extends Controller
                 Session::put('sid', $id);
                 Session::put('adminlik', $admin);
                 
+                if($admin == 1){
+                    return redirect()->route('deviceSelect');
+                }
+
                 return redirect()->route('anasayfa');
             }elseif($userName == $mail  && $pass == $password){
 
                 Session::put('sid', $id);
                 Session::put('adminlik', $admin);
+
+                if($admin == 1){
+                    return redirect()->route('deviceSelect');
+                }
+
                 return redirect()->route('anasayfa');
                 
             } 

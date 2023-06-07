@@ -9,6 +9,7 @@ use App\Http\Controllers\DateController;
 use App\Http\Controllers\DetayController;
 use App\Http\Controllers\DeviceAdd;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\DeviceSelectController;
 use App\Http\Controllers\DüzenleController;
 use App\Http\Controllers\Goback;
 use App\Http\Controllers\HomeController;
@@ -54,9 +55,9 @@ Route::get('/Onay', function () {
     return view('onay');
 })->name("onay");
 
-Route::get('/excel', function () {
-    return view('excel');
-})->name("excelekleme")->middleware('checklogin');
+// Route::get('/excel', function () {
+//     return view('excel');
+// })->name("excelekleme")->middleware('checklogin');
 
 
 Route::post('/detaylar', [DetayController::class , "detaylar"])->name("detaylar");
@@ -66,6 +67,7 @@ Route::get('/diveceuseradd',[AddUserViewController::class,"DeviceAddUserView"])-
 Route::get('/userlist', [ZktController::class,'Userdata'])->name('UserData')->middleware('checklogin');
 
 
+Route::post('/home-', [HomeController::class,'value'])->name("Adminanasayfa");
 Route::get('/home', [HomeController::class,'value'])->name("anasayfa");
 
 //web kullanıcı ekle
@@ -129,5 +131,7 @@ Route::post('/guncelle', [ZktController::class, 'güncelle'])->name('diveceUserU
 Route::post('/remove', [ZktController::class, 'remove'])->name('diveceUserRemove')->middleware('checklogin');
 
 Route::get('/device', [DeviceController::class, 'DiveceData'])->name('deviceData')->middleware('checklogin');
+
+Route::get('/device-select',[DeviceSelectController::class,"data"])->name("deviceSelect");
 
 
