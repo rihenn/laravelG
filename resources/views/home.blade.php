@@ -389,8 +389,8 @@
                 ConnectError=false;
                 alert("İp ve ya Port'unuz hatalıdır lütfen düzenleyiniz");
             }
-            let TimeDataAlert ={!! json_encode(session('timeDataAlert')) !!}
-   
+            let TimeDataAlert ={!! json_encode(session('TimedataAlert')) !!}
+       
            
             if(TimeDataAlert == true){       
                 TimeDataAlert=false;

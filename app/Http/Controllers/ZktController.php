@@ -391,7 +391,7 @@ class ZktController extends Controller
 
     return view("timedata", ["attendaces" => $attendaces, "users" => $users, "cihazAllData" => $cihazAllData, "cihazname" => $cihazname, "Cihazid" => $id]);
   }else{
-    session::flash("TimeDataAlert",true);
+    session::flash("TimedataAlert",true);
     return redirect()->route("anasayfa");
   }
   }
